@@ -1,6 +1,79 @@
-# HubSpot Boilerplate
+# TAS 
 
 This is the template of the MTG for developing and uploading a **HubSpot** website.
+
+## Developer Handover - Maintenance Notes
+
+This section is for client dev teams maintaining TAS.
+
+### Core architecture
+- Source/build/deploy flow is `src` -> `dist` -> HubSpot CLI upload.
+- High-risk logic is concentrated in:
+- `src/modules/hero-section-form-yoco.module/*`
+- `src/functions/*` (`yoco/checkout`, `yoco/get-application-status`, `yoco/webhook`)
+
+### Payment continuity (critical)
+- `hero-section-form-yoco.module` creates/maintains `application_id`, submits checkout, and handles return states.
+- Return links must include:
+- `application_id=<id>`
+- `payment_status=<succeeded|failed>`
+- Optional: `retry_payment=<1|true>`
+- Missing these params breaks reconnection to the existing application and prevents closing the payment/nurturing loop.
+
+### Security boundaries
+- Keep Yoco + HubSpot API operations in serverless functions only.
+- Never expose secrets in module/client JS.
+- Keep webhook verification/signature logic intact.
+- Webhook is the payment status source of truth.
+
+### Required secrets
+- `YOCO_SECRET_KEY`
+- `YOCO_CHECKOUT_URL`
+- `HUBSPOT_ACCESS_TOKEN`
+- `YOCO_WEBHOOK_SECRET`
+- `HUBSPOT_APPLICATION_OBJECT_TYPE`
+
+### Testing secrets and tunables
+- `YOCO_TEST_FORCE_STATUS=failed` simulates failure paths (Yoco does not provide native failure simulation).
+- Optional lookup tuning:
+- `APPLICATION_LOOKUP_MAX_ATTEMPTS`
+- `APPLICATION_LOOKUP_DELAY_MS`
+- `APPLICATION_LOOKUP_MAX_WAIT_MS`
+- `WEBHOOK_LOOKUP_MAX_ATTEMPTS`
+- `WEBHOOK_LOOKUP_DELAY_MS`
+
+## AI Reference - Project Nature, Architecture, and Guardrails
+
+### Repo model
+- Project is TAS (The Animation School) HubSpot CMS theme.
+- Build/deploy model: `src` -> `dist` -> HubSpot CLI (`.env` sets portal and directory).
+- JS output:
+- `dist/js/main.js` (global)
+- `dist/js/dependencies.js` (vendor)
+- Per-module compiled `module.js` outputs from `src/modules/*.module/module.js`.
+- `src/functions/` is runtime-critical and deployed as serverless endpoints.
+
+### Critical flow and guardrails
+- `hero-section-form-yoco.module` + Yoco serverless endpoints drive payment.
+- Module resolves amount from Program -> Intake -> Payment Plan relations, maintains `application_id` / `application_name`, and calls checkout.
+- Webhook must remain the source of truth for final payment status; checkout only sets awaiting.
+- Nurturing/payment return URL contract is mandatory:
+- `application_id`
+- `payment_status`
+- Optional `retry_payment`
+- Without these params, payment loop completion can fail for returning users.
+
+### Do not change without full flow validation
+- Endpoint paths and query params used by module/functions.
+- CRM schema keys used in this flow (`application_id`, `yoko_payment_status`, `yoko_payment_id`) and object default (`2-195685154`).
+- Association IDs used to resolve payment amount.
+- Form field names consumed by module JS.
+- Secret-handling pattern (never expose keys client-side).
+
+### AI safe-edit policy
+- Preserve module names/paths and serverless contracts.
+- Keep field contracts stable.
+- Validate changes across both `src/modules/hero-section-form-yoco.module/*` and `src/functions/*`.
 
 ## About
 

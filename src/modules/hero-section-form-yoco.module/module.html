@@ -1,0 +1,219 @@
+{% set PROGRAM_TO_INTAKE_ASSOCIATION_ID_PRIMARY = 135 %}
+{% set PROGRAM_TO_INTAKE_ASSOCIATION_ID_FALLBACK = 36 %}
+{% set INTAKE_TO_PAYMENT_PLAN_ASSOCIATION_ID_PRIMARY = 137 %}
+{% set INTAKE_TO_PAYMENT_PLAN_ASSOCIATION_ID_FALLBACK = 90 %}
+{% set ASSOCIATION_CATEGORY = 'USER_DEFINED' %}
+{% set PAYMENT_PLAN_AMOUNT_PROPERTY = 'total_fees' %}
+{% set PAYMENT_PLAN_FETCH_QUERY = 'limit=1' %}
+{% set PAYMENT_PLAN_FETCH_PROPERTIES = PAYMENT_PLAN_AMOUNT_PROPERTY ~ ',amount,name' %}
+{% set PAYMENT_PLAN_OBJECT_TYPE_FALLBACK = 'payment_plans' %}
+{% set resolved_payment_amount = 0 %}
+{% set resolved_short_course_name = '' %}
+{% set resolved_program_id = '' %}
+{% set resolved_intake_id = '' %}
+{% set resolved_payment_plan_id = '' %}
+{% set resolved_program_to_intake_association_id = '' %}
+{% set resolved_intake_to_payment_plan_association_id = '' %}
+{% set payment_plan = null %}
+{% set payment_plan_record = null %}
+{% set resolved_payment_plan_object_type = '' %}
+{% set resolved_payment_amount_raw = '' %}
+{% set resolved_payment_amount_value = '' %}
+{% set resolved_payment_amount_alt_raw = '' %}
+{% set resolved_payment_amount_alt_value = '' %}
+{% set query_payment_status = request.query_dict.payment_status|default('', true)|lower %}
+{% set query_retry_payment = request.query_dict.retry_payment|default('', true)|lower %}
+{% set should_boot_pending = query_payment_status != '' or query_retry_payment in ['1', 'true', 'yes', 'y'] %}
+{% set resolved_success_url = '' %}
+{% set resolved_failure_url = '' %}
+{% set success_page_id = module.payment.success_url|default(0, true)|int %}
+{% if success_page_id > 0 %}
+    {% set success_page = content_by_id(success_page_id) %}
+    {% set resolved_success_url = success_page.absolute_url|default(success_page.url, true)|default('', true) %}
+{% endif %}
+{% if resolved_success_url == '' %}
+    {% set resolved_success_url = module.payment.success_url.url.href|default(module.payment.success_url.href, true)|default(module.payment.success_url, true)|default('', true) %}
+{% endif %}
+{% set failure_page_id = module.payment.failure_url|default(0, true)|int %}
+{% if failure_page_id > 0 %}
+    {% set failure_page = content_by_id(failure_page_id) %}
+    {% set resolved_failure_url = failure_page.absolute_url|default(failure_page.url, true)|default('', true) %}
+{% endif %}
+{% if resolved_failure_url == '' %}
+    {% set resolved_failure_url = module.payment.failure_url.url.href|default(module.payment.failure_url.href, true)|default(module.payment.failure_url, true)|default(module.payment.cancel_url.url.href, true)|default(module.payment.cancel_url.href, true)|default(module.payment.cancel_url, true)|default('', true) %}
+{% endif %}
+{% if module.payment.program %}
+    {% if module.payment.program.hs_object_id %}
+        {% set resolved_program_id = module.payment.program.hs_object_id %}
+    {% elif module.payment.program.id %}
+        {% set resolved_program_id = module.payment.program.id %}
+    {% elif module.payment.program|int > 0 %}
+        {% set resolved_program_id = module.payment.program|int %}
+    {% endif %}
+
+{% if resolved_program_id %}
+    {% if module.payment.program.properties and module.payment.program.properties.program_name %}
+        {% set resolved_short_course_name = module.payment.program.properties.program_name %}
+    {% elif module.payment.program.program_name %}
+        {% set resolved_short_course_name = module.payment.program.program_name %}
+    {% elif module.payment.program.properties and module.payment.program.properties.name %}
+        {% set resolved_short_course_name = module.payment.program.properties.name %}
+    {% elif module.payment.program.name %}
+        {% set resolved_short_course_name = module.payment.program.name %}
+    {% endif %}
+
+    {% set program_intakes = crm_associations(resolved_program_id, ASSOCIATION_CATEGORY, PROGRAM_TO_INTAKE_ASSOCIATION_ID_PRIMARY) %}
+    {% if program_intakes and program_intakes.results and program_intakes.results|length %}
+        {% set intake = program_intakes.results[0] %}
+        {% set resolved_intake_id = intake.hs_object_id|default(intake.id, true) %}
+        {% set resolved_program_to_intake_association_id = PROGRAM_TO_INTAKE_ASSOCIATION_ID_PRIMARY %}
+    {% else %}
+        {% set program_intakes_fallback = crm_associations(resolved_program_id, ASSOCIATION_CATEGORY, PROGRAM_TO_INTAKE_ASSOCIATION_ID_FALLBACK) %}
+        {% if program_intakes_fallback and program_intakes_fallback.results and program_intakes_fallback.results|length %}
+            {% set intake = program_intakes_fallback.results[0] %}
+            {% set resolved_intake_id = intake.hs_object_id|default(intake.id, true) %}
+            {% set resolved_program_to_intake_association_id = PROGRAM_TO_INTAKE_ASSOCIATION_ID_FALLBACK %}
+        {% endif %}
+    {% endif %}
+
+    {% if resolved_intake_id %}
+        {% set intake_payment_plans = crm_associations(resolved_intake_id, ASSOCIATION_CATEGORY, INTAKE_TO_PAYMENT_PLAN_ASSOCIATION_ID_PRIMARY, PAYMENT_PLAN_FETCH_QUERY, PAYMENT_PLAN_FETCH_PROPERTIES, false) %}
+        {% if intake_payment_plans and intake_payment_plans.results and intake_payment_plans.results|length %}
+            {% set payment_plan = intake_payment_plans.results[0] %}
+            {% set resolved_payment_plan_id = payment_plan.hs_object_id|default(payment_plan.id, true) %}
+            {% set resolved_intake_to_payment_plan_association_id = INTAKE_TO_PAYMENT_PLAN_ASSOCIATION_ID_PRIMARY %}
+        {% else %}
+            {% set intake_payment_plans_fallback = crm_associations(resolved_intake_id, ASSOCIATION_CATEGORY, INTAKE_TO_PAYMENT_PLAN_ASSOCIATION_ID_FALLBACK, PAYMENT_PLAN_FETCH_QUERY, PAYMENT_PLAN_FETCH_PROPERTIES, false) %}
+            {% if intake_payment_plans_fallback and intake_payment_plans_fallback.results and intake_payment_plans_fallback.results|length %}
+                {% set payment_plan = intake_payment_plans_fallback.results[0] %}
+                {% set resolved_payment_plan_id = payment_plan.hs_object_id|default(payment_plan.id, true) %}
+                {% set resolved_intake_to_payment_plan_association_id = INTAKE_TO_PAYMENT_PLAN_ASSOCIATION_ID_FALLBACK %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% if resolved_payment_plan_id %}
+        {% set resolved_payment_plan_object_type = payment_plan.objectTypeId|default(payment_plan.object_type_id, true)|default(payment_plan.objectType, true)|default(PAYMENT_PLAN_OBJECT_TYPE_FALLBACK, true) %}
+        {% if resolved_payment_plan_object_type %}
+            {% set payment_plan_record = crm_object(resolved_payment_plan_object_type, resolved_payment_plan_id, PAYMENT_PLAN_FETCH_PROPERTIES) %}
+        {% endif %}
+    {% endif %}
+
+    {% if payment_plan_record %}
+        {% set resolved_payment_amount_raw = payment_plan_record[PAYMENT_PLAN_AMOUNT_PROPERTY]|default('', true) %}
+        {% if resolved_payment_amount_raw == '' and payment_plan_record.properties %}
+            {% set resolved_payment_amount_raw = payment_plan_record.properties[PAYMENT_PLAN_AMOUNT_PROPERTY]|default('', true) %}
+        {% endif %}
+        {% set resolved_payment_amount_alt_raw = payment_plan_record.amount|default('', true) %}
+        {% if resolved_payment_amount_alt_raw == '' and payment_plan_record.properties %}
+            {% set resolved_payment_amount_alt_raw = payment_plan_record.properties.amount|default('', true) %}
+        {% endif %}
+        {% if resolved_short_course_name == '' %}
+            {% set resolved_short_course_name = payment_plan_record.name|default('', true) %}
+            {% if resolved_short_course_name == '' and payment_plan_record.properties %}
+                {% set resolved_short_course_name = payment_plan_record.properties.name|default('', true) %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% set resolved_payment_amount_value = resolved_payment_amount_raw.value|default(resolved_payment_amount_raw.amount, true)|default(resolved_payment_amount_raw, true) %}
+    {% set resolved_payment_amount_alt_value = resolved_payment_amount_alt_raw.value|default(resolved_payment_amount_alt_raw.amount, true)|default(resolved_payment_amount_alt_raw, true) %}
+    {% if resolved_payment_amount_value != '' %}
+        {% set resolved_payment_amount_string = resolved_payment_amount_value|string|replace('R', '')|replace('ZAR', '')|replace(' ', '')|replace(',', '') %}
+        {% set resolved_payment_amount = resolved_payment_amount_string|float|int %}
+    {% endif %}
+    {% if resolved_payment_amount_alt_value != '' %}
+        {% set resolved_payment_amount_alt_string = resolved_payment_amount_alt_value|string|replace('R', '')|replace('ZAR', '')|replace(' ', '')|replace(',', '') %}
+        {% set resolved_payment_amount_alt = resolved_payment_amount_alt_string|float|int %}
+        {% if resolved_payment_amount_alt > resolved_payment_amount %}
+            {% set resolved_payment_amount = resolved_payment_amount_alt %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+{% endif %}
+
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} data-program-name="{{ resolved_short_course_name|escape }}" aria-label="hero-section-form-yoco" class="hero-section-form-yoco-module colorful-background color-1-flip dark-mode {% if should_boot_pending %}is-payment-result is-payment-pending {% endif %}{% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="visual-noise"></div>
+    <div class="container" data-gsap-id="gsap-hero-section-form-yoco-mod">
+        <div class="content">
+            <div class="richtext gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-form-yoco-mod">{{ module.content }}</div>
+            {% if module.items %}
+                <ul class="list-items gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-form-yoco-mod" data-gsap-delay="0.2">
+                    {% for item in module.items %}
+                        <li>
+                            {% if item.pictogram.src %}
+                                <figure>
+                                    <img src="{{ item.pictogram.src }}" alt="{{ item.pictogram.alt }}" width="{{ item.pictogram.width }}" height="{{ item.pictogram.height }}">
+                                </figure>
+                            {% endif %}
+                            <span>{{ item.text }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if module.buttons %}
+                <div class="buttons gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-form-yoco-mod" data-gsap-delay="0.4">
+                    {% for item in module.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span data-text="{{ item.button_text }}">{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-wrapper gsap-animation-target" data-gsap-direction="bottom-top" data-hs-form-id="{{ module.form.form.form_id|escape }}">
+            {% if  module.form.form_title %}
+                <h3>{{ module.form.form_title }}</h3>
+            {% endif %}
+            {% form
+                form_to_use="{{ module.form.form.form_id }}"
+                response_response_type="{{ module.form.form.response_type }}"
+                response_message="{{ module.form.form.message }}"
+                response_redirect_id="{{ module.form.form.redirect_id }}"
+                response_redirect_url="{{ module.form.form.redirect_url}}"
+                gotowebinar_webinar_key="{{ module.form.form.gotowebinar_webinar_key }}"
+            %}
+
+            <div
+                class="payment"
+                data-yoco-payment
+                data-endpoint="{{ module.payment.endpoint_url|default('/_hcms/api/yoco/checkout', true)|escape }}"
+                data-amount="{{ resolved_payment_amount }}"
+                data-currency="ZAR"
+                data-description="{{ module.payment.description|escape }}"
+                data-short-course-name="{{ resolved_short_course_name|escape }}"
+                data-success-url="{{ resolved_success_url|escape }}"
+                data-failure-url="{{ resolved_failure_url|escape }}"
+                data-cancel-url="{{ resolved_failure_url|escape }}"
+                data-status-read-endpoint="{{ module.payment.status_read_endpoint_url|default('/_hcms/api/yoco/get-application-status', true)|escape }}"
+            >
+                <div class="payment-status" aria-live="polite"></div>
+                <div class="payment-error" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <div class="payment-result-wrapper" data-payment-result-wrapper {% if not should_boot_pending %}hidden{% endif %}>
+            <div class="payment-result-card payment-result-pending {% if not should_boot_pending %}is-hidden{% endif %}" data-payment-result-pending>
+                <div class="payment-loading-spinner" aria-hidden="true"></div>
+                {{ module.payment.redirecting_message|default('<p><strong>Please wait.</strong> We are preparing your secure payment redirection.</p>', true) }}
+            </div>
+            <div class="payment-result-card payment-result-success is-hidden" data-payment-result-success>
+                {{ module.payment.success_message }}
+            </div>
+            <div class="payment-result-card payment-result-failure is-hidden" data-payment-result-failure>
+                {{ module.payment.failure_message }}
+                <button type="button" class="btn primary payment-retry-button is-hidden" data-payment-retry>
+                    <span data-text="Try payment again">Try payment again</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
