@@ -1,0 +1,5 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="template" class="template-module {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        
+    </div>
+</section>

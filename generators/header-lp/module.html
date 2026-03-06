@@ -1,0 +1,27 @@
+<header {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="header-lp-module">
+    <div class="container">
+        <div class="wrapper-content">
+            {% if module.content.logo.logo.src %}
+				<{% if module.content.logo.link.url.href %}a href="{{module.content.logo.link.url.href}}"{% else %}div{% endif %}  class="logo" aria-label="Logo link to homepage" {% if module.content.logo.link.open_in_new_tab %} target="_blank" rel="noopener noreferrer" {% endif %}>
+					<figure>
+						<img class="logo" src="{{ module.content.logo.logo.src }}" alt="{{ module.content.logo.logo.alt }}" width="{{ module.content.logo.logo.width }}" height="{{ module.content.logo.logo.height }}" loading="lazy">
+					</figure>
+				</{% if module.content.logo.link.url.href %}a{% else %}div{% endif %}>
+			{% endif %}
+            <div class="wrapper-buttons">
+                {% for item in module.content.buttons %}
+                    {% if item.button_link.url.href && item.button_type == 'link' %}
+                        <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                            href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                            {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                            <span>{{item.button_text}}</span>
+                        </a>
+                    {% elif item.button_type == 'cta' %}
+                        {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</header>

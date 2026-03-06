@@ -1,0 +1,138 @@
+@use '../../scss/settings/functions' as *;
+
+section.faq-module {
+    overflow: visible;
+
+    .container{
+        display: flex;
+        gap: 4rem;
+        position: relative;
+        z-index: 2;
+        justify-content: space-between;
+        @media screen and (max-width: $tablet-m) {
+            flex-direction: column;
+            justify-content: unset;
+        }
+
+        .content-wrapper{
+            width: 100%;
+            max-width: 550px;
+
+            @media screen and (max-width: 1100px) {
+                max-width: 50%;
+            }
+            @media screen and (max-width: $tablet-m) {
+                max-width: 100%;
+            }
+
+            .content{
+                position: sticky;
+                top: 7.5rem;
+                left: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;  
+                height: fit-content;
+
+                @media all and (max-width:$tablet-m) {
+                    position: relative;
+                    top: unset;
+                }
+
+                .buttons{
+                    margin-top:3rem;
+                    @media screen and (max-width: $tablet-m) {
+                        margin-top:2.5rem;
+                    }
+                }
+            }
+        }
+        .accordions {
+            display: flex;
+            flex-direction: column;
+            max-width: 628px;
+            gap:1rem;
+            @media screen and (max-width: 1100px) {
+                max-width: 50%;
+                width:100%;
+            }
+            @media screen and (max-width: $tablet-m) {
+                max-width: 100%;
+            }
+            .accordion {
+                position: relative;
+                transition: padding 0.35s cubic-bezier(0.075, 0.82, 0.165, 1), background-color 300ms;
+                cursor: pointer;
+                background-color: var(--white);
+                border-radius: 0.5rem;
+                .accordion-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;    
+                    padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+                    .title {
+                        position: relative;
+                        width: 100%;
+                        display: flex;
+                        gap: 1.5rem;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: var(--s_900);
+                        transition: color 0.6s cubic-bezier(0.075, 0.82, 0.165, 1);
+                        margin: 0;
+                        font-weight: 700;
+                        &::after {
+                            content: "";
+                            position: relative;
+                            right: 0px;
+                            top: 50%;
+                            width: 2rem;
+                            height: 2rem;
+                            background-color: var(--black);
+                            mask-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.2553 8.6641C17.3715 8.78026 17.4093 8.88668 17.4093 9.00039C17.4093 9.1139 17.3719 9.22004 17.256 9.33599C17.1399 9.4521 17.0334 9.48995 16.9197 9.48998H9.48959V9.98993L9.49028 16.9194C9.49028 17.0331 9.45234 17.1396 9.33629 17.2557C9.22013 17.3719 9.11371 17.4097 9 17.4097C8.88629 17.4097 8.77987 17.3719 8.66371 17.2557C8.54766 17.1396 8.50972 17.0331 8.50972 16.9194L8.51041 9.98993V9.48998H1.08027C0.966611 9.48995 0.860085 9.4521 0.743976 9.33599C0.62813 9.22004 0.590739 9.1139 0.590678 9.00039C0.590678 8.88668 0.62851 8.78026 0.744667 8.6641C0.860769 8.54805 0.967295 8.51011 1.08096 8.51011H8.50972V8.01016L8.51041 1.08066C8.51041 0.96695 8.54824 0.860523 8.6644 0.744366C8.78045 0.628426 8.88638 0.591068 9 0.591068C9.11362 0.591068 9.21955 0.628426 9.3356 0.744366C9.45176 0.860523 9.48959 0.96695 9.48959 1.08066L9.49028 8.01016V8.51011H16.919C17.0327 8.51011 17.1392 8.54805 17.2553 8.6641Z' fill='%230A081C' stroke='%230A081C'/%3E%3C/svg%3E");
+                            mask-repeat: no-repeat;
+                            mask-position: center;
+                            transition:transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1),background-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+                            overflow: hidden;
+                        }
+                    }
+                }
+                .accordion-content {
+                    width: 100%;
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: 0.35s;
+                    padding:0rem 1.5rem !important;
+
+                    a{
+                        text-decoration: underline;
+                    }
+
+                    *{
+                        transition: 0.35s;
+                    }
+                }        
+                // ACTIVE
+                &.active {
+                    padding-bottom:1.5rem;
+                    background-color: var(--black);
+                    .accordion-title {
+                        .title {
+                            color: var(--white);
+                            &::after {
+                                background-color: var(--white);
+                                transform: rotate(45deg);
+                            }
+                        }
+                    }
+                    .accordion-content {
+                        color: var(--white);
+                        *{
+                            color: var(--white);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,197 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "name": "title",
+        "label": "Title",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "<h1>Master the art <strong>of animation</strong></h1>"
+    },
+    {
+        "name": "text",
+        "label": "Text",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "<p>Join one of Africa’s top-ranked animation schools and turn your creativity into a world-class career. From storytelling to 3D, we prepare the next generation of visual pioneers.</p>"
+    },
+    {
+        "name": "cta",
+        "label": "CTA",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+            "min": null,
+            "max": null,
+            "sorting_label_field": null,
+            "default": null
+        },
+        "children": [
+            {
+                "id": "cta_type",
+                "name": "cta_type",
+                "label": "CTA Type",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "classic",
+                    "Classic"
+                    ],
+                    [
+                    "hubspot",
+                    "Hubspot"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "classic"
+            },
+            {
+                "name": "cta",
+                "label": "CTA",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "type": "cta",
+                "default": null,
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "hubspot",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Start your application",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                },
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            },
+            {
+                "name": "style",
+                "label": "Style",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                },
+                "choices": [
+                    [
+                    "primary",
+                    "Primary"
+                    ],
+                    [
+                    "secondary",
+                    "Secondary"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "primary"
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    },
+    {
+        "name": "video_button_text",
+        "label": "Video button text",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text",
+        "placeholder": "",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "Discover the school"
+    },
+    {
+        "picker": "file",
+        "name": "video_preview",
+        "label": "Video preview",
+        "required": false,
+        "inline_help_text": "The video needs to be a .mp4",
+        "help_text": "",
+        "locked": false,
+        "type": "file",
+        "default": null
+    },
+    {
+        "name": "video_link",
+        "label": "Video link",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text",
+        "placeholder": "",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "https://www.youtube.com/watch?v=ScMzIvxBSi4"
+    }
+]

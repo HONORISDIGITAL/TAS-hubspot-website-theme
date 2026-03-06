@@ -1,0 +1,103 @@
+@use '../../scss/settings/functions' as *;
+.blog-listing-sidebar-module{
+    position: relative;
+    z-index: 1;
+    overflow: inherit;
+
+    .wrapper-articles{
+        width: 100%;
+        margin-bottom: 2rem;
+
+        .h3{
+            margin-bottom: 2rem;
+        }
+
+        .posts{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            counter-reset: list;
+        }
+    }
+
+    .wrapper-social{
+        width: 100%;
+        margin-bottom: 2rem;
+
+        .title{
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .socials{
+            display: flex;
+            flex-direction: row;
+            gap: 1.25rem;
+            align-items: center;
+
+            .social{
+                width: 2.25rem;
+                height: 2.25rem;
+                flex-shrink: 0;
+                background-color: $color6;
+                border-radius: 50%;
+                position: relative;
+                cursor: pointer;
+                transition: background-color 300ms;
+
+                &:hover{
+                    background-color: $color3;
+
+                    &::before{
+                        background-color: white;
+                    }
+                }
+
+                &.linkedin::before{
+                    mask-image: url("data:image/svg+xml,%3Csvg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.44424 17H5.66684V5.66666H9.44424V7.55592C9.84189 7.04969 10.3467 6.63777 10.9224 6.34972C11.4981 6.06168 12.1304 5.90466 12.774 5.88993C13.8994 5.89622 14.9763 6.34863 15.7686 7.14792C16.5609 7.94721 17.0038 9.02811 17.0002 10.1535V17H13.2216V10.625C13.1484 10.1145 12.8934 9.64769 12.5033 9.31035C12.1133 8.97301 11.6146 8.78786 11.0989 8.78899C10.8682 8.79648 10.6415 8.85047 10.4322 8.9477C10.2229 9.04493 10.0353 9.18342 9.88084 9.35485C9.72634 9.52629 9.60803 9.72714 9.53301 9.94539C9.45799 10.1636 9.4278 10.3948 9.44424 10.625V17ZM3.77758 17H0.000183173V5.66666H3.77758V17ZM1.88945 3.77853C1.64135 3.77853 1.39567 3.72966 1.16646 3.63472C0.937241 3.53977 0.72897 3.40061 0.553536 3.22518C0.378101 3.04974 0.238939 2.84147 0.143995 2.61225C0.0490504 2.38304 0.000183105 2.13737 0.000183105 1.88926C0.000183105 1.64116 0.0490504 1.39549 0.143995 1.16627C0.238939 0.937058 0.378101 0.728787 0.553536 0.553353C0.72897 0.377918 0.937241 0.238756 1.16646 0.143812C1.39567 0.0488672 1.64135 -3.697e-09 1.88945 0C2.39051 7.46644e-09 2.87105 0.199047 3.22536 0.553353C3.57966 0.907658 3.77871 1.3882 3.77871 1.88926C3.77871 2.39033 3.57966 2.87087 3.22536 3.22518C2.87105 3.57948 2.39051 3.77853 1.88945 3.77853Z' fill='%231F1914'/%3E%3C/svg%3E%0A");
+                }
+
+                &.facebook::before{
+                    mask-image: url("data:image/svg+xml,%3Csvg width='19' height='19' viewBox='0 0 19 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.5 0.5C14.45 0.5 18.5 4.55 18.5 9.5C18.5 14 15.2375 17.825 10.7375 18.5V12.0875H12.875L13.325 9.5H10.85V7.8125C10.85 7.1375 11.1875 6.4625 12.3125 6.4625H13.4375V4.2125C13.4375 4.2125 12.425 3.9875 11.4125 3.9875C9.3875 3.9875 8.0375 5.225 8.0375 7.475V9.5H5.7875V12.0875H8.0375V18.3875C3.7625 17.7125 0.5 14 0.5 9.5C0.5 4.55 4.55 0.5 9.5 0.5Z' fill='%231F1914'/%3E%3C/svg%3E%0A");
+                }
+                
+                &.twitter::before{
+                    mask-image: url("data:image/svg+xml,%3Csvg width='17' height='16' viewBox='0 0 17 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.4312 0H16.037L10.3156 6.61285L17 15.5833H11.7544L7.64745 10.132L2.94568 15.5833H0.339887L6.4012 8.51046L0 0H5.37587L9.0863 4.97977L13.4312 0ZM12.5192 14.0308H13.9637L4.61679 1.49508H3.06464L12.5192 14.0308Z' fill='white'/%3E%3C/svg%3E%0A");
+                }
+                
+                &::before{
+                    content: "";
+                    width: 1rem;
+                    height: 1rem;
+                    mask-position: 50%;
+                    mask-repeat: no-repeat;
+                    mask-size: contain;
+                    background-color: $color1;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    transition: background-color 300ms;
+                }
+            }
+        }
+    }
+
+    .wrapper-newsletter{
+        width: 100%;
+        background-color: $color3;
+        border-radius: 0.25rem;
+        padding: 2rem;
+        color: white;
+
+        .h3{
+            margin-bottom: 1rem;
+        }
+
+        .text{
+            margin-bottom: 2rem;
+        }
+    }
+}

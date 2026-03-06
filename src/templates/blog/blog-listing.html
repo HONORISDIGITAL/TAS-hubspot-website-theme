@@ -1,0 +1,18 @@
+<!--
+  templateType: blog_listing
+  isAvailableForNewContent: true
+  label: The animation school - Blog Listing
+-->
+
+{% extends '../layouts/base-blog.html' %}
+{% block body %}
+
+    {% module "blog_listing_hero" path="../../modules/hero-section", label="Hero section" %}
+
+    <div class="blog-listing-template">
+        {% module "blog_listing_news" path="../../modules/blog-listing-news", label="Blog listing news" %}
+    </div>
+
+    {% module "cta_banner" path="../../modules/cta-banner", label="CTA banner" %}
+  
+{% endblock body %}

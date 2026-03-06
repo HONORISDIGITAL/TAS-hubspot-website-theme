@@ -1,0 +1,78 @@
+{% set padding = module.style.padding %}
+
+<section aria-label="Tabs section" {% if module.identity %} id="{{module.identity}}" {% endif %} class="tabs-module {% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%} style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;" {% endif %}>
+	<div class="container">
+
+		{# DESKTOP NAV TABS LINKS #}
+		<nav class="wrapper-tabs-links" aria-label="Tabs Navigation">
+			<ul class="tab-list" role="tablist">
+				{% for item in module.wrapper_tabs %}
+					<li role="presentation">
+						<button class="tab-link{% if loop.first %} active{% endif %}" data-index="{{loop.index}}" role="tab" aria-selected="{% if loop.first %}true{% else %}false{% endif %}" aria-controls="tab-content-{{loop.index}}" id="tab-{{loop.index}}">
+							{% if item.wrapper_title.image.src %}
+								<figure class="wrapper-image">
+									<img src="{{item.wrapper_title.image.src}}" alt="{{item.wrapper_title.image.alt}}" width="{{item.wrapper_title.image.width}}" height="{{item.wrapper_title.image.height}}"/>
+								</figure>
+							{% endif %}
+							<span class="h5">{{item.wrapper_title.title}}</span>
+						</button>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+
+		{# MOBILE DROPDOWN LINKS #}
+		<div class="wrapper-dropdown-links">
+			<select id="tabs-dropdown" class="dropdown" aria-label="Select a Tab">
+				{% for item in module.wrapper_tabs %}
+					<option value="{{loop.index}}">
+						{{item.wrapper_title.title}}
+					</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		{# TABS #}
+		{% if module.wrapper_tabs|length > 0 %}
+			<div class="wrapper-tabs">
+				{% for item in module.wrapper_tabs %}
+					{% if item.wrapper_content.title %}
+						<div class="tab{% if loop.first %} active{% endif %}" data-index="{{loop.index}}" role="tabpanel" id="tab-content-{{loop.index}}" aria-labelledby="tab-{{loop.index}}">
+							<div class="wrapper-content">
+								{% if item.wrapper_content.title %}
+									<h2 class="title">{{ item.wrapper_content.title }}</h2>
+								{% endif %}
+								{% if item.wrapper_content.text %}
+									<div class="richtext">{{ item.wrapper_content.text }}</div>
+								{% endif %}
+								{% if module.wrapper_content.buttons %}
+								<div class="wrapper-buttons">
+									{% for item in module.wrapper_content.buttons %}
+										{% if item.button_link.url.href && item.button_type == 'link' %}
+											<a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+												href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+												{% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+													item.button_link.no_follow %}rel="nofollow" {% endif %}>
+												<span>{{item.button_text}}</span>
+											</a>
+										{% elif item.button_type == 'cta' %}
+											{% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+										{% endif %}
+									{% endfor %}
+								</div>
+								{% endif %}
+							</div>
+
+							{% if item.wrapper_content.image.src %}
+								<figure class="wrapper-image">
+									<img src="{{item.wrapper_content.image.src}}" loading="lazy" alt="{{item.wrapper_content.image.alt}}" width="{{item.wrapper_content.image.width}}" height="{{item.wrapper_content.image.height}}"/>
+								</figure>
+							{% endif %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+
+	</div>
+</section>

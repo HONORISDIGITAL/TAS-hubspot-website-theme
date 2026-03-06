@@ -1,0 +1,161 @@
+@use './../settings/functions' as *;
+section.search-dark-init{
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    background: transparent;
+    z-index: -1;
+}
+
+section.search-results-page{
+
+    .wrapper-top{
+        background-color: var(--black);
+        padding: 8rem 1.5rem;
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        align-items: center;
+
+        h1{
+            max-width: 53rem;
+            width: 100%;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .search-block{
+            max-width: 53rem;
+            width: 100%;
+
+            .hs-search-field .hs-search-field__bar form{
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+                position: relative;
+                
+                @media all and (max-width:$tablet-m) {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                &::before{
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    mask-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.78753 3.78742C6.65773 0.917684 11.3113 0.917445 14.1815 3.78742C16.9125 6.51854 17.0419 10.8621 14.5757 13.7497L20.2533 19.4273C20.4588 19.6328 20.4586 19.9661 20.2533 20.1717C20.0477 20.3771 19.7144 20.3772 19.5089 20.1717L13.8376 14.5004C10.9509 17.0451 6.54648 16.9402 3.78753 14.1813C0.917419 11.311 0.91737 6.65758 3.78753 3.78742ZM4.53193 4.53181C2.07295 6.99079 2.07301 10.9778 4.53193 13.4369C6.99107 15.896 10.978 15.896 13.4371 13.4369C15.8957 10.9779 15.896 6.9908 13.4371 4.53181C10.9781 2.07303 6.99094 2.07327 4.53193 4.53181Z' fill='white'/%3E%3C/svg%3E");
+                    mask-position: 50%;
+                    mask-repeat: no-repeat;
+                    mask-size: contain;
+                    background-color: var(--black);
+                    position: absolute;
+                    top: 0.875rem;
+                    left: 1rem;
+                }
+
+                input[type="text"]{
+                    width: 100%;
+                    padding: 0.75rem 1rem 0.75rem 3.25rem;
+                    border: 1px solid var(--black);
+                    border-radius: 0.25rem;
+                    font-family: var(--paragraph_classic_font);
+                    font-weight: 400;
+                    font-size: 1rem;
+                    line-height: 1.5;
+                    color: var(--black);
+
+                    &::placeholder{
+                        opacity: 1;
+                        color: var(--black);
+                    }
+                }
+
+                button{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 0.5rem;
+                    align-items: center;
+
+                    p{
+                        color: var(--white);
+                    }
+                }
+            }
+        }
+    }
+
+    .wrapper-search-results{
+        max-width: 56rem;
+        margin: auto;
+        padding: 7.5rem 1.5rem;
+
+        .hs-search-results{
+
+            > .h4{
+                margin-bottom: 2rem;
+            }
+
+            .hs-search-results__listing{
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+
+                li{
+                    padding: 1.25rem 0;
+                    border-bottom: 1px solid var(--beige);
+
+                    .hs-search-results__link{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1rem;
+
+                        .hs-search-highlight{
+                            color: var(--red);
+                        }
+
+                        .info{
+                            display: flex;
+                            flex-direction: row;
+                            gap: 0.5rem;
+                            align-items: center;
+                            flex-wrap: wrap;
+
+                            p:not(:first-child){
+                                display: flex;
+                                flex-direction: row;
+                                gap: 0.5rem;
+                                align-items: center;
+                                
+                                &::before{
+                                    content: "";
+                                    width: 0.25rem;
+                                    height: 0.25rem;
+                                    background-color: var(--black);
+                                    border-radius: 10rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .hs-search-results__pagination{
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+                justify-content: space-between;
+                margin-top: 3rem;
+
+                .btn{
+                    color: var(--white);
+
+                    svg{
+                        margin-bottom: -0.125rem;
+                    }
+                }
+            }
+        }
+    }
+}

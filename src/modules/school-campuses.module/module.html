@@ -1,0 +1,51 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="school-campuses" class="school-campuses-module colorful-background color-2 dashed-background {{ module.style.color_theme }}-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    {{ module.style.color_theme == 'dark' ? '<div class="visual-noise"></div>' : '' }}
+    
+    <div class="container">
+        <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.content }}</div>
+        </div>
+
+        <div class="tabs-wrapper gsap-animation-target" data-gsap-direction="bottom-top">
+            <div class="tabs-images">
+                {% for item in module.tabs %}
+                    <div class="tab-images{{ loop.first ? ' active' : '' }}" data-index="{{ loop.index }}">
+                        {% for item in item.images %}
+                            {% if item.src %}
+                                <figure class="image">
+                                    <img loading="lazy" width="{{ item.width }}" height="{{ item.height }}" src="{{ item.src }}" alt="{{ item.alt }}">
+                                </figure>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="tabs-contents">
+                {% for item in module.tabs %}
+                    <div class="tab-content{{ loop.first ? ' active' : '' }}" data-index="{{ loop.index }}">
+                        <div class="main-content">
+                            <p class="title h3">{{ item.title }}</p>
+                            <p class="text small">{{ item.text }}</p>
+                        </div>
+
+                        {% if item.cta.cta_type == "classic" %}
+                            {% if item.cta.link.url.href %}
+                                <div class="cta-content">
+                                    <a class="btn {{ item.cta.style }}" href="{{ item.cta.link.url.href }}"{% if item.cta.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.cta.text }}">{{ item.cta.text }}</span></a>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="cta-content">
+                                {% cta "cta" label='Select a CTA', guid='{{ item.cta.cta }}' %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

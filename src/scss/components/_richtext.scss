@@ -1,0 +1,353 @@
+@use './../settings/functions' as *;
+.richtext{
+
+    a:not(.btn){
+        text-decoration: underline;
+    }
+
+    ul li, ol li {
+        padding-left: 2rem;
+        position: relative;
+        list-style-type: none;
+        
+        &::before{
+            content: "";
+            width: 1.5rem;
+            height: 1.5rem;
+            mask-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.87869 15.1819L19.0711 5.9895L20.4853 7.40371L9.87869 18.0103L3.51471 11.6464L4.92892 10.2322L9.87869 15.1819Z' fill='%232954FF'/%3E%3C/svg%3E%0A");
+            mask-position: 50%;
+            mask-repeat: no-repeat;
+            mask-size: contain;
+            background-color: var(--black);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        + li {
+            margin-top: 0.5rem;
+        }
+
+        > ul, > ol{
+            padding-left: 0.25rem;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+#hs_cos_wrapper_post_body{
+
+    a:not(.btn){
+        text-decoration: underline;
+        color: var(--red);
+        font-weight: 700;
+    }
+
+    ul li, ol li {
+        padding-left: 2.25rem;
+        position: relative;
+        list-style-type: none;
+        
+        &::before{
+            content: "";
+            width: 1.5rem;
+            height: 1.5rem;
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='24' height='24' rx='4' fill='white'/%3E%3Cpath d='M7.5 12L10.3232 14.8232C10.4209 14.9209 10.5791 14.9209 10.6768 14.8232L16.5 9' stroke='%230A081C' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        + li {
+            margin-top: 1rem;
+        }
+
+        > ul, > ol{
+            padding-left: 2.25rem;
+            margin-top: 1rem;
+        }
+    }
+}
+
+#hs_cos_wrapper_post_body, .richtext{
+
+    img{
+        border-radius: 0.5rem;
+    }
+
+    blockquote, pre{
+        display: block;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.25rem;
+        background-color: var(--white);
+    }
+
+    // UNDER TITLE
+    //title
+    h1 + h1, h1 + h2, h1 + h3, h1 + h4, h1 + h5, h1 + h6,
+    h2 + h1, h2 + h2, h2 + h3, h2 + h4, h2 + h5, h2 + h6{
+        margin-top: 1.5rem;
+    }
+    h3 + h1, h3 + h2, h3 + h3, h3 + h4, h3 + h5, h3 + h6,
+    h4 + h1, h4 + h2, h4 + h3, h4 + h4, h4 + h5, h4 + h6,
+    h5 + h1, h5 + h2, h5 + h3, h5 + h4, h5 + h5, h5 + h6,
+    h6 + h1, h6 + h2, h6 + h3, h6 + h4, h6 + h5, h6 + h6{
+        margin-top: 1rem;
+    }
+    //paragraph
+    h1 + p,
+    h2 + p{
+        margin-top: 1.5rem;
+    }
+    h3 + p,
+    h4 + p,
+    h5 + p,
+    h6 + p{
+        margin-top: 1rem;
+    }
+    //list
+    h1 + ol, h1 + ul,
+    h2 + ol, h2 + ul{
+        margin-top: 1.5rem;
+    }
+    h3 + ol, h3 + ul,
+    h4 + ol, h4 + ul,
+    h5 + ol, h5 + ul,
+    h6 + ol, h6 + ul{
+        margin-top: 1rem;
+    }
+    //image
+    h1 + img, h1 + p>img,
+    h2 + img, h2 + p>img,
+    h3 + img, h3 + p>img,
+    h4 + img, h4 + p>img,
+    h5 + img, h5 + p>img,
+    h6 + img, h6 + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    h1 + pre,
+    h2 + pre,
+    h3 + pre,
+    h4 + pre,
+    h5 + pre,
+    h6 + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    h1 + blockquote,
+    h2 + blockquote,
+    h3 + blockquote,
+    h4 + blockquote,
+    h5 + blockquote,
+    h6 + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    h1 + section,
+    h2 + section,
+    h3 + section,
+    h4 + section,
+    h5 + section,
+    h6 + section{
+        margin-top: 2.5rem;
+    }
+
+    // UNDER PARAGRAPH
+    //title
+    p + h1, p + h2, p + h3, p + h4, p + h5, p + h6{
+        margin-top: 2.5rem;
+    }
+    //paragraph
+    p + p{
+        margin-top: 1rem;
+    }
+    //list
+    p + ol, p + ul{
+        margin-top: 1rem;
+    }
+    //image
+    p + img, p + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    p + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    p + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    p + section{
+        margin-top: 2.5rem;
+    }
+
+    // UNDER LIST
+    //title
+    ul + h1, ul + h2, ul + h3, ul + h4, ul + h5, ul + h6,
+    ol + h1, ol + h2, ol + h3, ol + h4, ol + h5, ol + h6{
+        margin-top: 4.5rem;
+    }
+    //paragraph
+    ul + p,
+    ol + p{
+        margin-top: 1rem;
+    }
+    //list
+    ul + ol, ul + ul,
+    ol + ol, ol + ul{
+        margin-top: 1rem;
+    }
+    //image
+    ul + img, ul + p>img,
+    ol + img, ol + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    ul + pre,
+    ol + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    ul + blockquote,
+    ol + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    ul + section,
+    ol + section{
+        margin-top: 2.5rem;
+    }
+
+    // UNDER IMAGE
+    //title
+    img + h1, img + h2, img + h3, img + h4, img + h5, img + h6,
+    p>img + h1, p>img + h2, p>img + h3, p>img + h4, p>img + h5, p>img + h6{
+        margin-top: 2.5rem;
+    }
+    //paragraph
+    img + p,
+    p>img + p{
+        margin-top: 2.5rem;
+    }
+    //list
+    img + ol, img + ul,
+    p>img + ol, p>img + ul{
+        margin-top: 2.5rem;
+    }
+    //image
+    img + img, img + p>img,
+    p>img + img, p>img + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    img + pre,
+    p>img + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    img + blockquote,
+    p>img + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    img + section,
+    p>img + section{
+        margin-top: 2.5rem;
+    }
+
+    // UNDER PRE
+    //title
+    pre + h1, pre + h2, pre + h3, pre + h4, pre + h5, pre + h6{
+        margin-top: 2.5rem;
+    }
+    //paragraph
+    pre + p{
+        margin-top: 2.5rem;
+    }
+    //list
+    pre + ol, pre + ul{
+        margin-top: 2.5rem;
+    }
+    //image
+    pre + img, pre + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    pre + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    pre + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    pre + section{
+        margin-top: 2.5rem;
+    }
+
+    // UNDER QUOTE
+    //title
+    blockquote + h1, blockquote + h2, blockquote + h3, blockquote + h4, blockquote + h5, blockquote + h6{
+        margin-top: 2.5rem;
+    }
+    //paragraph
+    blockquote + p{
+        margin-top: 2.5rem;
+    }
+    //list
+    blockquote + ol, blockquote + ul{
+        margin-top: 2.5rem;
+    }
+    //image
+    blockquote + img, blockquote + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    blockquote + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    blockquote + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    blockquote + section{
+        margin-top: 2.5rem;
+    }
+
+    // UNDER MODULE
+    //title
+    section + h1, section + h2, section + h3, section + h4, section + h5, section + h6{
+        margin-top: 2.5rem;
+    }
+    //paragraph
+    section + p{
+        margin-top: 2.5rem;
+    }
+    //list
+    section + ol, section + ul{
+        margin-top: 2.5rem;
+    }
+    //image
+    section + img, section + p>img{
+        margin-top: 2.5rem;
+    }
+    //pre
+    section + pre{
+        margin-top: 2.5rem;
+    }
+    //quote
+    section + blockquote{
+        margin-top: 2.5rem;
+    }
+    //module
+    section + section{
+        margin-top: 2.5rem;
+    }
+    //END OF UNDER
+}

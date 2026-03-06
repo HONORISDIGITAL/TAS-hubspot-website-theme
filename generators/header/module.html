@@ -1,0 +1,167 @@
+{% set language_map = {
+    'fr': 'Français',
+    'en': 'English',
+    'es': 'Español',
+    'de': 'Deutsch',
+    'it': 'Italiano',
+    'pt': 'Português',
+    'nl': 'Nederlands',
+    'zh': '中文',
+    'ja': '日本語'
+} %}
+<header {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="header-module">
+    {% if module.pre_header.menu_pre_header or content.translated_content.values()|selectattr('published')|length %}
+        <div class="wrapper-pre-header">
+            <div class="container">
+                {% if module.pre_header.menu_pre_header %}
+                    <nav aria-label="Pré menu" role="navigation">
+                        {% menu "menu_pre_header" id={{ module.pre_header.menu_pre_header }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='1', flow='horizontal', label='Advanced Menu' %}
+                    </nav>
+                {% endif %}
+                {% if content.translated_content.values()|selectattr('published')|length %}
+                    <div class="switch-language" aria-expanded="false" tabindex="0" aria-label="Choix de la langue">  
+                        {% set language_name = language_map[content.language.languageTag] %}
+                        <span class="lang">{{ language_name }}</span>
+                        {% language_switcher "language_switcher" overrideable=false, display_mode="localized", label="Language Switcher" %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="wrapper-header">
+        <div class="container">
+            {% if module.logo_group.logo_field.src %}
+                <a class="logo" href="{{module.logo_group.url_field.href}}" aria-label="Logo">
+                    <img class="logo-white" src="{{module.logo_group.logo_field.src}}" alt="{{module.logo_group.logo_field.alt}}" width="{{module.logo_group.logo_field.width}}" height="{{module.logo_group.logo_field.height}}">
+                </a>
+            {% endif %}
+            <div class="container-nav">
+                {% if module.navigation.menu %}
+                    <nav aria-label="Menu" role="navigation">
+                        {% menu "menu_header" id={{ module.navigation.menu }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='2', flow='horizontal', label='Advanced Menu' %}
+                    </nav>
+                {% endif %}
+                <span class="btn-search" role="button" tabindex="0" aria-pressed="true" aria-label="Loupe de recherche">Search</span>
+                {% if module.buttons %}
+                <div class="wrapper-buttons">
+                    {% for item in module.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span>{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>  
+            <div class="menu-burger" tabindex="0" aria-label="Burger menu">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+                    <path class="line line2" d="M 20,50 H 80" />
+                    <path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+                </svg>
+            </div>         
+        </div>
+    </div>
+    <div class="wrapper-search-bar">
+        <div class="container">
+            {% if content.language.languageTag == 'fr' %}
+                <span class="btn-close-search-bar" tabindex="0" role="button" aria-label="Fermeture de la recherche">Fermer</span>
+            {% elif content.language.languageTag == 'en' %}
+                <span class="btn-close-search-bar" tabindex="0" role="button" aria-label="Closing the search">Close</span>
+            {% endif %}
+            <form action="/{{ site_settings.content_search_results_page_path }}">
+                <label>
+                    {% if content.language.languageTag == 'fr' %}
+                        <span>Que recherchez-vous ?</span>
+                    {% elif content.language.languageTag == 'en' %}
+                        <span>What are you looking for?</span>
+                    {% endif %}
+                    <input type="hidden" name="limit" value="12">
+                    <input type="hidden" name="type" value="SITE_PAGE">
+                    <input type="hidden" name="type" value="BLOG_POST">
+                    <input type="hidden" name="type" value="LANDING_PAGE">
+                    {% if content.language.languageTag == 'fr' %}
+                        <input type="text" name="term" aria-label="Tapez votre recherche" placeholder="Votre recherche">
+                    {% elif content.language.languageTag == 'en' %}
+                        <input type="text" name="term" aria-label="Type your search" placeholder="Your search">
+                    {% endif %}
+                </label>
+                {% if content.language.languageTag == 'fr' %}
+                    <button class="btn btn-primary" aria-label="Valider votre recherche">
+                        <span>Rechercher</span>
+                    </button>
+                {% elif content.language.languageTag == 'en' %}
+                    <button class="btn btn-primary" aria-label="Validate your search">
+                        <span>Search</span>
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    <div class="wrapper-menu-mobile">
+        <div class="container">
+            <form action="/{{ site_settings.content_search_results_page_path }}">
+                {% if content.language.languageTag == 'fr' %}
+                    <button aria-label="Valider votre recherche">
+                        <span>Rechercher</span>
+                    </button>
+                {% elif content.language.languageTag == 'en' %}
+                    <button aria-label="Validate your search">
+                        <span>Search</span>
+                    </button>
+                {% endif %}
+                <label>
+                    <input type="hidden" name="limit" value="12">
+                    <input type="hidden" name="type" value="SITE_PAGE">
+                    <input type="hidden" name="type" value="BLOG_POST">
+                    <input type="hidden" name="type" value="LANDING_PAGE">
+                    {% if content.language.languageTag == 'fr' %}
+                        <input type="text" name="term" aria-label="Tapez votre recherche" placeholder="Votre recherche">
+                    {% elif content.language.languageTag == 'en' %}
+                        <input type="text" name="term" aria-label="Type your search" placeholder="Your search">
+                    {% endif %}
+                </label>
+            </form>
+            {% if module.navigation.menu %}
+                <nav aria-label="Menu" role="navigation">
+                    {% menu "menu_header" id={{ module.navigation.menu }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='2', flow='horizontal', label='Advanced Menu' %}
+                </nav>
+            {% endif %}
+            {% if module.buttons %}
+                <div class="wrapper-buttons">
+                    {% for item in module.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span>{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if module.pre_header.menu_pre_header %}
+            <nav aria-label="Pré menu" role="navigation">
+                {% menu "menu_pre_header" id={{ module.pre_header.menu_pre_header }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='2', flow='horizontal', label='Advanced Menu' %}
+            </nav>
+            {% endif %}
+            {% if content.translated_content.values()|selectattr('published')|length %}
+                <div class="switch-language" tabindex="0" aria-label="Choix de la langue">  
+                    {% set language_name = language_map[content.language.languageTag] %}
+                    <span class="lang">{{ language_name }}</span>
+                    {% language_switcher "language_switcher" overrideable=false, display_mode="localized", label="Language Switcher" %}
+                </div>
+            {% endif %}
+        </div>        
+    </div>
+    <div class="wrapper-close"></div>
+</header>

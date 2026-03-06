@@ -1,0 +1,23 @@
+<!--
+  templateType: error_page
+  isAvailableForNewContent: true
+  label: The animation school - 500 error
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Error 500 | Server error" %}
+
+{% block body %}
+<section class="error-page" data-error="500">
+  <div class="container">
+    <div class="wrapper">
+      <p class="error-type">500</p>
+      <p class="h4">Something isn't quite right</p>
+      <p>Sorry, an internal server error occurred. But have no fear, we're on the case !</p>
+      
+      <a class="btn primary" href="/"><span data-text="Go to homepage">Go to homepage</span></a>
+    </div>
+  </div>
+</section>
+{% endblock body %}

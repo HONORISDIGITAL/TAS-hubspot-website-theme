@@ -1,0 +1,89 @@
+{% set padding = module.style.padding %}
+
+<section aria-label="Textimonials section" {% if module.module_identity %}id="{{module.module_identity}}"{% endif %}
+    class="testimonials-module {% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} "
+    {% if padding.padding_desktop.type=='custom'
+    %}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"
+    {% endif %}>
+    <div class="container">
+        <div class="wrapper-content {{module.style.layout.alignment}}">
+            {% if module.top_content.label_field %}
+                <span class="label">{{module.top_content.label_field}}</span>
+            {% endif %}
+            {% if module.top_content.title.type && module.top_content.title.content %}
+                <{{ module.top_content.title.type }} class="title {{ module.top_content.title.style }}">{{
+                    module.top_content.title.content }}</{{ module.top_content.title.type }}>
+            {% endif %}
+            {% if module.top_content.text %}
+                <div class="richtext">
+                    {{module.top_content.text}}
+                </div>
+            {% endif %}
+        </div>
+        <div class="wrapper-testimonials {{module.style.settings.type}} col-{{module.style.settings.column}}">
+            <div class="splide {% if module.style.settings.type == 'slider' %}splide_slider{% endif %}" role="group" {% if module.style.settings.type == 'slider' %}data-splide='{"type":"{{module.style.settings.option_type}}","perPage":{{module.style.settings.column}}, "gap":32}'{% endif %}>
+                <div class="splide__track {{module.style.settings.overflow}}">
+                    <ul class="splide__list">
+                        {% for card in module.cards %}
+                        <li class="splide__slide testimonial {{module.style.settings.style}}">
+                            {% if module.style.settings.style == 'logo-top' %}
+                                {% if card.company_logo.src %}
+                                    <figure class="company-logo">
+                                        <img loading="lazy" width="{{card.company_logo.width}}" height="{{card.company_logo.height}}" src="{{card.company_logo.src}}" alt="{{card.company_logo.alt}}">
+                                    </figure>
+                                {% endif %}
+                            {% endif %}
+                            {% if card.text %}
+                                <p class="small">{{card.text}}</p>
+                            {% endif %}
+                            <div class="author">
+                                <div class="infos">
+                                    {% if card.author.author_profile_picture.src %}
+                                        <figure class="profile-picture cover">
+                                            <img class="profile-picture" loading="lazy" width="{{card.author.author_profile_picture.width}}" height="{{card.author.author_profile_picture.height}}" src="{{card.author.author_profile_picture.src}}" alt="{{card.author.author_profile_picture.alt}}">
+                                        </figure>
+                                    {% endif %}
+                                    <div class="wrapper-text">
+                                        {% if card.author.author_name %}
+                                        <p class="h5">{{card.author.author_name}}</p>
+                                        {% endif %}
+                                        {% if card.author.author_job %}
+                                        <p class="small">{{card.author.author_job}}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if module.style.settings.style == 'logo-bottom' %}
+                                    {% if card.company_logo.src %}
+                                        <figure>
+                                            <img class="company-logo" loading="lazy" width="{{card.company_logo.width}}" height="{{card.company_logo.height}}" src="{{card.company_logo.src}}" alt="{{card.company_logo.alt}}">
+                                        </figure>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if module.style.settings.type == 'slider' %}
+                <div class="splide__arrows splide__arrows--ltr">
+                    <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Go to last slide" aria-controls="splide01-track">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.4164 18.9585L19.2389 26.781L17.1765 28.8434L5.83329 17.5001L17.1765 6.15708L19.2389 8.21946L11.4164 16.0418L29.1666 16.0418L29.1666 18.9585L11.4164 18.9585Z"
+                                fill="#222222" />
+                        </svg>
+                    </button>
+                    <ul class="splide__pagination splide__pagination--ltr" role="tablist" aria-label="Select a slide to show"></ul>
+                    <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next slide" aria-controls="splide01-track">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M23.5836 16.0415L15.7611 8.21901L17.8235 6.15662L29.1667 17.4999L17.8235 28.8429L15.7611 26.7805L23.5836 18.9582H5.83337V16.0415H23.5836Z"
+                                fill="#222222" />
+                        </svg>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,55 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="listing-cards" class="listing-cards-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="content" data-gsap-id="gsap-listing-cards-mod">
+            {% if module.title_label %}
+                <p class="label gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-listing-cards-mod">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-listing-cards-mod">{{ module.content }}</div>
+
+            <div class="slider-controls">
+                <div class="swiper-button-prev slider-listing-cards-btn"></div>
+                <div class="swiper-button-next slider-listing-cards-btn"></div>
+            </div>
+        </div>
+
+        <div class="swiper slider-listing-cards">
+            <div class="swiper-wrapper">
+                {% for item in module.cards %}
+                    <div class="swiper-slide gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}">
+                        <div class="swiper-inner-slide">
+                            {% if module.cards_number %}
+                                <p class="number">{{ loop.index < 10 ? '0' ~ loop.index : loop.index }}</p>
+                            {% else %}
+                                {% if item.icon.src %}
+                                    <figure class="icon">
+                                        <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                    </figure>
+                                {% endif %}
+                            {% endif %}
+
+                            <p class="h3">{{ item.title }}</p>
+                            {% if item.text %}
+                                <p class="text">{{ item.text }}</p>
+                            {% endif %}
+
+                            {% if item.list|length > 0 %}
+                                <div class="list">
+                                    {% for item in item.list %}
+                                        <div class="item">
+                                            {% if item.icon.src %}
+                                                <figure class="icon">
+                                                    <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                                </figure>
+                                            {% endif %}
+                                            <p class="text small">{{ item.text }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

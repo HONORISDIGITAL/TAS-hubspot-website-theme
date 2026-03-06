@@ -1,0 +1,74 @@
+@use '../../scss/settings/functions' as *;
+
+section.hero-section-form-module {
+    padding-top: 15rem;
+    padding-bottom: 7.5rem;
+
+    &::after{
+        bottom: 0;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: row;
+        gap: 7.5rem;
+        position: relative;
+        z-index: 2;
+        @media all and (max-width:$tablet-m) {
+            flex-direction: column;
+            gap: 4.5rem;
+        }
+        .content{
+            width: 100%;
+            max-width: 526px;
+            display: flex;
+            flex-direction: column;            
+            ul.list-items{
+                display: flex;
+                flex-direction: column;
+                gap:1rem;
+                margin-top:1.5rem;
+                li{
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    color:var(--white);
+                    figure{
+                        width:2rem;
+                        min-width: 2rem;
+                        height: 2rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: var(--beige);
+                        border-radius: 0.25rem;
+                        // padding:0.5rem;
+                        img{
+                            width:auto;
+                            height:auto;
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                    }
+                }
+            }
+            .buttons{
+                margin-top:4rem;
+            }
+        }
+        .form-wrapper{
+            width:100%;
+            max-width: 634px;
+            background-color: var(--beige);
+            border-radius: 0.5rem;
+            padding:3rem;
+            @media(max-width:$size3){
+                padding:1.5rem;
+            }
+            h3{
+                color:var(--black);
+                margin-bottom:1rem;
+            }
+        }
+    }
+}

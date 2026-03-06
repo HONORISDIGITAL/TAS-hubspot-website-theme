@@ -1,0 +1,41 @@
+<!--
+  templateType: blog_post
+  isAvailableForNewContent: true
+  label: The animation school - Blog Post
+-->
+{% extends '../layouts/base-blog.html' %}
+{% block body %}
+
+    {% module "blog_post_hero" path="../../modules/hero-section-blog-single", label="Blog post hero" %}
+
+    <section class="blog-post-template light-mode dashed-background">
+        <div class="container">
+            <div class="side-bar-wrapper">
+                <div class="side-bar">
+                    <p class="title">Share</p>
+
+                    <div class="socials">
+                        <div class="social copy" data-link="{{ content.absolute_url }}"></div>
+                        <a class="social facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ content.absolute_url|urlencode }}" target="_blank" rel="noopener noreferrer"></a>
+                        <a class="social twitter" href="https://twitter.com/intent/tweet?text={{ content.absolute_url|urlencode }}" target="_blank" rel="noopener noreferrer"></a>
+                        <a class="social linkedin" href="https://www.linkedin.com/feed/?shareActive=true&text={{ content.absolute_url|urlencode }}" target="_blank" rel="noopener noreferrer"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-content-wrapper">
+                <p class="intro">{{ content.meta_description }}</p>
+
+                <div class="summary-links"></div>
+
+                <div class="post-content">
+                    {{ content.post_body }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% module "push_news" path="../../modules/push-news", label="Push news" %}
+    {% module "cta_banner" path="../../modules/cta-banner", label="CTA banner" %}
+
+{% endblock body %}

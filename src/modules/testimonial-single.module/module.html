@@ -1,0 +1,34 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="testimonial-single" class="testimonial-single-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>    
+    <div class="container">
+        <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.content }}</div>
+        </div>
+        <div class="testimonial" data-gsap-id="gsap-testimonial-single-mod">
+            {% if module.testimonial %}
+                <div class="testimonial-content gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-testimonial-single-mod">
+                    {{ module.testimonial }}
+                </div>
+            {% endif %}
+            <div class="testimonial-author gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="0.2" data-gsap-parent-id="gsap-testimonial-single-mod">
+                {% if module.author.image %}
+                    <figure class="cover">
+                        <img src="{{ module.author.image.src }}" alt="{{ module.author.image.alt }}" width="{{ module.author.image.width }}" height="{{ module.author.image.height }}" loading="lazy" class="testimonial-image">
+                    </figure>
+                {% endif %}
+                {% if module.author.nom or module.author.job %}
+                <div {% if module.author.image %}class="txt-left"{% endif %}>
+                    {% if module.author.nom %}
+                        <p class="testimonial-author-name">{{ module.author.nom }}</p>
+                    {% endif %}
+                    {% if module.author.job %}
+                        <p class="testimonial-author-job">{{ module.author.job }}</p> 
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>            
+    </div>
+</section>

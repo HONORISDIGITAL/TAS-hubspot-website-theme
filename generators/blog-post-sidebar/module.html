@@ -1,0 +1,30 @@
+<div {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="blog-post-sidebar-module">
+    <div class="share-block">
+        <p class="title">{{ module.share_title }}</p>
+        <div class="socials">
+            <a class="social linkedin" href="https://www.linkedin.com/feed/?shareActive=true&text={{ content.absolute_url|urlencode }}" target="_blank" rel="noopener noreferrer"></a>
+            <a class="social facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ content.absolute_url|urlencode }}" target="_blank" rel="noopener noreferrer"></a>
+            <a class="social twitter" href="https://twitter.com/intent/tweet?text={{ content.absolute_url|urlencode }}" target="_blank" rel="noopener noreferrer"></a>
+            <div class="social copy" data-link="{{ content.absolute_url }}"></div>
+        </div>
+    </div>
+
+    <div class="summary-block">
+        <p class="title">{{ module.summary_title }}</p>
+        <ol class="items"></ol>
+    </div>
+
+    <div class="cta-block">
+        {% if module.cta_card.image.src %}
+            <figure class="image">
+                <img loading="lazy" width="264" height="170" src="{{ module.cta_card.image.src }}" alt="{{ module.cta_card.image.alt }}">
+            </figure>
+        {% endif %}
+        
+        <p class="title h3">{{ module.cta_card.title }}</p>
+        
+        {% if module.cta_card.cta_link.url.href %}
+            <a class="btn btn-primary dark" href="{{ module.cta_card.cta_link.url.href }}"{% if module.cta_card.cta_link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ module.cta_card.cta_text }}</a>
+        {% endif %}
+    </div>
+</div>

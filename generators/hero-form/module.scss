@@ -1,0 +1,173 @@
+@use '../../scss/settings/functions' as *;
+
+section.hero-form-module {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background-color: $color4;
+    .wrapper {
+        display: flex;
+        gap: 4rem;
+        @media all and (max-width: $size2) {
+            flex-direction: column;
+            gap:2rem;
+        }
+    }
+    .wrapper-content {
+        max-width: calc(100% - 640px - 2rem);
+        @media all and (max-width: $size1) {
+            max-width: 50%;
+        }
+        @media all and (max-width: $size2) {
+            max-width: 100%;
+        }
+    }
+    figure {
+        margin-top: 1.5rem;
+        max-width: 100%;
+
+        img {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    .label {
+        margin-bottom: 1rem;
+    }
+
+    .wrapper-form {
+        width: 100%;
+        max-width: 640px;
+        background-color: $color5;
+        border: solid 1px $color6;
+        border-radius: 10px;
+        padding: 3rem;
+        @media all and (max-width: $size1) {
+            max-width: 50%;
+        }
+        @media all and (max-width: $size2) {
+            max-width: 100%;
+        }
+        @media all and (max-width: $size3) {
+            padding: 1.5rem;
+        }
+        .title {
+            margin-bottom: 1rem;
+        }
+
+        form {
+            .step {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+                @media all and (max-width: $size3) {
+                    gap: 1rem;
+                }
+                &.active{
+                    opacity: 1;
+                    
+                }
+            }
+        }
+
+        .wrapper-button {
+            padding-top: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+
+    .wrapper-steps {
+        margin-bottom: 32px;
+
+        .steps {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0px;
+            padding: 10px;
+        }
+
+        .step {
+            width: 12px;
+            height: 12px;
+            min-width: 12px;
+            min-height: 12px;
+            max-width: 12px;
+            max-height: 12px;
+            position: relative;
+            border-radius: 40px;
+            border: solid 1px $color1;
+            background-color: transparent;
+            transition: border-color 0.5s ease-in-out;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: $color1;
+                width: 6px;
+                height: 6px;
+                border-radius: 40px;
+                transition: background-color 0.5s ease-in-out;
+            }
+
+
+            &.active {
+                border-color: $color3;
+
+                &::before {
+                    background-color: $color3;
+                }
+            }
+        }
+
+        .spacer {
+            width: 100%;
+            height: 1px;
+            background-color: $color1;
+            transition: background-color 0.5s ease-in-out;
+
+            &.active {
+                background-color: $color3;
+            }
+        }
+
+        .texts {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                text-align: center;
+                color: $text-color1;
+                transition: color 0.5s ease-in-out;
+                @media all and (max-width: $size3) {
+                    font-size: 14px;
+                    line-height: 21px;
+                }
+                &:first-child {
+                    text-align: left;
+                }
+
+                &:last-child {
+                    text-align: right;
+                }
+
+                &.active {
+                    color: $text-color3;
+                }
+            }
+        }
+    }
+}

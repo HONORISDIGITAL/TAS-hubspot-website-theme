@@ -1,0 +1,80 @@
+{% set cards = module.cards %}
+            
+{% if cards.articles_type == "recent" %}
+    {% set posts = blog_recent_posts(cards.blog, cards.number) %}
+{% elif cards.articles_type == "tag" %}
+    {% set selected_tags = [] %}
+    {% for item in cards.tags %}
+        {% do selected_tags.append(item.tag) %}
+    {% endfor %}
+    {% set posts = blog_recent_tag_posts(cards.blog, selected_tags, cards.number) %}
+{% elif cards.articles_type == "manual" %}
+    {% set articles = [] %}
+    {% for item in cards.manual %}
+        {% do articles.append(item.article) %}
+    {% endfor %}
+    {% set posts = content_by_ids(articles) %}
+{% endif %}
+
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="push-news" class="push-news-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="content">
+            <div class="text-content gsap-animation-target" data-gsap-direction="bottom-top">
+                {% if module.title_label %}
+                    <p class="label">{{ module.title_label }}</p>
+                {% endif %}
+                <div class="richtext">{{ module.content }}</div>
+            </div>
+
+            {% if module.cta.cta_type == "classic" %}
+                {% if module.cta.link.url.href %}
+                    <a class="btn {{ module.cta.style }}" href="{{ module.cta.link.url.href }}"{% if module.cta.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ module.cta.text }}">{{ module.cta.text }}</span></a>
+                {% endif %}
+            {% else %}
+                {% cta "cta" label='Select a CTA', guid='{{ module.cta.cta }}' %}
+            {% endif %}
+        </div>
+
+        <div class="swiper slider-push-news">
+            <div class="swiper-wrapper">
+                {% for post in posts %}
+                    <div class="swiper-slide gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}">
+                        <a class="swiper-inner-slide" href="{{ post.absolute_url }}">
+                            {% if post.featured_image %}
+                                <figure class="image">
+                                    <img loading="lazy" src="{{ post.featured_image }}" alt="{{ post.featured_image_alt_text }}">
+                                </figure>
+                            {% endif %}
+            
+                            <div class="text-content">
+                                {% if post.tag_list|length > 0 %}
+                                    <div class="tags">
+                                        <p class="blog-tag">{{ post.tag_list[0].name }}</p>
+
+                                        {% set postLength = post.post_body|replace("{% module", "")|replace("%}", "")|striptags|wordcount|divide(300)|round(0, "ceil") %}
+                                        <p class="tag">{{ module.cards.read_text|replace("[num]", postLength || 1) }}</p>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if post.title %}
+                                    <p class="h4">{{ post.title }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if posts|length > 3 %}
+                <div class="slider-controls-wrapper">
+                    <div class="swiper-pagination slider-push-news-pagination"></div>
+                
+                    <div class="slider-controls">
+                        <div class="swiper-button-prev slider-push-news-btn"></div>
+                        <div class="swiper-button-next slider-push-news-btn"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

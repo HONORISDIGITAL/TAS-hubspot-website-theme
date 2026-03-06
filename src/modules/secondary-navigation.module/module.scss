@@ -1,0 +1,69 @@
+@use '../../scss/settings/functions' as *;
+
+section.secondary-navigation-module {
+    background-color: rgba(white, 0.8);
+    backdrop-filter: blur(15px);
+
+    &.overflowing{
+
+        &.overflow-left .container::before,
+        &.overflow-right .container::after{
+            opacity: 1;
+        }
+
+        .container{
+            position: relative;
+            
+            &::before,
+            &::after{
+                content: "";
+                width: 4rem;
+                height: 100%;
+                background: linear-gradient(270deg, white 21.15%, transparent 100%);
+                position: absolute;
+                top: 0;
+                right: 1.5rem;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 2;
+                transition: opacity 300ms;
+            }
+    
+            &::before{
+                right: unset;
+                left: 1.5rem;
+                transform: rotateZ(180deg);
+            }
+        }
+    }
+
+    .container{
+
+        .content-wrapper{
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: center;
+            overflow: auto;
+            position: relative;
+            z-index: 1;
+
+            .link{
+                font-weight: 400;
+                font-size: 0.75rem;
+                line-height: 1.5;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                flex-shrink: 0;
+            }
+    
+            .btn{
+                margin-left: auto;
+                flex-shrink: 0;
+            }
+        }
+    }
+
+    @media all and (max-width:$tablet-m) {}
+}

@@ -1,0 +1,150 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="Blog listing news" class="blog-listing-news-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>    
+    {% if module.tags %}
+    <div class="container container-tags">
+        <ul>
+            <li>
+                <span class="active">ALL</span>
+            </li>
+            {% for item in module.tags %}
+                <li>
+                    <a href="{{ blog_tag_url('default', item.tag_field.slug) }}">{{ item.tag_field.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="wrapper-posts">
+            {% for post in contents %}
+                <article>
+                    <a href="{{post.absolute_url}}" class="bloc-img">
+                        <figure class="picture cover">
+                            <img class="img-fluid" loading="lazy" width="680" height="460" src="{{  post.featured_image }}" alt="{{ post.name }}" />
+                        </figure>
+                    </a>
+                    <a  href="{{post.absolute_url}}" class="bloc-txt">
+                        <div class="contain-infos">
+                            {% for tag in post.tagList %}
+                                {% if loop.index == 1 %}
+                                    <span class="tag-inline">{{tag}}</span>
+                                {% endif %}
+                            {% endfor %}
+                            {% set time = post.post_body|wordcount|float|divide(300)|round(0, 'ceil') %}
+                            {% if time > 0 %}
+                            <span class="time">{{ time }} min</span>
+                            {% endif %}
+                        </div>
+                        <p class="title">{{ post.title }}</p>
+                    </a>
+                </article>
+            {% endfor %}
+            <div class="wrapper-pagination">
+                {# <!-- PAGINATION --> #}
+                {% set total_pages = contents.total_page_count %}
+                {% set actual_page = current_page_num %}
+                {% set root_array = request.full_url|split('/page') %}
+                {% set root = root_array[0] %}
+                
+                {% if total_pages > 1 %}
+                    {# <!-- PAGINATION PARAMETERS --> #}
+                    {% set range_num = 2 %}
+                    {% set scroller_prev = true %}
+                    {% set scroller_next = true %}
+                    {% set leading_zero = false %}
+                    {% set hidden_arrow_prev = false %}
+                    {% set hidden_arrow_next = false %}
+
+                    <nav class="container-blog-pagination">
+                        {% if actual_page != 1 %}
+                            <a class="pagination-button prev" rel="prev" href="{% if actual_page == 2 %}{{ root }}{% else %}{{ blog_page_link(last_page_num) }}{% endif %}"></a>
+                        {% else %}
+                            <p class="pagination-button prev disabled{% if hidden_arrow_prev %} hidden-arrow{% endif %}"></p>
+                        {% endif %}
+
+                        <div class="wrapper-numbers">
+                            {% set total_bool = total_pages > range_num * 2 + 1 %}
+                            {% if !total_bool %}
+                                {% set min_page = 0 %}
+                                {% set max_page = total_pages %}
+                            {% else %}
+                                {% set min_page = actual_page - (range_num + 1) %}
+                                {% set max_page = actual_page + range_num %}
+                                {% if min_page < 0 %}
+                                    {% set mis_num_prev = 0 - min_page %}
+                                    {% set min_page = 0 %}
+                                {% endif %}
+                                {% if max_page > total_pages %}
+                                    {% set mis_num_next = max_page - total_pages %}
+                                    {% set max_page = total_pages %}
+                                {% endif %}
+                                {% set min_page = min_page - mis_num_next %}
+                                {% set max_page = max_page + mis_num_prev %}
+                            {% endif %}
+
+                            {% for index in range(min_page,max_page) %}
+                                {% set page_num = index + 1 %}
+
+                                {% if loop.first && actual_page > range_num + 1 && total_bool && scroller_prev %}
+                                    <div class="select-scroller">
+                                        <p class="pagination-number scroller-trigger">{% if leading_zero && page_num < 10 %}0{% endif %}{{ page_num }}</p>
+                                        <div class="scroller-arrow"></div>
+            
+                                        <div class="numbers-scroller">
+                                            <div class="wrapper-scroller">
+                                                {% set rev_counter = page_num %}
+                                                {% for page in range(0,(page_num)) %}
+                                                    <a class="number-item" href="{% if rev_counter == 1 %}{{ root }}{% else %}{{ blog_page_link(rev_counter) }}{% endif %}">{% if leading_zero && rev_counter < 10 %}0{% endif %}{{ rev_counter }}</a>
+                                                    {% set rev_counter = rev_counter - 1 %}
+                                                {% endfor %}
+                                            </div>
+        
+                                            <div class="scroller-controls">
+                                                <div class="scroller-arrow"></div>
+                                                <div class="scroll-bar hidden">
+                                                    <div class="scroll-handle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% elif loop.last && actual_page < total_pages - range_num && total_bool && scroller_next %}
+                                    <div class="select-scroller">
+                                        <p class="pagination-number scroller-trigger">{% if leading_zero && page_num < 10 %}0{% endif %}{{ page_num }}</p>
+                                        <div class="scroller-arrow"></div>
+            
+                                        <div class="numbers-scroller">
+                                            <div class="wrapper-scroller">
+                                                {% for page in range((page_num - 1),total_pages) %}
+                                                    {% set number_value = (page_num - 1) + loop.index %}
+                                                    <a class="number-item" href="{{ blog_page_link(number_value) }}">{% if leading_zero && number_value < 10 %}0{% endif %}{{ number_value }}</a>
+                                                {% endfor %}
+                                            </div>
+        
+                                            <div class="scroller-controls">
+                                                <div class="scroller-arrow"></div>
+                                                <div class="scroll-bar hidden">
+                                                    <div class="scroll-handle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {% if page_num == actual_page %}
+                                        <p class="pagination-number active">{% if leading_zero && page_num < 10 %}0{% endif %}{{ page_num }}</p>
+                                    {% else %}
+                                        <a class="pagination-number" href="{% if page_num == 1 %}{{ root }}{% else %}{{ blog_page_link(page_num) }}{% endif %}">{% if leading_zero && page_num < 10 %}0{% endif %}{{ page_num }}</a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        {% if actual_page != total_pages %}
+                            <a class="pagination-button next" rel="next" href="{{ blog_page_link(next_page_num) }}"></a>
+                        {% else %}
+                            <p class="pagination-button next disabled{% if hidden_arrow_next %} hidden-arrow{% endif %}"></p>
+                        {% endif %}
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

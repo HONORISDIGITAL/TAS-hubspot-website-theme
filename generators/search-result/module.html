@@ -1,0 +1,13 @@
+<div {% if module.identity %}id="{{module.identity}}"{% endif %} class="search-results-module" data-featured-image="{{ module.bFeaturedImage }}" data-search-path="{{ request.path|escape_url }}">
+    <span class="search-results-message"></span>
+    <ul>
+        <li data-featured-image-url="{{ module.featured_image.src}}">
+        </li>
+    </ul>
+    <nav aria-label="Pagination des résultats">
+        <a  aria-label="Page Précédente" class="pagination-item pagination-item--prev" href="">Précédent</a>
+        <ul class="pagination">
+        </ul>
+        <a aria-label="Page suivante" class="pagination-item pagination-item--next" href="">Suivant</a>
+    </nav>
+</div>

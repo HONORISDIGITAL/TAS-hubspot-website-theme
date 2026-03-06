@@ -1,0 +1,428 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "name": "logo_block",
+        "label": "Logo block",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "logo",
+                "label": "Logo",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/125x55",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            },
+            {
+                "name": "logo_dark_mode",
+                "label": "Logo - Dark mode",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/125x55",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    },
+    {
+        "name": "items",
+        "label": "Items",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": 1,
+        "max": null,
+        "sorting_label_field": null,
+        "default": 1
+        },
+        "children": [
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Courses / Programs"
+            },
+            {
+                "id": "item_type",
+                "name": "item_type",
+                "label": "Item type",
+                "required": false,
+                "locked": false,
+                "display": "radio",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "link",
+                    "Link"
+                    ],
+                    [
+                    "menu",
+                    "Menu"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "link"
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                },
+                "visibility": {
+                    "controlling_field": "item_type",
+                    "controlling_value_regex": "link",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name": "menu",
+                "label": "Menu",
+                "required": false,
+                "locked": false,
+                "visibility": {
+                    "controlling_field": "item_type",
+                    "controlling_value_regex": "menu",
+                    "operator": "EQUAL"
+                },
+                "children": [
+                    {
+                        "name": "title",
+                        "label": "Title",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Title of the menu"
+                    },
+                    {
+                        "name": "text",
+                        "label": "Text",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Id facilisis pharetra egestas justo. Fusce metus quis ante a cursus et id nec adipiscing. Justo nec est."
+                    },
+                    {
+                        "name": "cards",
+                        "label": "Cards",
+                        "required": false,
+                        "locked": false,
+                        "occurrence": {
+                        "min": 1,
+                        "max": null,
+                        "sorting_label_field": null,
+                        "default": 1
+                        },
+                        "children": [
+                            {
+                                "name": "title",
+                                "label": "Title",
+                                "required": false,
+                                "locked": false,
+                                "validation_regex": "",
+                                "allow_new_line": false,
+                                "show_emoji_picker": false,
+                                "type": "text",
+                                "placeholder": "",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": "Page Title"
+                            },
+                            {
+                                "name": "icon",
+                                "label": "Icon",
+                                "required": false,
+                                "locked": false,
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "responsive": true,
+                                "resizable": false,
+                                "show_loading" : false,
+                                "type": "image",
+                                "default": {
+                                    "size_type" : "auto",
+                                    "src": "https://placehold.co/32",
+                                    "alt": "placeholder",
+                                    "loading": "lazy"
+                                }
+                            },
+                            {
+                                "name": "text",
+                                "label": "Text",
+                                "required": false,
+                                "locked": false,
+                                "validation_regex": "",
+                                "allow_new_line": false,
+                                "show_emoji_picker": false,
+                                "type": "text",
+                                "placeholder": "",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": "Et hac duis volutpat proin."
+                            },
+                            {
+                                "id": "soon",
+                                "name": "soon",
+                                "label": "Soon",
+                                "required": false,
+                                "locked": false,
+                                "type": "boolean",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": false
+                            },
+                            {
+                                "name" : "link",
+                                "label" : "Link",
+                                "required" : false,
+                                "locked" : false,
+                                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                                "type" : "link",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default" : {
+                                    "url" : {
+                                        "content_id" : null,
+                                        "type" : "EXTERNAL",
+                                        "href" : "/"
+                                    },
+                                    "open_in_new_tab" : false,
+                                    "no_follow" : false
+                                },
+                                "visibility": {
+                                    "controlling_field": "soon",
+                                    "controlling_value_regex": false,
+                                    "operator": "EQUAL"
+                                }
+                            }
+                        ],
+                        "type": "group",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": []
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    },
+    {
+        "name": "cta",
+        "label": "CTA",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+            "min": null,
+            "max": null,
+            "sorting_label_field": null,
+            "default": null
+        },
+        "children": [
+            {
+                "id": "cta_type",
+                "name": "cta_type",
+                "label": "CTA Type",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "classic",
+                    "Classic"
+                    ],
+                    [
+                    "hubspot",
+                    "Hubspot"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "classic"
+            },
+            {
+                "name": "cta",
+                "label": "CTA",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "type": "cta",
+                "default": null,
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "hubspot",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Apply now",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                },
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            },
+            {
+                "name": "style",
+                "label": "Style",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                },
+                "choices": [
+                    [
+                    "primary",
+                    "Primary"
+                    ],
+                    [
+                    "secondary",
+                    "Secondary"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "primary"
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]

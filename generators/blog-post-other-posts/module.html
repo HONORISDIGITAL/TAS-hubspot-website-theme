@@ -1,0 +1,62 @@
+{% set padding = module.style.padding %}
+
+<section aria-label="Blog post other posts section" {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="blog-post-other-posts-module {% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container {{module.style.layout.alignment}}">
+        {% if module.top_content.label_field || (module.top_content.title.type && module.top_content.title.top_content) || module.top_content.text %}
+            <div class="wrapper-content">
+                {% if module.top_content.label_field %}
+                    <span class="label">{{module.top_content.label_field}}</span>
+                {% endif %}
+                {% if module.top_content.title.type && module.top_content.title.content %}
+                    <{{ module.top_content.title.type }} class="title {{ module.top_content.title.style }}">{{
+                        module.top_content.title.content }}</{{ module.top_content.title.type }}>
+                {% endif %}
+                {% if module.top_content.text %}
+                    <div class="richtext">
+                        {{module.top_content.text}}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% set posts = blog_recent_tag_posts('default', [content.tag_list[0]], 3) %}
+        {% if posts %}
+            <div class="wrapper-posts">
+                {% for post in posts %}
+                    <article class="post post-lg">
+                        <a href="{{ post.absolute_url }}">
+                            {% if post.featured_image %}
+                                <figure class="image">
+                                    <img loading="lazy" src="{{ post.featured_image }}" alt="{{ post.featured_image_alt_text }}">
+                                </figure>
+                            {% endif %}
+                            <div class="text-content">
+                                <div class="wrapper-info">
+                                    {% if post.tag_list|length > 0 %}
+                                        <div class="tags">
+                                            {% for tag in post.tag_list %}
+                                                <p class="tag">{{ tag.name }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if post.publish_date %}
+                                        {% set publish_format = post.publish_date|format_date('dd/MM/yyyy') %}
+                                        <p class="publish">{{ date_prefix }} {{ publish_format }}</p>
+                                    {% endif %}
+                                </div>
+                                {% if post.title %}
+                                    <h5 class="title">{{ post.title }}</h5>
+                                {% endif %}
+                                {% if post.post_summary %}
+                                    <p class="text">{{ post.post_summary|escape|striptags|truncatehtml(120) }}</p>
+                                {% endif %}
+                                {% if module.content.cta_text  %}
+                                    <p class="btn btn-secondary">{{ module.content.cta_text }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

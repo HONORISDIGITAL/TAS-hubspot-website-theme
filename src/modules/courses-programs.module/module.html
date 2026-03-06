@@ -1,0 +1,55 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="courses-programs" class="courses-programs-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="content" data-gsap-id="gsap-courses-programs-mod">
+            {% if module.title_label %}
+                <p class="label gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-courses-programs-mod">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-courses-programs-mod">{{ module.content }}</div>
+
+            <div class="slider-controls">
+                <button class="swiper-button-prev slider-courses-programs-btn"></button>
+                <button class="swiper-button-next slider-courses-programs-btn"></button>
+            </div>
+        </div>
+
+        <div class="swiper slider-courses-programs">
+            <div class="swiper-wrapper">
+                {% for item in module.slides %}
+                    {% if item.link.url.href %}
+                        <div class="swiper-slide gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}">
+                            <a class="swiper-inner-slide" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                                {% if item.image.src %}
+                                    <figure class="image" style="--filter-opacity: {{ item.image_filter_opacity }};">
+                                        <img loading="lazy" width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                                    </figure>
+                                {% endif %}
+
+                                <div class="text-content dark-mode">
+                                    <p class="title h3">{{ item.title }}</p>
+                                    <p class="text">{{ item.text }}</p>
+
+                                    {% if item.info|length > 0 %}
+                                        <div class="info-wrapper">
+                                            {% for item in item.info %}
+                                                <div class="info">
+                                                    {% if item.icon.src %}
+                                                        <figure class="icon">
+                                                            <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                                        </figure>
+                                                    {% endif %}
+                                                    <p class="small">{{ item.text }}</p>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+
+                                    <p class="btn primary"><span data-text="{{ item.cta_text }}">{{ item.cta_text }}</span></p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

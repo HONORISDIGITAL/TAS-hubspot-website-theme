@@ -1,0 +1,66 @@
+<footer {% if module.identity %} id="{{module.identity}}" {% endif %} class="footer-module">
+	<div class="container">
+		{% if module.content_top.title || module.content_top.wrapper_logos|length > 0 %}
+		<div class="wrapper-top">
+			{% if module.content_top.title %}
+				<h2 class="title h3">{{ module.content_top.title }}</h2>
+			{% endif %}
+			{% if module.content_top.wrapper_logos|length > 0 %}
+				<div class="wrapper-logos">
+					{% for logo in module.content_top.wrapper_logos %}
+						{% if logo.image.src %}
+							<figure class="wrapper-image">
+								<img loading="lazy" src="{{logo.image.src}}" alt="{{logo.image.alt}}" width="{{logo.image.width}}" height="{{logo.image.height}}"/>
+							</figure>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+		{% endif %}
+		<div class="wrapper-menu">
+			<div class="wrapper-logo">
+				{% if module.content_menu.content_informations.wrapper_logo.image.src %}
+					<a href="{{module.content_menu.content_informations.wrapper_logo.image.link.url.href}}" class="logo" aria-label="Logo link to homepage" {% if module.content_menu.content_informations.wrapper_logo.image.link.open_in_new_tab %} target="_blank" rel="noopener noreferrer" {% endif %}>
+						<figure>
+							<img loading="lazy" src="{{module.content_menu.content_informations.wrapper_logo.image.src}}" alt="{{module.content_menu.content_informations.wrapper_logo.image.alt}}" width="{{module.content_menu.content_informations.wrapper_logo.image.width}}" height="{{module.content_menu.content_informations.wrapper_logo.image.height}}"/>
+						</figure>
+					</a>
+				{% endif %}
+				{% if module.content_menu.content_informations.text %}
+					<div class="richtext">{{ module.content_menu.content_informations.text }}</div>
+				{% endif %}
+			</div>
+			<div class="wrapper-nav">
+				{% if module.content_menu.menu %}
+					<nav role="navigation">
+						{% menu "menu_footer" id={{ module.content_menu.menu }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='2', flow='horizontal', label='Advanced Menu' %}
+					</nav>
+				{% endif %}
+			</div>
+		</div>
+		<div class="wrapper-bottom">
+			{% if module.content_bottom.wrapper_copyright.is_visible or module.content_bottom.menu %}
+				<div class="wrapper-nav">
+					{% if module.content_bottom.wrapper_copyright.is_visible %}
+						<span class="copyright">Copyright© {{local_dt | format_date('yyyy')}} {{ module.content_bottom.wrapper_copyright.website_name }}</span>
+					{% endif %}
+					{% if module.content_bottom.menu %}
+					<nav role="navigation">
+						{% menu "menu_footer" id={{ module.content_bottom.menu }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='1', flow='horizontal', label='Advanced Menu' %}
+					</nav>
+					{% endif %}
+				</div>
+			{% endif %}
+			{% if module.content_bottom.wrapper_socials|length > 0 %}
+				<ul class="wrapper-socials">
+					{% for item in module.content_bottom.wrapper_socials %}
+						<li>
+							<a href="{{item.link.url.href}}" aria-label="Link to {{ item.image.alt }}" {% if item.link.open_in_new_tab %} target="_blank" rel="noopener noreferrer" {% endif %} {% if item.image.src %} style="--picto:url({{item.image.src}})" {% endif %}>{{item.image.alt}}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	</div>
+</footer>

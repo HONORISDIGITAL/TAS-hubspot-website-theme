@@ -1,0 +1,295 @@
+<!--
+  templateType: search_results_page
+  isAvailableForNewContent: true
+  label: The animation school - Search Results
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+{% extends "../layouts/base.html" %}
+{% set pageTitle = "Search results" %}
+
+{% block body %}
+<section class="dark-mode search-dark-init"></section>
+<section class="search-results-page content-wrapper">
+    <div class="wrapper-top">
+        <h1>Results for: "{% if request.query_dict.term %}{{ request.query_dict.term|escape }}{% else %}{{ request.query_dict.q|escape }}{% endif %}"</h1>
+
+        <div class="search-block">
+            {% set search_page = module.results.use_custom_search_results_template is truthy and module.results.path_id ? content_by_id(module.results.path_id).absolute_url : site_settings.content_search_results_page_path %}
+            {% unless (search_page is string_containing "//") %}
+                {% set search_page = "/" ~ search_page %}
+            {% endunless %}
+            {% set search_page = search_page|regex_replace("http:", "") %}
+
+            {% set content_types = [
+                {
+                    field_name: "website_pages",
+                    content_type: "SITE_PAGE"
+                },
+                {
+                    field_name: "landing_pages",
+                    content_type: "LANDING_PAGE"
+                },
+                {
+                    field_name: "blog_posts",
+                    content_type: "BLOG_POST"
+                },
+                {
+                    field_name: "listing_pages",
+                    content_type: "LISTING_PAGE"
+                },
+                {
+                    field_name: "knowledge_articles",
+                    content_type: "KNOWLEDGE_ARTICLE"
+                },
+                {
+                    field_name: "case_studies",
+                    content_type: "HS_CASE_STUDY"
+                }
+            ] %}
+
+            {% require_head %}
+                <script id="hs-search-input__valid-content-types" type="application/json">
+                    [
+                        {% for type in content_types %}
+                            "{{ type.content_type }}"{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ]
+                </script>
+            {% end_require_head %}
+
+            <div class="hs-search-field">
+                <div class="hs-search-field__bar">
+                    <form data-hs-do-not-collect="true" action="{{ search_page|escape_url }}">
+                        <input type="text" class="hs-search-field__input" name="term" autocomplete="off" aria-label="Search" placeholder="Your search">
+
+                        {% for type in content_types %}
+                            {% if module.content_types[type.field_name] is truthy %}
+                                <input type="hidden" name="type" value="{{ type.content_type }}">
+                            {% endif %}
+                        {% endfor %}
+
+                        <button class="btn primary" aria-label="Search">
+                            <p>Search</p>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.78753 3.78742C6.65773 0.917684 11.3113 0.917445 14.1815 3.78742C16.9125 6.51854 17.0419 10.8621 14.5757 13.7497L20.2533 19.4273C20.4588 19.6328 20.4586 19.9661 20.2533 20.1717C20.0477 20.3771 19.7144 20.3772 19.5089 20.1717L13.8376 14.5004C10.9509 17.0451 6.54648 16.9402 3.78753 14.1813C0.917419 11.311 0.91737 6.65758 3.78753 3.78742ZM4.53193 4.53181C2.07295 6.99079 2.07301 10.9778 4.53193 13.4369C6.99107 15.896 10.978 15.896 13.4371 13.4369C15.8957 10.9779 15.896 6.9908 13.4371 4.53181C10.9781 2.07303 6.99094 2.07327 4.53193 4.53181Z" fill="white"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-search-results">
+        <div class="hs-search-results">
+            <template class="hs-search-results__template">
+                <li>
+                    <a href="#" class="hs-search-results__link">
+                        <h5><span class="underlined hs-search-results__title"></span></h5>
+                        <div class="info">
+                            <p class="hs-search-results__tag"></p>
+                            <p class="hs-search-results__date"></p>
+                        </div>
+                        <p class="hs-search-results__description">Description</p>
+                    </a>
+                </li>
+            </template>
+
+            <p class="h4"><span class="total-search-results-number">0</span> matching results</p>
+
+            <ul id="hsresults" class="hs-search-results__listing"></ul>
+
+            <div class="hs-search-results__pagination" data-search-path="{{ request.path|escape_url }}">
+                <a href="" class="btn primary hs-search-results__prev-page">
+                    <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.76921 6.90739L12.5976 6.90238C12.7435 6.9023 12.8708 6.84623 12.9795 6.73419C13.0882 6.62207 13.1426 6.49304 13.1426 6.34711C13.1426 6.20127 13.0882 6.074 12.9795 5.96529C12.8708 5.85659 12.7435 5.8022 12.5976 5.80211L2.76921 5.79711L7.08719 1.47912C7.19914 1.36717 7.25511 1.23542 7.25511 1.08387C7.25503 0.932411 7.19901 0.800705 7.08706 0.688755C6.97502 0.576717 6.84336 0.520742 6.69207 0.52083C6.54061 0.520918 6.4089 0.576936 6.29695 0.688887L1.10984 5.876C0.974888 6.01095 0.90741 6.16966 0.90741 6.35212C0.90741 6.53475 0.974843 6.6935 1.10971 6.82836L6.29695 12.0156C6.4089 12.1276 6.54061 12.1835 6.69207 12.1834C6.84362 12.1834 6.97537 12.1274 7.08732 12.0155C7.19936 11.9034 7.25533 11.7717 7.25525 11.6202C7.25516 11.4689 7.19914 11.3373 7.08719 11.2254L2.76921 6.90739Z" fill="white"/>
+                    </svg>
+                    Previous page
+                </a>
+                <a href="" class="btn primary hs-search-results__next-page">
+                    Next page
+                    <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.2308 6.90739L1.40236 6.90238C1.25652 6.9023 1.12925 6.84623 1.02055 6.73419C0.911756 6.62207 0.857361 6.49304 0.857361 6.34711C0.857449 6.20127 0.911843 6.074 1.02055 5.96529C1.12925 5.85659 1.25652 5.8022 1.40236 5.80211L11.2308 5.79711L6.91281 1.47912C6.80086 1.36717 6.74489 1.23542 6.74489 1.08387C6.74497 0.932411 6.80099 0.800705 6.91294 0.688755C7.02498 0.576717 7.15664 0.520742 7.30793 0.52083C7.45939 0.520918 7.5911 0.576936 7.70305 0.688887L12.8902 5.876C13.0251 6.01095 13.0926 6.16966 13.0926 6.35212C13.0926 6.53475 13.0252 6.6935 12.8903 6.82836L7.70305 12.0156C7.5911 12.1276 7.45939 12.1835 7.30793 12.1834C7.15638 12.1834 7.02463 12.1274 6.91268 12.0155C6.80064 11.9034 6.74467 11.7717 6.74475 11.6202C6.74484 11.4689 6.80086 11.3373 6.91281 11.2254L11.2308 6.90739Z" fill="white"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        {% require_js position="head" %}
+            <script data-search_results-config="config_{{ name|escape_attr }}" type="application/json">
+                {
+                    "no_results_message": "No results"
+                }
+            </script>
+        {% end_require_js %}
+
+        <script>
+            const moduleConfig = JSON.parse(
+                document.querySelector('script[data-search_results-config]').textContent
+            );
+
+            var hsResultsPage = function(_resultsClass) {
+                function buildResultsPage(_instance) {
+                    var resultTemplate = _instance.querySelector('.hs-search-results__template');
+                    var resultsSection = _instance.querySelector('.hs-search-results__listing');
+                    var searchPath = _instance.querySelector('.hs-search-results__pagination').getAttribute('data-search-path');
+                    var prevLink = _instance.querySelector('.hs-search-results__prev-page');
+                    var nextLink = _instance.querySelector('.hs-search-results__next-page');
+
+                    var searchParams = new URLSearchParams(window.location.search.slice(1));
+
+                    if (searchParams.has('q')) {
+                        searchParams.set('term', searchParams.get('q'));
+                        searchParams.delete('q');
+                    }
+
+                    function getTerm() {
+                        return searchParams.get('term') || '';
+                    }
+                    function getOffset() {
+                        return parseInt(searchParams.get('offset')) || 0;
+                    }
+                    function getLimit() {
+                        return parseInt(searchParams.get('limit'));
+                    }
+                    function addResult(url, title, tag, publishedDate, description) {
+                        var newResult = document.importNode(resultTemplate.content, true);
+                        newResult.querySelector('.hs-search-results__link').href = url;
+                        newResult.querySelector('.hs-search-results__title').innerHTML = title;
+                        let noTag = false;
+                        let noDate = false;
+                        if (tag && tag != "") {
+                            newResult.querySelector('.hs-search-results__tag').innerHTML = tag;
+                        } else {
+                            newResult.querySelector('.hs-search-results__tag').remove();
+                            noTag = true;
+                        }
+                        if (publishedDate && publishedDate != "") {
+                            let date = new Date(publishedDate);
+                            let day = date.getDate();
+                            let month = parseInt(date.getMonth()) + 1;
+                            let year = date.getFullYear();
+                            if (day < 10) {
+                                day = "0" + day;
+                            }
+                            if (month < 10) {
+                                month = "0" + month;
+                            }
+                            let formatDate = day + "/" + month + "/" + year;
+
+                            newResult.querySelector('.hs-search-results__date').innerHTML = formatDate;
+                        } else {
+                            newResult.querySelector('.hs-search-results__date').remove();
+                            noDate = true;
+                        }
+                        if (noTag && noDate) {
+                            newResult.querySelector('.info').remove();
+                        }
+                        newResult.querySelector('.hs-search-results__description').innerHTML = description;
+                        resultsSection.appendChild(newResult);
+                    }
+                    function fillResults(results) {
+                        document.querySelector('.total-search-results-number').innerHTML = results.total;
+
+                        results.results.forEach(function(result, i) {
+                            let tag = "";
+                            if (result.tags) {
+                                tag = result.tags[0];
+                            }
+                            addResult(result.url, result.title, tag, result.publishedDate, result.description);
+                        });
+                    }
+                    function emptyPagination() {
+                        prevLink.innerHTML = '';
+                        nextLink.innerHTML = '';
+                    }
+                    function emptyResults(searchedTerm) {
+                        const no_results_message = moduleConfig.no_results_message;
+                        const noResultsMessage = no_results_message.replace('[[search_term]]',`"${searchedTerm}"`);
+                        resultsSection.innerHTML = `<div class="hs-search__no-results">${noResultsMessage}</div>`;
+                    }
+                    function setSearchBarDefault(searchedTerm) {
+                        var searchBars = document.querySelectorAll('.hs-search-field__input');
+                        Array.prototype.forEach.call(searchBars, function(el) {
+                            el.value = searchedTerm;
+                        });
+                    }
+                    function httpRequest(term, offset) {
+                        var SEARCH_URL = '/_hcms/search?';
+                        var requestUrl = SEARCH_URL + searchParams + '&analytics=true';
+                        var request = new XMLHttpRequest();
+
+                        request.open('GET', requestUrl, true);
+                        request.onload = function() {
+                            if (request.status >= 200 && request.status < 400) {
+                                var data = JSON.parse(request.responseText);
+                                setSearchBarDefault(data.searchTerm);
+                                if (data.total > 0) {
+                                    fillResults(data);
+                                    paginate(data);
+                                } else {
+                                    emptyResults(data.searchTerm);
+                                    emptyPagination();
+                                }
+                            } else {
+                                console.error('Server reached, error retrieving results.');
+                            }
+                        };
+                        request.onerror = function() {
+                            console.error('Could not reach the server.');
+                        };
+                        request.send();
+                    }
+                    function paginate(results) {
+                        var updatedLimit = getLimit() || results.limit;
+
+                        function hasPreviousPage() {
+                            return results.page > 0;
+                        }
+                        function hasNextPage() {
+                            return results.offset <= results.total - updatedLimit;
+                        }
+
+                        if (hasPreviousPage()) {
+                            var prevParams = new URLSearchParams(searchParams.toString());
+                            prevParams.set('offset', results.page * updatedLimit - parseInt(updatedLimit));
+                            prevLink.href = searchPath + '?' + prevParams;
+                        } else {
+                            prevLink.parentNode.removeChild(prevLink);
+                        }
+
+                        if (hasNextPage()) {
+                            var nextParams = new URLSearchParams(searchParams.toString());
+                            nextParams.set('offset', results.page * updatedLimit + parseInt(updatedLimit));
+                            nextLink.href = searchPath + '?' + nextParams;
+                        } else {
+                            nextLink.parentNode.removeChild(nextLink);
+                        }
+                    }
+                    var getResults = (function() {
+                        if (getTerm()) {
+                            httpRequest(getTerm(), getOffset());
+                        } else {
+                            emptyPagination();
+                        }
+                    })();
+                }
+                (function() {
+                    var searchResults = document.querySelectorAll(_resultsClass);
+                    Array.prototype.forEach.call(searchResults, function(el) {
+                        buildResultsPage(el);
+                    });
+                })();
+            };
+
+            if (document.attachEvent? document.readyState === 'complete': document.readyState !== 'loading') {
+                var resultsPages = hsResultsPage('div.hs-search-results');
+            } else {
+                document.addEventListener('DOMContentLoaded', function() {
+                    var resultsPages = hsResultsPage('div.hs-search-results');
+                });
+            }
+        </script>
+    </div>
+</section>
+{% endblock body %}

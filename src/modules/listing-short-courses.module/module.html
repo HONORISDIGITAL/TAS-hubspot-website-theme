@@ -1,0 +1,40 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="listing-short-courses" class="listing-short-courses-module light-mode dashed-background {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="text-content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.title }}</div>
+        </div>
+
+        <div class="cards" data-gsap-id="gsap-listing-short-courses-mod">
+            {% for item in module.cards %}
+                {% if item.link.url.href %}
+                    <a class="card gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}" data-gsap-parent-id="gsap-listing-short-courses-mod" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                        {% if item.image.src %}
+                            <figure class="image">
+                                <img loading="lazy" width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                            </figure>
+                        {% endif %}
+
+                        <div class="text-content">
+                            <p class="title h3">{{ item.title }}</p>
+
+                            {% if item.info|length > 0 %}
+                                <div class="info-wrapper">
+                                    {% for item in item.info %}
+                                        <p class="info">{{ item }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if item.text %}
+                                <p class="text small">{{ item.text }}</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

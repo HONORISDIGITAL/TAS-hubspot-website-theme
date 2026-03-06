@@ -1,0 +1,78 @@
+{% set padding = module.style.padding %}
+
+<section aria-label="Cards section" {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="cards-module {% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        {% if module.top_content.label_field or module.top_content.title.title or module.top_content.description %}
+            <div class="wrapper-top">
+                <div class="wrapper-content">
+                    {% if module.top_content.label_field %}
+                    <span class="label">{{module.top_content.label_field}}</span>
+                    {% endif %}
+                    {% if module.top_content.title.type && module.top_content.title.content %}
+                    <{{ module.top_content.title.type }} class="title {{ module.top_content.title.style }}">{{
+                        module.top_content.title.content }}</{{ module.top_content.title.type }}>
+                    {% endif %}
+                    {% if module.top_content.text %}
+                    <div class="richtext">
+                        {{module.top_content.text}}
+                    </div>
+                    {% endif %}
+                </div>
+                {% if module.buttons %}
+                <div class="wrapper-buttons">
+                    {% for item in module.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span>{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if module.cards %}
+            <div class="wrapper-cards wrapper-cards-{{ module.style.nb_cards }}">
+                {% for item in module.cards %}
+                    <{% if item.button.button_link.url.href %}a href="{% if item.button.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button.button_link.url.href}}"
+                    {% if item.button.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                        item.button.button_link.no_follow %}rel="nofollow" {% endif %}{% else %}div{% endif %} class="wrapper-cards__card">
+                        {% if item.pictogram.src or item.image.src %}
+                            <div class="wrapper-cards__card-image {% if item.image.src %}img-bg{% endif %}">
+                                <figure>
+                                    {% if item.choice_image == 'pictogram' %}
+                                        {% if item.pictogram.src %}
+                                            <img width="{{ item.pictogram.width }}" height="{{ item.pictogram.height }}" src="{{ item.pictogram.src }}" loading="lazy" alt="{{ item.pictogram.alt }}">
+                                        {% endif %}
+                                    {% else %}
+                                        {% if item.image.src %}
+                                            <img width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" loading="lazy" alt="{{ item.image.alt }}">
+                                        {% endif %}
+                                    {% endif %}
+                                </figure>
+                            </div>
+                        {% endif %}
+                        <div class="wrapper-cards__card-text">
+                            <div class="text">
+                                <h5>{{ item.title }}</h5>
+                                {{ item.description }}
+                            </div>
+                            {% if item.button.button_link.url.href %}
+                                <div class="btn {{item.button.button_style}} {{item.button.button_class}}">
+                                    <span>{{item.button.button_text}}</span>
+                                </div>
+                            {% elif item.button.button_type == 'cta' %}
+                                {% cta "cta" label='Select a CTA', guid='{{item.cta.cta_field}}' %}
+                            {% endif %}
+                        </div>
+                    </{% if item.button.button_link.url.href %}a{% else %}div{% endif %}>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,704 @@
+[
+    {
+        "name": "module_identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "type": "group",
+        "name": "style",
+        "label": "Style",
+        "tab": "STYLE",
+        "children": [
+            {
+                "name": "padding",
+                "label": "Padding",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "padding_desktop",
+                        "label": "Padding Desktop",
+                        "required": false,
+                        "locked": false,
+                        "children": [
+                            {
+                                "id": "padding_type_desktop",
+                                "name": "type",
+                                "label": "Choice field",
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "choices": [
+                                    [
+                                        "classic",
+                                        "Determined by section type"
+                                    ],
+                                    [
+                                        "custom",
+                                        "Custom"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "placeholder": "",
+                                "default": "classic"
+                            },
+                            {
+                                "name": "padding_top_section",
+                                "label": "Padding Top Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "classic",
+                                    "operator": "EQUAL"
+                                },
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "xl"
+                            },
+                            {
+                                "name": "padding_bottom_section",
+                                "label": "Padding Bottom Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "classic",
+                                    "operator": "EQUAL"
+                                },
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "xl"
+                            },
+                            {
+                                "name": "padding_top",
+                                "label": "Padding Top Custom (px)",
+                                "required": false,
+                                "locked": false,
+                                "display": "text",
+                                "step": 1,
+                                "type": "number",
+                                "min": 0,
+                                "max": 500,
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": 60,
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "custom",
+                                    "operator": "EQUAL"
+                                }
+                            },
+                            {
+                                "name": "padding_bottom",
+                                "label": "Padding Bottom Custom (px)",
+                                "required": false,
+                                "locked": false,
+                                "display": "text",
+                                "step": 1,
+                                "type": "number",
+                                "min": 0,
+                                "max": 500,
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": 60,
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "custom",
+                                    "operator": "EQUAL"
+                                }
+                            }
+                        ],
+                        "type": "group",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": {}
+                    },
+                    {
+                        "name": "padding_mobile",
+                        "label": "Padding Mobile",
+                        "required": false,
+                        "locked": false,
+                        "children": [
+                            {
+                                "name": "padding_top_section",
+                                "label": "Padding Top Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "md"
+                            },
+                            {
+                                "name": "padding_bottom_section",
+                                "label": "Padding Bottom Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "md"
+                            }
+                        ],
+                        "type": "group",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": {}
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            },
+            {
+                "name": "layout",
+                "label": "Layout",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "alignment",
+                        "label": "Alignment",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "choices": [
+                            [
+                                "left",
+                                "Left"
+                            ],
+                            [
+                                "center",
+                                "Center"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "left"
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            }
+        ]
+    },
+    {
+        "name": "top_content",
+        "label": "Top Content",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "label_field",
+                "label": "Label",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "validation_error_message": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Lorem ipsum"
+            },
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "content",
+                        "label": "Content",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Lorem ipsum sit lium dolor amet vitae"
+                    },
+                    {
+                        "name": "type",
+                        "label": "Type",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "Level of the title (for SEO)",
+                        "help_text": "",
+                        "choices": [
+                            [
+                                "h1",
+                                "Title 1"
+                            ],
+                            [
+                                "h2",
+                                "Title 2"
+                            ],
+                            [
+                                "h3",
+                                "Title 3"
+                            ],
+                            [
+                                "h4",
+                                "Title 4"
+                            ],
+                            [
+                                "h5",
+                                "Title 5"
+                            ],
+                            [
+                                "h6",
+                                "Title 6"
+                            ],
+                            [
+                                "p",
+                                "Paragraph"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "h2"
+                    },
+                    {
+                        "name": "style",
+                        "label": "Style",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "Style of the title (for design)",
+                        "help_text": "",
+                        "choices": [
+                            [
+                                "h1",
+                                "Title 1"
+                            ],
+                            [
+                                "h2",
+                                "Title 2"
+                            ],
+                            [
+                                "h3",
+                                "Title 3"
+                            ],
+                            [
+                                "h4",
+                                "Title 4"
+                            ],
+                            [
+                                "h5",
+                                "Title 5"
+                            ],
+                            [
+                                "h6",
+                                "Title 6"
+                            ],
+                            [
+                                "p",
+                                "Paragraph"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "h2"
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "type": "richtext",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat sit amet neque non interdum. Proin eu tortor nec nulla sollicitudin maximus et non neque. Phasellus semper bibendum risus vel pharetra.</p>"
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    },
+    {
+        "name": "grid",
+        "label": "Row(s)",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+            "min": 1,
+            "max": 4,
+            "sorting_label_field": null,
+            "default": 2
+        },
+        "children": [
+            {
+                "name": "grid_style",
+                "label": "Grid style",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                        "primary",
+                        "Primary"
+                    ],
+                    [
+                        "secondary",
+                        "Secondary"
+                    ],
+                    [
+                        "tertiary",
+                        "Tertiary"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": " ",
+                "default": "primary"
+            },
+            {
+            "name": "items",
+            "label": "Item(s)",
+            "required": false,
+            "locked": false,
+            "occurrence": {
+              "min": 1,
+              "max": 3,
+              "sorting_label_field": null,
+              "default": 3
+            },
+            "children": [
+                {
+                    "name": "type",
+                    "label": "Type",
+                    "required": false,
+                    "locked": false,
+                    "display": "select",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "choices": [
+                        [
+                            "number",
+                            "Number"
+                        ],
+                        [
+                            "image",
+                            "Image"
+                        ],
+                        [
+                            "text",
+                            "Text"
+                        ]
+                    ],
+                    "type": "choice",
+                    "placeholder": "",
+                    "default": "number"
+                },
+                {
+                    "name": "number",
+                    "label": "Number",
+                    "required": false,
+                    "locked": false,
+                    "validation_regex": "",
+                    "validation_error_message": "",
+                    "allow_new_line": false,
+                    "show_emoji_picker": false,
+                    "type": "text",
+                    "placeholder": "",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "default": "80%",
+                    "visibility": {
+                        "controlling_field": "grid.items.type",
+                        "controlling_value_regex": "number",
+                        "operator": "EQUAL"
+                    }
+                },
+                {
+                    "name": "number_text",
+                    "label": "Text",
+                    "required": false,
+                    "locked": false,
+                    "validation_regex": "",
+                    "validation_error_message": "",
+                    "allow_new_line": false,
+                    "show_emoji_picker": false,
+                    "type": "text",
+                    "placeholder": "",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "default": "Cras venenatis dolor quam, sed laoreet turpis vehicula vitae.",
+                    "visibility": {
+                        "controlling_field": "grid.items.type",
+                        "controlling_value_regex": "number",
+                        "operator": "EQUAL"
+                    }
+                },
+                {
+                    "name": "image",
+                    "label": "Image",
+                    "required": false,
+                    "locked": false,
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "responsive": true,
+                    "resizable": false,
+                    "show_loading": false,
+                    "type": "image",
+                    "visibility": {
+                        "controlling_field": "grid.items.type",
+                        "controlling_value_regex": "image",
+                        "operator": "EQUAL"
+                    },
+                    "default": {
+                        "size_type": "auto",
+                        "src": "https://placehold.co/600x400",
+                        "alt": null,
+                        "loading": "disabled"
+                    }
+                },
+                {
+                    "name": "title",
+                    "label": "Title",
+                    "required": false,
+                    "locked": false,
+                    "validation_regex": "",
+                    "validation_error_message": "",
+                    "allow_new_line": false,
+                    "show_emoji_picker": false,
+                    "type": "text",
+                    "placeholder": "",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "default": "Lorem ipsum sit amet",
+                    "visibility": {
+                        "controlling_field": "grid.items.type",
+                        "controlling_value_regex": "text",
+                        "operator": "EQUAL"
+                    }
+                },
+                {
+                    "name": "text",
+                    "label": "Text",
+                    "required": false,
+                    "locked": false,
+                    "validation_regex": "",
+                    "validation_error_message": "",
+                    "allow_new_line": false,
+                    "show_emoji_picker": false,
+                    "type": "text",
+                    "placeholder": "",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "default": "Vestibulum tincidunt dui justo, non euismod felis pellentesque quis. Curabitur ornare nisl.",
+                    "visibility": {
+                        "controlling_field": "grid.items.type",
+                        "controlling_value_regex": "text",
+                        "operator": "EQUAL"
+                    }
+                },
+                {
+                    "name": "cta",
+                    "label": "Cta",
+                    "required": false,
+                    "locked": false,
+                    "children": [
+                        {
+                            "name": "text",
+                            "label": "Text",
+                            "required": false,
+                            "locked": false,
+                            "validation_regex": "",
+                            "allow_new_line": false,
+                            "show_emoji_picker": false,
+                            "type": "text",
+                            "placeholder": "",
+                            "inline_help_text": "",
+                            "help_text": "",
+                            "default": "Lorem ipsum"
+                        },
+                        {
+                            "name": "link",
+                            "label": "Link",
+                            "required": false,
+                            "locked": false,
+                            "supported_types": [
+                                "EXTERNAL",
+                                "CONTENT",
+                                "FILE",
+                                "EMAIL_ADDRESS",
+                                "BLOG"
+                            ],
+                            "type": "link",
+                            "inline_help_text": "",
+                            "help_text": "",
+                            "default": {
+                                "url": {
+                                    "content_id": null,
+                                    "type": "EXTERNAL",
+                                    "href": "https://www.google.com"
+                                },
+                                "open_in_new_tab": false,
+                                "no_follow": false
+                            }
+                        },
+                        {
+                            "name": "style",
+                            "label": "Style",
+                            "required": false,
+                            "locked": false,
+                            "display": "select",
+                            "inline_help_text": "",
+                            "help_text": "",
+                            "choices": [
+                                [
+                                    "primary",
+                                    "Primary"
+                                ],
+                                [
+                                    "secondary",
+                                    "Secondary"
+                                ]
+                            ],
+                            "type": "choice",
+                            "placeholder": "",
+                            "default": "secondary"
+                        }
+                    ],
+                    "type": "group",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "default": {},
+                    "visibility": {
+                        "controlling_field": "grid.items.type",
+                        "controlling_value_regex": "text",
+                        "operator": "EQUAL"
+                    }
+                }
+            ],
+            "type": "group",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": [] }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]

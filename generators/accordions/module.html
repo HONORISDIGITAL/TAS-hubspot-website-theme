@@ -1,0 +1,70 @@
+{% set padding = module.style.padding %}
+{% set position = module.style.content_position %}
+
+<section aria-label="Accordions section" {% if module.identity %}id="{{module.identity}}" {% endif %}class="accordions-module {% if padding.padding_desktop.type == 'classic'%} pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %}  pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} "{% if padding.padding_desktop.type=='custom' %}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+	<div class="container">
+		{% if module.top_content.label_field or module.top_content.title.title or module.top_content.description %}
+            <div class="wrapper-top">
+                <div class="wrapper-content">
+                    {% if module.top_content.label_field %}
+                    	<span class="label">{{module.top_content.label_field}}</span>
+                    {% endif %}
+                    {% if module.top_content.title.type && module.top_content.title.content %}
+						<{{ module.top_content.title.type }} class="title {{ module.top_content.title.style }}">{{
+							module.top_content.title.content }}</{{ module.top_content.title.type }}>
+                    {% endif %}
+                    {% if module.top_content.text %}
+						<div class="richtext">
+							{{module.top_content.text}}
+						</div>
+                    {% endif %}
+                </div>
+                {% if module.buttons %}
+                <div class="wrapper-buttons">
+                    {% for item in module.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span>{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+		{% if module.accordions|length > 0 %}
+		<div class="wrapper-bottom {{position}}">
+			<div class="wrapper-accordions" role="tablist" aria-label="Accordion List">
+				{% for item in module.accordions %}
+				<div class="accordion {%if loop.index == 0%}active{%endif%}" data-key="{{loop.index}}">
+					<div class="accordion-title" role="tab" aria-controls="tab-accordions-{{loop.index}}" aria-expanded="false" tabindex="0">
+						{% if item.icon.src %}
+							<figure class="wrapper-icon">
+								<img loading="lazy" src="{{item.icon.src}}" alt="{{item.icon.alt}}" width="{{item.icon.width}}" height="{{item.icon.height}}" />
+							</figure>
+						{% endif %}
+						<h3 class="title">{{item.title}}</h3>
+					</div>
+					<div class="accordion-content" role="tabpanel" id="tab-accordions-{{loop.index}}" {% if !item.image.src %}
+						style="padding-left: 0" {% endif %}>
+						{{item.richtext}}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<figure class="wrapper-image">
+				{% for item in module.accordions %}
+				<img data-key="{{loop.index}}" loading="lazy" src="{{item.image.src}}" alt="{{item.image.alt}}" width="{{item.image.width}}"
+					height="{{item.image.height}}" class="{% if loop.index0 == 0 %}active{% endif %}"/>
+				{% endfor %}
+			</figure>
+		</div>
+		{% endif %}
+	</div>
+</section>

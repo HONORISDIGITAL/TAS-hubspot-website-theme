@@ -1,0 +1,56 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "type": "group",
+        "name": "style",
+        "label": "Style",
+        "tab": "STYLE",
+        "children": [
+            {
+                "name": "color_theme",
+                "label": "Color theme",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "light",
+                    "Light"
+                    ],
+                    [
+                    "dark",
+                    "Dark"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "dark"
+            },
+            {
+                "name" : "image_filter_opacity",
+                "label" : "Image filter opacity",
+                "required" : false,
+                "locked" : false,
+                "display" : "slider",
+                "step" : 0.1,
+                "type" : "number",
+                "min" : 0,
+                "max" : 1,
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : 0.5
+            }
+        ]
+    }
+]

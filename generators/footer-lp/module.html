@@ -1,0 +1,23 @@
+<footer {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="footer-lp-module">
+	<div class="container">
+        <div class="wrapper-logo">
+			{% if module.content.logo.logo.src %}
+				<{% if module.content.logo.link.url.href %}a href="{{module.content.logo.link.url.href}}"{% else %}div{% endif %}  class="logo" aria-label="Logo link to homepage" {% if module.content.logo.link.open_in_new_tab %} target="_blank" rel="noopener noreferrer" {% endif %}>
+					<figure>
+						<img class="logo" src="{{ module.content.logo.logo.src }}" alt="{{ module.content.logo.logo.alt }}" width="{{ module.content.logo.logo.width }}" height="{{ module.content.logo.logo.height }}" loading="lazy">
+					</figure>
+				</{% if module.content.logo.link.url.href %}a{% else %}div{% endif %}>
+			{% endif %}
+        </div>
+        <div class="wrapper-nav">
+			{% if module.content.wrapper_copyright.is_visible %}
+				<span class="copyright">Copyright© {{local_dt | format_date('yyyy')}} {{ module.content.wrapper_copyright.website_name }}</span>
+			{% endif %}
+			{% if module.content.menu %}
+			<nav role="navigation">
+				{% menu "menu_footer" id={{ module.content.menu }}, site_map_name='Default', overrideable=False, root_type='site_root', flyouts='true', max_levels='1', flow='horizontal', label='Advanced Menu' %}
+			</nav>
+			{% endif %}
+		</div>
+    </div>
+</footer>

@@ -1,0 +1,67 @@
+<footer {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="footer" class="footer-module dark-mode">
+    <div class="visual-noise"></div>
+
+    <div class="container">
+        <div class="main-block">
+            <div class="left-column">
+                {% if module.logo_block.link.url.href && module.logo_block.logo.src %}
+                    <a class="logo-link" href="{{ module.logo_block.link.url.href }}"{% if module.logo_block.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                        <figure class="logo">
+                            <img loading="lazy" width="{{ module.logo_block.logo.width }}" height="{{ module.logo_block.logo.height }}" src="{{ module.logo_block.logo.src }}" alt="{{ module.logo_block.logo.alt }}">
+                        </figure>
+                    </a>
+                {% endif %}
+
+                {% if module.socials|length > 0 %}
+                    <div class="socials">
+                        {% for item in module.socials %}
+                            {% if item.link.url.href && item.icon.src %}
+                                <a class="social" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                                    <div class="icon" style="mask-image: url({{ item.icon.src }});-webkit-mask-image: url({{ item.icon.src }});"></div>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if module.info_cards|length > 0 %}
+                    <div class="info-cards">
+                        {% for item in module.info_cards %}
+                            <div class="card">{{ item }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="links-columns">
+                {% for item in module.links_columns %}
+                    <div class="link-column">
+                        <button type="button" class="column-btn">
+                            <p class="label">{{ item.title }}</p>
+                        </button>
+
+                        <div class="links">
+                            {% for item in item.links %}
+                                {% if item.link.url.href %}
+                                    <a class="link small" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.text }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="legal-block">
+            {% for item in module.legal_texts %}
+                {% if item.link.url.href %}
+                    <a class="legal-item" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.text }}</a>
+                {% else %}
+                    <p class="legal-item">{{ item.text }}</p>
+                {% endif %}
+            {% endfor %}
+
+            <p class="legal-item persistent">Website by <a class="legal-item" href="https://www.makethegrade.fr" target="_blank" rel="noopener noreferrer">make the grade</a></p>
+        </div>
+    </div>
+</footer>

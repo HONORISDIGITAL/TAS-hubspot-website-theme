@@ -1,0 +1,63 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="cta-banner" class="cta-banner-module light-mode dashed-background {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <section class="card dark-mode colorful-background color-3-flip" data-gsap-id="gsap-cta-banner-mod">
+            <div class="visual-noise"></div>
+
+            <figure class="timeline-image">
+                <img loading="lazy" width="1491" height="345" src="https://146037018.fs1.hubspotusercontent-eu1.net/hubfs/146037018/website-2025/timeline.webp">
+            </figure>
+
+            <div class="text-content gsap-animation-target" data-gsap-parent-id="gsap-cta-banner-mod" data-gsap-direction="bottom-top">
+                <div class="richtext">{{ module.title }}</div>
+
+                {% if module.info|length > 0 %}
+                    <div class="info-wrapper">
+                        {% for item in module.info %}
+                            <div class="info">
+                                {% if item.icon.src %}
+                                    <figure class="icon">
+                                        <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                    </figure>
+                                {% endif %}
+                                <p class="text small">{{ item.text }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if module.form %}
+                    <div class="form-wrapper">
+                        {% form
+                            form_to_use="{{ module.form.form_id }}"
+                            response_response_type="{{ module.form.response_type }}"
+                            response_message="{{ module.form.message }}"
+                            response_redirect_id="{{ module.form.redirect_id }}"
+                            response_redirect_url="{{ module.form.redirect_url}}"
+                            gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
+                        %}
+                    </div>
+                {% endif %}
+                
+                {% if module.cta|length > 0 %}
+                    <div class="ctas">
+                        {% for item in module.cta %}
+                            {% if item.cta_type == "classic" %}
+                                {% if item.link.url.href %}
+                                    <a class="btn {{ item.style }}" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.text }}">{{ item.text }}</span></a>
+                                {% endif %}
+                            {% else %}
+                                {% cta "cta" label='Select a CTA', guid='{{ item.cta }}' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if module.image.src %}
+                <figure class="image gsap-animation-target" data-gsap-parent-id="gsap-cta-banner-mod" data-gsap-direction="bottom-top" data-gsap-delay="0.2">
+                    <img loading="lazy" width="{{ module.image.width }}" height="{{ module.image.height }}" src="{{ module.image.src }}" alt="{{ module.image.alt }}">
+                </figure>
+            {% endif %}
+        </section>
+    </div>
+</section>

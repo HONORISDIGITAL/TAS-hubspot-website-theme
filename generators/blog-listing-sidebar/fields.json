@@ -1,0 +1,376 @@
+[
+    {
+        "name": "module_identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "name": "articles",
+        "label": "Articles",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Les plus consultés"
+            },
+            {
+                "id": "articles_type",
+                "name": "articles_type",
+                "label": "Articles type",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "recent",
+                    "Recent"
+                    ],
+                    [
+                    "tag",
+                    "Tag"
+                    ],
+                    [
+                    "popular",
+                    "Popular"
+                    ],
+                    [
+                    "popular_tag",
+                    "Popular in tag"
+                    ],
+                    [
+                    "manual",
+                    "Manual"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "recent"
+            },
+            {
+                "name" : "number",
+                "label" : "Number",
+                "required" : false,
+                "locked" : false,
+                "display" : "text",
+                "step" : 1,
+                "type" : "number",
+                "min" : 1,
+                "max" : 10,
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : 5,
+                "visibility": {
+                    "controlling_field": "articles_type",
+                    "controlling_value_regex": "manual",
+                    "operator": "NOT_EQUAL"
+                }
+            },
+            {
+                "name": "blog",
+                "label": "Blog",
+                "required": false,
+                "locked": false,
+                "type": "blog",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": null,
+                "visibility": {
+                    "controlling_field": "articles_type",
+                    "controlling_value_regex": "manual",
+                    "operator": "NOT_EQUAL"
+                }
+            },
+            {
+                "name": "tags",
+                "label": "Tag(s)",
+                "required": false,
+                "locked": false,
+                "occurrence": {
+                "min": 1,
+                "max": null,
+                "sorting_label_field": null,
+                "default": 1
+                },
+                "visibility_rules": "ADVANCED",
+                "advanced_visibility" : {
+                    "boolean_operator" : "OR",
+                    "criteria" : [
+                        {
+                            "controlling_field" : "articles_type",
+                            "operator" : "EQUAL",
+                            "controlling_value_regex" : "tag"
+                        },
+                        {
+                            "controlling_field" : "articles_type",
+                            "operator" : "EQUAL",
+                            "controlling_value_regex" : "popular_tag"
+                        }
+                    ]
+                },
+                "children": [
+                    {
+                        "name": "tag",
+                        "label": "Tag",
+                        "required": false,
+                        "locked": false,
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "tag_value": "SLUG",
+                        "type": "tag",
+                        "placeholder": "",
+                        "default": null
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": []
+            },
+            {
+                "name": "timeframe",
+                "label": "Timeframe",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "popular_all_time",
+                    "All time"
+                    ],
+                    [
+                    "popular_past_year",
+                    "Past year"
+                    ],
+                    [
+                    "popular_past_six_months",
+                    "Past six months"
+                    ],
+                    [
+                    "popular_past_month",
+                    "Past month"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "popular_all_time",
+                "visibility_rules": "ADVANCED",
+                "advanced_visibility" : {
+                    "boolean_operator" : "OR",
+                    "criteria" : [
+                        {
+                            "controlling_field" : "articles_type",
+                            "operator" : "EQUAL",
+                            "controlling_value_regex" : "popular"
+                        },
+                        {
+                            "controlling_field" : "articles_type",
+                            "operator" : "EQUAL",
+                            "controlling_value_regex" : "popular_tag"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "manual",
+                "label": "Article(s)",
+                "required": false,
+                "locked": false,
+                "occurrence": {
+                "min": 1,
+                "max": 10,
+                "sorting_label_field": null,
+                "default": 1
+                },
+                "visibility": {
+                    "controlling_field": "articles_type",
+                    "controlling_value_regex": "manual",
+                    "operator": "EQUAL"
+                },
+                "children": [
+                    {
+                        "name": "article",
+                        "label": "Article",
+                        "required": false,
+                        "locked": false,
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "type": "page",
+                        "placeholder": "",
+                        "default": null
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": []
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    },
+    {
+        "name": "socials",
+        "label": "Socials",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Suivez nous sur les réseaux sociaux"
+            },
+            {
+                "name": "icons",
+                "label": "Icon(s)",
+                "required": false,
+                "locked": false,
+                "occurrence": {
+                "min": 1,
+                "max": null,
+                "sorting_label_field": null,
+                "default": 1
+                },
+                "children": [
+                    {
+                        "name": "icon",
+                        "label": "Icon",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "choices": [
+                            [
+                            "linkedin",
+                            "Linkedin"
+                            ],
+                            [
+                            "twitter",
+                            "Twitter"
+                            ],
+                            [
+                            "facebook",
+                            "Facebook"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "linkedin"
+                    },
+                    {
+                        "name" : "link",
+                        "label" : "Link",
+                        "required" : false,
+                        "locked" : false,
+                        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                        "type" : "link",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default" : {
+                            "url" : {
+                                "content_id" : null,
+                                "type" : "EXTERNAL",
+                                "href" : "/"
+                            },
+                            "open_in_new_tab" : false,
+                            "no_follow" : false
+                        }
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": []
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    },
+    {
+        "name": "newsletter",
+        "label": "Newsletter",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Inscription à la Newsletter"
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Lorem ipsum dolor sit etuot amet, consectetur adipis elit."
+            },
+            {
+                "name": "form",
+                "label": "Form",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "type": "form",
+                "default": {
+                    "response_type": "inline",
+                    "message": "Thanks for submitting the form."
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    }
+]

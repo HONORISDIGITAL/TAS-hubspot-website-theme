@@ -1,0 +1,357 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "type": "group",
+        "name": "style",
+        "label": "Style",
+        "tab": "STYLE",
+        "children": [
+            {
+                "name": "padding",
+                "label": "Padding",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "padding_desktop",
+                        "label": "Padding Desktop",
+                        "required": false,
+                        "locked": false,
+                        "children": [
+                            {
+                                "id": "padding_type_desktop",
+                                "name": "type",
+                                "label": "Choice field",
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "choices": [
+                                    [
+                                        "classic",
+                                        "Determined by section type"
+                                    ],
+                                    [
+                                        "custom",
+                                        "Custom"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "placeholder": "",
+                                "default": "classic"
+                            },
+                            {
+                                "name": "padding_top_section",
+                                "label": "Padding Top Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "classic",
+                                    "operator": "EQUAL"
+                                },
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "xl"
+                            },
+                            {
+                                "name": "padding_bottom_section",
+                                "label": "Padding Bottom Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "classic",
+                                    "operator": "EQUAL"
+                                },
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "xl"
+                            },
+                            {
+                                "name": "padding_top",
+                                "label": "Padding Top Custom (px)",
+                                "required": false,
+                                "locked": false,
+                                "display": "text",
+                                "step": 1,
+                                "type": "number",
+                                "min": 0,
+                                "max": 500,
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": 60,
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "custom",
+                                    "operator": "EQUAL"
+                                }
+                            },
+                            {
+                                "name": "padding_bottom",
+                                "label": "Padding Bottom Custom (px)",
+                                "required": false,
+                                "locked": false,
+                                "display": "text",
+                                "step": 1,
+                                "type": "number",
+                                "min": 0,
+                                "max": 500,
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": 60,
+                                "visibility": {
+                                    "controlling_field": "padding_type_desktop",
+                                    "controlling_value_regex": "custom",
+                                    "operator": "EQUAL"
+                                }
+                            }
+                        ],
+                        "type": "group",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": {}
+                    },
+                    {
+                        "name": "padding_mobile",
+                        "label": "Padding Mobile",
+                        "required": false,
+                        "locked": false,
+                        "children": [
+                            {
+                                "name": "padding_top_section",
+                                "label": "Padding Top Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "md"
+                            },
+                            {
+                                "name": "padding_bottom_section",
+                                "label": "Padding Bottom Section",
+                                "sortable": false,
+                                "required": false,
+                                "locked": false,
+                                "display": "select",
+                                "choices": [
+                                    [
+                                        "0",
+                                        "None"
+                                    ],
+                                    [
+                                        "sm",
+                                        "Small (30px)"
+                                    ],
+                                    [
+                                        "md",
+                                        "Normal (60px)"
+                                    ],
+                                    [
+                                        "lg",
+                                        "Big (90px)"
+                                    ],
+                                    [
+                                        "xl",
+                                        "Giant (120px)"
+                                    ]
+                                ],
+                                "type": "choice",
+                                "default": "md"
+                            }
+                        ],
+                        "type": "group",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": {}
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            }
+        ]
+    },
+    {
+        "name": "title_label",
+        "label": "Label",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text",
+        "placeholder": "",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "Our location"
+    },
+    {
+        "name": "content",
+        "label": "Content",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "<h2>Imperdiet proin <strong>justo don.</strong></h2><p>Pellentesque tincidunt turpis magna fermentum facilisi sed in. Pharetra quis tincidunt fringilla enim tempor risus. Eu accumsan consectetur non consequat.</p>"
+    },
+    {
+        "name": "cards",
+        "label": "Cards",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": null,
+        "max": null,
+        "sorting_label_field": null,
+        "default": null
+        },
+        "children": [
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Cape Town Campus"
+            },
+            {
+                "name": "icon",
+                "label": "Icon",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/32",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "42 Searle Street Woodstock"
+            },
+            {
+                "name": "iframe_html",
+                "label": "Iframe HTML",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "Go onto your desired location on google maps, click on share and get the html code (iframe)",
+                "help_text": "",
+                "default": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5329.60377535842!2d-1.7095149229737963!3d48.09476497123885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480edf9d221e4fd9%3A0x6c30723187b1a35a!2sMake%20the%20Grade!5e0!3m2!1sfr!2sfr!4v1755525376673!5m2!1sfr!2sfr\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]

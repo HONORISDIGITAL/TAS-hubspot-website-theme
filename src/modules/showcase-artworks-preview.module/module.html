@@ -1,0 +1,89 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="showcase-artworks-preview" class="showcase-artworks-preview-module light-mode dashed-background {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="text-content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.title }}</div>
+        </div>
+
+        {% set columns = {
+            col_1: [],
+            col_2: [],
+            col_3: []
+        } %}
+        {% for item in module.cards %}
+            {% if loop.index % 3 == 1 %}
+                {% do columns.col_1.append(item) %}
+            {% elif loop.index % 3 == 2 %}
+                {% do columns.col_2.append(item) %}
+            {% elif loop.index % 3 == 0 %}
+                {% do columns.col_3.append(item) %}
+            {% endif %}
+        {% endfor %}
+
+        <div class="columns" data-gsap-id="gsap-showcase-artworks-preview-mod">
+            {% for column in columns %}
+                {% set col_index = loop.index %}
+                <div class="column">
+                    {% for item in column %}
+                        {% set media = item.media %}
+                        {% if media.type == "video_youtube" %}
+                            {% if media.youtube_link is containing "?v=" %}
+                                {% set video_href = media.youtube_link|split("?v=") %}
+                            {% elif media.youtube_link is containing "embed/" %}
+                                {% set video_href = media.youtube_link|split("embed/") %}
+                            {% elif media.youtube_link is containing "youtu.be/" %}
+                                {% set video_href = media.youtube_link|split("youtu.be/") %}
+                            {% else %}
+                                {% set video_id = media.youtube_link %}
+                            {% endif %}
+
+                            {% if video_href && video_href[1] is containing "?" %}
+                                {% set video_id = video_href[1]|split("?") %}
+                                {% set video_id = video_id[0] %}
+                            {% elif video_href && video_href[1] is containing "&" %}
+                                {% set video_id = video_href[1]|split("&") %}
+                                {% set video_id = video_id[0] %}
+                            {% elif video_href %}
+                                {% set video_id = video_href[1] %}
+                            {% endif %}
+                        {% endif %}
+                        <div class="card gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ ((loop.index - 1) * 0.2) + ((col_index - 1) * 0.2) }}" data-gsap-parent-id="gsap-showcase-artworks-preview-mod" data-media-type="{{ media.type }}" data-media="{{ media.type == 'image' ? media.image.src : media.type == 'video_file' ? media.video_file : 'https://www.youtube.com/embed/{{ video_id }}?showinfo=0&rel=0&autoplay=1&mute=0&controls=1' }}">
+                            {% if media.type == "image" && media.image.src %}
+                                <figure class="image">
+                                    <img loading="lazy" width="{{ media.image.width }}" height="{{ media.image.height }}" src="{{ media.image.src }}" alt="{{ media.image.alt }}">
+                                </figure>
+                            {% elif media.type != "image" && media.video_cover.src %}
+                                <figure class="video-cover">
+                                    <img loading="lazy" width="{{ media.video_cover.width }}" height="{{ media.video_cover.height }}" src="{{ media.video_cover.src }}" alt="{{ media.video_cover.alt }}">
+                                </figure>
+                            {% endif %}
+
+                            <div class="text-content">
+                                <p class="title">{{ item.title }}</p>
+
+                                {% if item.info|length > 0 %}
+                                    <div class="info-wrapper">
+                                        {% for item in item.info %}
+                                            <p class="info small">{{ item }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="popup-container">
+        <div class="background"></div>
+
+        <div class="popup-content container">
+            <button class="close-popup">&times;</button>
+            <div class="popup-media"></div>
+        </div>
+    </div>
+</section>

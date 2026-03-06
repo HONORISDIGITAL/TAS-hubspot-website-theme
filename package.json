@@ -1,0 +1,63 @@
+{
+  "name": "hs-boilerplate",
+  "version": "3.1.0",
+  "node version": "20.6.0",
+  "description": "Boilerplate 2025 by MTG Team",
+  "main": "main.js",
+  "author": "MTG Team",
+  "license": "MIT",
+  "scripts": {
+    "clean:dist": "rm -rf dist && mkdir dist ",
+    "hs:auth": "hs auth",
+    "module": "node generator.js",
+    "dl:module": "node download_module.js",
+    "upload:dev": "gulp upload",
+    "upload:prod": "gulp upload --prod",
+    "watch": "gulp watch",
+    "build": "gulp build",
+    "deploy:dev": "yarn clean:dist && yarn build && yarn upload:dev",
+    "deploy:prod": "yarn clean:dist && yarn build && yarn upload:prod",
+    "watch:dev": "yarn watch",
+    "watch:prod": "yarn watch --prod"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@hubspot/cli": "^7.0.0",
+    "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "dotenv": "^16.4.7",
+    "dotenv-webpack": "^8.0.1",
+    "glob": "^11.0.1",
+    "gulp": "^5.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-exec": "^5.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^6.0.0",
+    "gulp-sass-glob-use-forward": "^0.1.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "prettier": "^3.2.5",
+    "sass": "^1.83.1",
+    "sass-loader": "^16.0.1",
+    "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.11",
+    "vite": "^6.0.7",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-stream": "^7.0.0"
+  },
+  "dependencies": {
+    "@hubspot/api-client": "^12.0.1",
+    "@splidejs/splide": "^4.1.4",
+    "@splidejs/splide-extension-auto-scroll": "^0.5.3",
+    "gsap": "npm:@gsap/business",
+    "swiper": "^11.2.10"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.3"
+  }
+}

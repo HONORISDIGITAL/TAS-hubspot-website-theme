@@ -1,0 +1,261 @@
+<!--
+  templateType: none
+-->
+<!doctype html>
+<html lang="{{ html_lang }}" {{ html_lang_dir }}>
+
+<head>
+  <meta charset="utf-8">
+  {% if page_meta.html_title || pageTitle %}<title>{{ page_meta.html_title || pageTitle }}</title>{% endif %}
+  {% if site_settings.favicon_src %}
+  <link rel="shortcut icon" href="{{ site_settings.favicon_src }}" />{% endif %}
+  <meta name="description" content="{{ page_meta.meta_description }}">
+  {{ require_css(get_asset_url("../../css/main.css")) }}
+  {{ standard_header_includes }}
+
+  {% set shades_col = theme.colors.shades %}
+  {% set main_col = theme.colors.main_colors %}
+  {% set function_col = theme.colors.functionnal_colors %}
+
+  {% set typo_1 = theme.typography.primary_font %}
+  {% set typo_2 = theme.typography.secondary_font %}
+  {% set typo_el = theme.typography.html_elements %}
+
+  {% set btn_p = theme.buttons.primary_button %}
+  {% set btn_s = theme.buttons.secondary_button %}
+
+  {% macro get_btn_shadow_color(btn, dark) %}
+    {% if dark %}
+      {% set b_col = btn.background_color_dark %}
+    {% else %}
+      {% set b_col = btn.background_color %}
+    {% endif %}
+
+    {% if b_col == "custom" %}
+      {{ btn.background_custom_color.color ~ "52" }}
+    {% elif b_col == "black" %}
+      {{ shades_col.black.color ~ "52" }}
+    {% elif b_col == "dark_grey" %}
+      {{ shades_col.dark_grey.color ~ "52" }}
+    {% elif b_col == "beige_dark" %}
+      {{ shades_col.beige_dark.color ~ "52" }}
+    {% elif b_col == "beige" %}
+      {{ shades_col.beige.color ~ "52" }}
+    {% elif b_col == "beige_light" %}
+      {{ shades_col.beige_light.color ~ "52" }}
+    {% elif b_col == "white" %}
+      {{ shades_col.white.color ~ "52" }}
+    {% elif b_col == "red" %}
+      {{ main_col.red.color ~ "52" }}
+    {% elif b_col == "red_highlight" %}
+      {{ main_col.red_highlight.color ~ "52" }}
+    {% endif %}
+  {% endmacro %}
+
+  <style>
+    :root{
+      --black: {{ shades_col.black.color }};
+      --dark_grey: {{ shades_col.dark_grey.color }};
+      --beige_dark: {{ shades_col.beige_dark.color }};
+      --beige: {{ shades_col.beige.color }};
+      --beige_light: {{ shades_col.beige_light.color }};
+      --white: {{ shades_col.white.color }};
+      --red: {{ main_col.red.color }};
+      --red_highlight: {{ main_col.red_highlight.color }};
+      --focus_state: {{ function_col.focus_state.color }};
+      --error_state: {{ function_col.error_state.color }};
+      --transparent: transparent;
+
+      --primary_font: {% if typo_1.font_type == "google" %}{{ typo_1.google_font.font }}{% else %}{{ typo_1.custom_font }}{% endif %};
+      --secondary_font: {% if typo_2.font_type == "google" %}{{ typo_2.google_font.font }}{% else %}{{ typo_2.custom_font }}{% endif %};
+
+      --heading_1_classic_font: var(--{{ typo_el.heading_1_classic.font_choice }});
+      --heading_1_classic_color: {% if typo_el.heading_1_classic.font_color == "custom" %}{{ typo_el.heading_1_classic.font_custom_color.color }}{% else %}var(--{{ typo_el.heading_1_classic.font_color }}){% endif %};
+      --heading_1_classic_color_dark: {% if typo_el.heading_1_classic.font_color_dark == "custom" %}{{ typo_el.heading_1_classic.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.heading_1_classic.font_color_dark }}){% endif %};
+      --heading_1_classic_size_desktop: {{ typo_el.heading_1_classic.desktop.font_size }}px;
+      --heading_1_classic_weight_desktop: {{ typo_el.heading_1_classic.desktop.font_weight }};
+      --heading_1_classic_height_desktop: {{ typo_el.heading_1_classic.desktop.line_height }};
+      --heading_1_classic_size_tablet: {{ typo_el.heading_1_classic.tablet.font_size }}px;
+      --heading_1_classic_weight_tablet: {{ typo_el.heading_1_classic.tablet.font_weight }};
+      --heading_1_classic_height_tablet: {{ typo_el.heading_1_classic.tablet.line_height }};
+      --heading_1_classic_size_mobile: {{ typo_el.heading_1_classic.mobile.font_size }}px;
+      --heading_1_classic_weight_mobile: {{ typo_el.heading_1_classic.mobile.font_weight }};
+      --heading_1_classic_height_mobile: {{ typo_el.heading_1_classic.mobile.line_height }};
+
+      --heading_1_highlight_font: var(--{{ typo_el.heading_1_highlight.font_choice }});
+      --heading_1_highlight_color: {% if typo_el.heading_1_highlight.font_color == "custom" %}{{ typo_el.heading_1_highlight.font_custom_color.color }}{% else %}var(--{{ typo_el.heading_1_highlight.font_color }}){% endif %};
+      --heading_1_highlight_color_dark: {% if typo_el.heading_1_highlight.font_color_dark == "custom" %}{{ typo_el.heading_1_highlight.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.heading_1_highlight.font_color_dark }}){% endif %};
+      --heading_1_highlight_size_desktop: {{ typo_el.heading_1_highlight.desktop.font_size }}px;
+      --heading_1_highlight_weight_desktop: {{ typo_el.heading_1_highlight.desktop.font_weight }};
+      --heading_1_highlight_height_desktop: {{ typo_el.heading_1_highlight.desktop.line_height }};
+      --heading_1_highlight_size_tablet: {{ typo_el.heading_1_highlight.tablet.font_size }}px;
+      --heading_1_highlight_weight_tablet: {{ typo_el.heading_1_highlight.tablet.font_weight }};
+      --heading_1_highlight_height_tablet: {{ typo_el.heading_1_highlight.tablet.line_height }};
+      --heading_1_highlight_size_mobile: {{ typo_el.heading_1_highlight.mobile.font_size }}px;
+      --heading_1_highlight_weight_mobile: {{ typo_el.heading_1_highlight.mobile.font_weight }};
+      --heading_1_highlight_height_mobile: {{ typo_el.heading_1_highlight.mobile.line_height }};
+
+      --heading_2_classic_font: var(--{{ typo_el.heading_2_classic.font_choice }});
+      --heading_2_classic_color: {% if typo_el.heading_2_classic.font_color == "custom" %}{{ typo_el.heading_2_classic.font_custom_color.color }}{% else %}var(--{{ typo_el.heading_2_classic.font_color }}){% endif %};
+      --heading_2_classic_color_dark: {% if typo_el.heading_2_classic.font_color_dark == "custom" %}{{ typo_el.heading_2_classic.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.heading_2_classic.font_color_dark }}){% endif %};
+      --heading_2_classic_size_desktop: {{ typo_el.heading_2_classic.desktop.font_size }}px;
+      --heading_2_classic_weight_desktop: {{ typo_el.heading_2_classic.desktop.font_weight }};
+      --heading_2_classic_height_desktop: {{ typo_el.heading_2_classic.desktop.line_height }};
+      --heading_2_classic_size_tablet: {{ typo_el.heading_2_classic.tablet.font_size }}px;
+      --heading_2_classic_weight_tablet: {{ typo_el.heading_2_classic.tablet.font_weight }};
+      --heading_2_classic_height_tablet: {{ typo_el.heading_2_classic.tablet.line_height }};
+      --heading_2_classic_size_mobile: {{ typo_el.heading_2_classic.mobile.font_size }}px;
+      --heading_2_classic_weight_mobile: {{ typo_el.heading_2_classic.mobile.font_weight }};
+      --heading_2_classic_height_mobile: {{ typo_el.heading_2_classic.mobile.line_height }};
+
+      --heading_2_highlight_font: var(--{{ typo_el.heading_2_highlight.font_choice }});
+      --heading_2_highlight_color: {% if typo_el.heading_2_highlight.font_color == "custom" %}{{ typo_el.heading_2_highlight.font_custom_color.color }}{% else %}var(--{{ typo_el.heading_2_highlight.font_color }}){% endif %};
+      --heading_2_highlight_color_dark: {% if typo_el.heading_2_highlight.font_color_dark == "custom" %}{{ typo_el.heading_2_highlight.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.heading_2_highlight.font_color_dark }}){% endif %};
+      --heading_2_highlight_size_desktop: {{ typo_el.heading_2_highlight.desktop.font_size }}px;
+      --heading_2_highlight_weight_desktop: {{ typo_el.heading_2_highlight.desktop.font_weight }};
+      --heading_2_highlight_height_desktop: {{ typo_el.heading_2_highlight.desktop.line_height }};
+      --heading_2_highlight_size_tablet: {{ typo_el.heading_2_highlight.tablet.font_size }}px;
+      --heading_2_highlight_weight_tablet: {{ typo_el.heading_2_highlight.tablet.font_weight }};
+      --heading_2_highlight_height_tablet: {{ typo_el.heading_2_highlight.tablet.line_height }};
+      --heading_2_highlight_size_mobile: {{ typo_el.heading_2_highlight.mobile.font_size }}px;
+      --heading_2_highlight_weight_mobile: {{ typo_el.heading_2_highlight.mobile.font_weight }};
+      --heading_2_highlight_height_mobile: {{ typo_el.heading_2_highlight.mobile.line_height }};
+
+      --heading_3_font: var(--{{ typo_el.heading_3.font_choice }});
+      --heading_3_color: {% if typo_el.heading_3.font_color == "custom" %}{{ typo_el.heading_3.font_custom_color.color }}{% else %}var(--{{ typo_el.heading_3.font_color }}){% endif %};
+      --heading_3_color_dark: {% if typo_el.heading_3.font_color_dark == "custom" %}{{ typo_el.heading_3.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.heading_3.font_color_dark }}){% endif %};
+      --heading_3_size_desktop: {{ typo_el.heading_3.desktop.font_size }}px;
+      --heading_3_weight_desktop: {{ typo_el.heading_3.desktop.font_weight }};
+      --heading_3_height_desktop: {{ typo_el.heading_3.desktop.line_height }};
+      --heading_3_size_tablet: {{ typo_el.heading_3.tablet.font_size }}px;
+      --heading_3_weight_tablet: {{ typo_el.heading_3.tablet.font_weight }};
+      --heading_3_height_tablet: {{ typo_el.heading_3.tablet.line_height }};
+      --heading_3_size_mobile: {{ typo_el.heading_3.mobile.font_size }}px;
+      --heading_3_weight_mobile: {{ typo_el.heading_3.mobile.font_weight }};
+      --heading_3_height_mobile: {{ typo_el.heading_3.mobile.line_height }};
+
+      --heading_4_font: var(--{{ typo_el.heading_4.font_choice }});
+      --heading_4_color: {% if typo_el.heading_4.font_color == "custom" %}{{ typo_el.heading_4.font_custom_color.color }}{% else %}var(--{{ typo_el.heading_4.font_color }}){% endif %};
+      --heading_4_color_dark: {% if typo_el.heading_4.font_color_dark == "custom" %}{{ typo_el.heading_4.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.heading_4.font_color_dark }}){% endif %};
+      --heading_4_size_desktop: {{ typo_el.heading_4.desktop.font_size }}px;
+      --heading_4_weight_desktop: {{ typo_el.heading_4.desktop.font_weight }};
+      --heading_4_height_desktop: {{ typo_el.heading_4.desktop.line_height }};
+      --heading_4_size_tablet: {{ typo_el.heading_4.tablet.font_size }}px;
+      --heading_4_weight_tablet: {{ typo_el.heading_4.tablet.font_weight }};
+      --heading_4_height_tablet: {{ typo_el.heading_4.tablet.line_height }};
+      --heading_4_size_mobile: {{ typo_el.heading_4.mobile.font_size }}px;
+      --heading_4_weight_mobile: {{ typo_el.heading_4.mobile.font_weight }};
+      --heading_4_height_mobile: {{ typo_el.heading_4.mobile.line_height }};
+
+      --paragraph_classic_font: var(--{{ typo_el.paragraph_classic.font_choice }});
+      --paragraph_classic_color: {% if typo_el.paragraph_classic.font_color == "custom" %}{{ typo_el.paragraph_classic.font_custom_color.color }}{% else %}var(--{{ typo_el.paragraph_classic.font_color }}){% endif %};
+      --paragraph_classic_color_dark: {% if typo_el.paragraph_classic.font_color_dark == "custom" %}{{ typo_el.paragraph_classic.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.paragraph_classic.font_color_dark }}){% endif %};
+      --paragraph_classic_size_desktop: {{ typo_el.paragraph_classic.desktop.font_size }}px;
+      --paragraph_classic_weight_desktop: {{ typo_el.paragraph_classic.desktop.font_weight }};
+      --paragraph_classic_height_desktop: {{ typo_el.paragraph_classic.desktop.line_height }};
+      --paragraph_classic_size_tablet: {{ typo_el.paragraph_classic.tablet.font_size }}px;
+      --paragraph_classic_weight_tablet: {{ typo_el.paragraph_classic.tablet.font_weight }};
+      --paragraph_classic_height_tablet: {{ typo_el.paragraph_classic.tablet.line_height }};
+      --paragraph_classic_size_mobile: {{ typo_el.paragraph_classic.mobile.font_size }}px;
+      --paragraph_classic_weight_mobile: {{ typo_el.paragraph_classic.mobile.font_weight }};
+      --paragraph_classic_height_mobile: {{ typo_el.paragraph_classic.mobile.line_height }};
+
+      --paragraph_small_font: var(--{{ typo_el.paragraph_small.font_choice }});
+      --paragraph_small_color: {% if typo_el.paragraph_small.font_color == "custom" %}{{ typo_el.paragraph_small.font_custom_color.color }}{% else %}var(--{{ typo_el.paragraph_small.font_color }}){% endif %};
+      --paragraph_small_color_dark: {% if typo_el.paragraph_small.font_color_dark == "custom" %}{{ typo_el.paragraph_small.font_custom_color_dark.color }}{% else %}var(--{{ typo_el.paragraph_small.font_color_dark }}){% endif %};
+      --paragraph_small_size_desktop: {{ typo_el.paragraph_small.desktop.font_size }}px;
+      --paragraph_small_weight_desktop: {{ typo_el.paragraph_small.desktop.font_weight }};
+      --paragraph_small_height_desktop: {{ typo_el.paragraph_small.desktop.line_height }};
+      --paragraph_small_size_tablet: {{ typo_el.paragraph_small.tablet.font_size }}px;
+      --paragraph_small_weight_tablet: {{ typo_el.paragraph_small.tablet.font_weight }};
+      --paragraph_small_height_tablet: {{ typo_el.paragraph_small.tablet.line_height }};
+      --paragraph_small_size_mobile: {{ typo_el.paragraph_small.mobile.font_size }}px;
+      --paragraph_small_weight_mobile: {{ typo_el.paragraph_small.mobile.font_weight }};
+      --paragraph_small_height_mobile: {{ typo_el.paragraph_small.mobile.line_height }};
+
+      --title_label_font: var(--{{ typo_el.title_label.font_choice }});
+      --title_label_size_desktop: {{ typo_el.title_label.desktop.font_size }}px;
+      --title_label_weight_desktop: {{ typo_el.title_label.desktop.font_weight }};
+      --title_label_height_desktop: {{ typo_el.title_label.desktop.line_height }};
+      --title_label_size_tablet: {{ typo_el.title_label.tablet.font_size }}px;
+      --title_label_weight_tablet: {{ typo_el.title_label.tablet.font_weight }};
+      --title_label_height_tablet: {{ typo_el.title_label.tablet.line_height }};
+      --title_label_size_mobile: {{ typo_el.title_label.mobile.font_size }}px;
+      --title_label_weight_mobile: {{ typo_el.title_label.mobile.font_weight }};
+      --title_label_height_mobile: {{ typo_el.title_label.mobile.line_height }};
+
+
+
+      --btn_p_text_color: {% if btn_p.text_color == "custom" %}{{ btn_p.text_custom_color.color }}{% else %}var(--{{ btn_p.text_color }}){% endif %};
+      --btn_p_text_color_dark: {% if btn_p.text_color_dark == "custom" %}{{ btn_p.text_custom_color_dark.color }}{% else %}var(--{{ btn_p.text_color_dark }}){% endif %};
+      --btn_p_back_color: {% if btn_p.background_color == "custom" %}{{ btn_p.background_custom_color.color }}{% else %}var(--{{ btn_p.background_color }}){% endif %};
+      --btn_p_back_color_dark: {% if btn_p.background_color_dark == "custom" %}{{ btn_p.background_custom_color_dark.color }}{% else %}var(--{{ btn_p.background_color_dark }}){% endif %};
+      --btn_p_padding: {{ btn_p.padding_vertical }}px {{ btn_p.padding_horizontal }}px;
+      --btn_p_vid_padding: calc({{ btn_p.padding_horizontal }}px + 1.75rem);
+      --btn_p_radius: {{ btn_p.border_radius }}px;
+      --btn_p_border: {{ btn_p.border_width }}px solid {% if btn_p.border_color == "custom" %}{{ btn_p.border_custom_color.color }}{% else %}var(--{{ btn_p.border_color }}){% endif %};
+      --btn_p_border_dark: {{ btn_p.border_width }}px solid {% if btn_p.border_color_dark == "custom" %}{{ btn_p.border_custom_color_dark.color }}{% else %}var(--{{ btn_p.border_color_dark }}){% endif %};
+      --btn_p_shadow: {% if btn_p.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_p, false) }}{% else %}none{% endif %};
+      --btn_p_shadow_dark: {% if btn_p.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_p, true) }}{% else %}none{% endif %};
+
+      --btn_p_hover_text_color: {% if btn_p.hover.text_color == "custom" %}{{ btn_p.hover.text_custom_color.color }}{% else %}var(--{{ btn_p.hover.text_color }}){% endif %};
+      --btn_p_hover_text_color_dark: {% if btn_p.hover.text_color_dark == "custom" %}{{ btn_p.hover.text_custom_color_dark.color }}{% else %}var(--{{ btn_p.hover.text_color_dark }}){% endif %};
+      --btn_p_hover_back_color: {% if btn_p.hover.background_color == "custom" %}{{ btn_p.hover.background_custom_color.color }}{% else %}var(--{{ btn_p.hover.background_color }}){% endif %};
+      --btn_p_hover_back_color_dark: {% if btn_p.hover.background_color_dark == "custom" %}{{ btn_p.hover.background_custom_color_dark.color }}{% else %}var(--{{ btn_p.hover.background_color_dark }}){% endif %};
+      --btn_p_hover_padding: {{ btn_p.hover.padding_vertical }}px {{ btn_p.hover.padding_horizontal }}px;
+      --btn_p_vid_hover_padding: calc({{ btn_p.hover.padding_horizontal }}px + 1.75rem);
+      --btn_p_hover_radius: {{ btn_p.hover.border_radius }}px;
+      --btn_p_hover_border: {{ btn_p.hover.border_width }}px solid {% if btn_p.hover.border_color == "custom" %}{{ btn_p.hover.border_custom_color.color }}{% else %}var(--{{ btn_p.hover.border_color }}){% endif %};
+      --btn_p_hover_border_dark: {{ btn_p.hover.border_width }}px solid {% if btn_p.hover.border_color_dark == "custom" %}{{ btn_p.hover.border_custom_color_dark.color }}{% else %}var(--{{ btn_p.hover.border_color_dark }}){% endif %};
+      --btn_p_hover_shadow: {% if btn_p.hover.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_p.hover, false) }}{% else %}none{% endif %};
+      --btn_p_hover_shadow_dark: {% if btn_p.hover.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_p.hover, true) }}{% else %}none{% endif %};
+
+      --btn_s_text_color: {% if btn_s.text_color == "custom" %}{{ btn_s.text_custom_color.color }}{% else %}var(--{{ btn_s.text_color }}){% endif %};
+      --btn_s_text_color_dark: {% if btn_s.text_color_dark == "custom" %}{{ btn_s.text_custom_color_dark.color }}{% else %}var(--{{ btn_s.text_color_dark }}){% endif %};
+      --btn_s_back_color: {% if btn_s.background_color == "custom" %}{{ btn_s.background_custom_color.color }}{% else %}var(--{{ btn_s.background_color }}){% endif %};
+      --btn_s_back_color_dark: {% if btn_s.background_color_dark == "custom" %}{{ btn_s.background_custom_color_dark.color }}{% else %}var(--{{ btn_s.background_color_dark }}){% endif %};
+      --btn_s_padding: {{ btn_s.padding_vertical }}px {{ btn_s.padding_horizontal }}px;
+      --btn_s_vid_padding: calc({{ btn_s.padding_horizontal }}px + 1.75rem);
+      --btn_s_radius: {{ btn_s.border_radius }}px;
+      --btn_s_border: {{ btn_s.border_width }}px solid {% if btn_s.border_color == "custom" %}{{ btn_s.border_custom_color.color }}{% else %}var(--{{ btn_s.border_color }}){% endif %};
+      --btn_s_border_dark: {{ btn_s.border_width }}px solid {% if btn_s.border_color_dark == "custom" %}{{ btn_s.border_custom_color_dark.color }}{% else %}var(--{{ btn_s.border_color_dark }}){% endif %};
+      --btn_s_shadow: {% if btn_s.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_s, false) }}{% else %}none{% endif %};
+      --btn_s_shadow_dark: {% if btn_s.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_s, true) }}{% else %}none{% endif %};
+      
+      --btn_s_hover_text_color: {% if btn_s.hover.text_color == "custom" %}{{ btn_s.hover.text_custom_color.color }}{% else %}var(--{{ btn_s.hover.text_color }}){% endif %};
+      --btn_s_hover_text_color_dark: {% if btn_s.hover.text_color_dark == "custom" %}{{ btn_s.hover.text_custom_color_dark.color }}{% else %}var(--{{ btn_s.hover.text_color_dark }}){% endif %};
+      --btn_s_hover_back_color: {% if btn_s.hover.background_color == "custom" %}{{ btn_s.hover.background_custom_color.color }}{% else %}var(--{{ btn_s.hover.background_color }}){% endif %};
+      --btn_s_hover_back_color_dark: {% if btn_s.hover.background_color_dark == "custom" %}{{ btn_s.hover.background_custom_color_dark.color }}{% else %}var(--{{ btn_s.hover.background_color_dark }}){% endif %};
+      --btn_s_hover_padding: {{ btn_s.hover.padding_vertical }}px {{ btn_s.hover.padding_horizontal }}px;
+      --btn_s_vid_hover_padding: calc({{ btn_s.hover.padding_horizontal }}px + 1.75rem);
+      --btn_s_hover_radius: {{ btn_s.hover.border_radius }}px;
+      --btn_s_hover_border: {{ btn_s.hover.border_width }}px solid {% if btn_s.hover.border_color == "custom" %}{{ btn_s.hover.border_custom_color.color }}{% else %}var(--{{ btn_s.hover.border_color }}){% endif %};
+      --btn_s_hover_border_dark: {{ btn_s.hover.border_width }}px solid {% if btn_s.hover.border_color_dark == "custom" %}{{ btn_s.hover.border_custom_color_dark.color }}{% else %}var(--{{ btn_s.hover.border_color_dark }}){% endif %};
+      --btn_s_hover_shadow: {% if btn_s.hover.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_s.hover, false) }}{% else %}none{% endif %};
+      --btn_s_hover_shadow_dark: {% if btn_s.hover.shadow %}0 4px 16px 0 {{ get_btn_shadow_color(btn_s.hover, true) }}{% else %}none{% endif %};
+    }
+  </style>
+</head>
+
+<body>
+  <div class="body-wrapper {{ is_in_hs_app ? '' : 'gsap-global-start' }} {{ builtin_body_classes }}">
+    {% block header %}
+    {% module "header" path="../../modules/header", label="Header" %}
+    {% endblock header %}
+
+    <main id="main-content" class="body-container-wrapper">
+      {% block body %}
+      {% endblock body %}
+    </main>
+
+    {% block footer %}
+    {% module "footer" path="../../modules/footer", label="Footer" %}
+    {% endblock footer %}
+  </div>
+  <!-- Dependencies Import -->
+  {{ require_js(get_asset_url("../../js/dependencies.js")) }}
+  {{ require_js(get_asset_url("../../js/main.js")) }}
+  {{ standard_footer_includes }}
+</body>
+
+</html>

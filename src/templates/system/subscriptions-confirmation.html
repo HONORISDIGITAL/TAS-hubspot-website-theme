@@ -1,0 +1,26 @@
+<!--
+  templateType: email_subscriptions_confirmation_page
+  isAvailableForNewContent: true
+  label: The animation school - Email Subscriptions Confirmation
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Confirm subscriptions" %}
+
+{% block body %}
+<section class="form-page" data-form="subscriptions-confirmation">
+  <div class="container">
+    <div class="wrapper">
+      <div class="form-container">
+        {% email_subscriptions_confirmation "email_subscriptions_confirmation"
+          label="Subscriptions Update Confirmation",
+          unsubscribe_all_success="You have successfully unsubscribed from all email communications.",
+          subscription_update_success="You have successfully updated your email preferences.",
+          subheader_text="\n    If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.\n"
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}

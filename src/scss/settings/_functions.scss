@@ -1,0 +1,70 @@
+// COLORS
+// colors are taken from the hubspot theme and called as css variables directly, no need for scss variables
+
+//FONTS
+// same for the fonts
+
+// CONTAINER
+$container: 1280px;
+
+// MOBILES
+$mobile-s: 320px;
+$mobile-m: 450px;
+$mobile-l: 520px;
+// TABLETS
+$tablet-s: 620px;
+$tablet-m: 768px;
+$tablet-l: 950px;
+// DESKTOPS
+$laptop: 1024px;
+$desktop: 1440px;
+
+//SIZES BREAKPOINT
+$size1: 1280px;
+$size2: 992px;
+$size3: 768px;
+$size4: 425px;
+$size5: 320px;
+
+// EASE
+$ease1: cubic-bezier(.55,0,.15,.6); // Start : Slow / End : Fast
+$ease2: cubic-bezier(.16,1.08,.38,.98); // Start : Fast / End : Normal
+$ease3: cubic-bezier(0, 0.55, 0.45, 1); // Start : Fast / End : Slow
+$ease4: cubic-bezier(0.25, 1, 0.5, 1); // Start : Fast / End : Slow
+
+/*
+| REM      | PX    |
+|----------|-------|
+| 0.5rem   | 8px   |
+| 0.75rem  | 12px  |
+| 0.875rem | 14px  |
+| 1rem     | 16px  |
+| 1.25rem  | 20px  |
+| 1.5rem   | 24px  |
+| 1.75rem  | 28px  |
+| 2rem     | 32px  |
+| 2.25rem  | 36px  |
+| 2.5rem   | 40px  |
+| 2.75rem  | 44px  |
+| 3rem     | 48px  |
+| 3.25rem  | 52px  |
+| 3.5rem   | 56px  |
+| 3.75rem  | 60px  |
+| 4rem     | 64px  |
+| 4.5rem   | 72px  |
+| 5rem     | 80px  |
+| 5.5rem   | 88px  |
+| 6rem     | 96px  |
+| 6.5rem   | 104px |
+| 7rem     | 112px |
+| 7.5rem   | 120px |
+| 8rem     | 128px |
+| 8.5rem   | 136px |
+| 9rem     | 144px |
+| 9.5rem   | 152px |
+| 10rem    | 160px |
+| 10.5rem  | 168px |
+| 11rem    | 176px |
+| 11.5rem  | 184px |
+| 12rem    | 192px |
+*/

@@ -1,0 +1,23 @@
+<!--
+  templateType: error_page
+  isAvailableForNewContent: true
+  label: The animation school - 404 error
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Error 404 | Page not found" %}
+
+{% block body %}
+<section class="error-page" data-error="404">
+  <div class="container">
+    <div class="wrapper">
+      <p class="error-type">404</p>
+      <p class="h4">You are lost</p>
+      <p>Whoops ! Looks like you followed a wrong link. To get there, please click below.</p>
+      
+      <a class="btn primary" href="/"><span data-text="Go to homepage">Go to homepage</span></a>
+    </div>
+  </div>
+</section>
+{% endblock body %}

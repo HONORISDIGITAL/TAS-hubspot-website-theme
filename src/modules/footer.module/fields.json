@@ -1,0 +1,266 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "name": "logo_block",
+        "label": "Logo block",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "logo",
+                "label": "Logo",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/180x100",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    },
+    {
+        "name": "socials",
+        "label": "Socials",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": null,
+        "max": null,
+        "sorting_label_field": null,
+        "default": null
+        },
+        "children": [
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            },
+            {
+                "name": "icon",
+                "label": "Icon",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "Use a PNG or SVG with transparent background",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/15",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    },
+    {
+        "name": "info_cards",
+        "label": "Info cards",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "inline_help_text": "",
+        "help_text": "",
+        "occurrence": {
+            "min": null,
+            "max": null,
+            "sorting_label_field": null,
+            "default": 1
+        },
+        "default": ["<p><strong>Cape Town Campus</strong></p><p>+27 21 461 0822</p><p>apply-cpt@theanimationschool.co.za</p><p>42 Searle Street, Woodstock</p>"]
+    },
+    {
+        "name": "links_columns",
+        "label": "Links columns",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": 1,
+        "max": null,
+        "sorting_label_field": null,
+        "default": 1
+        },
+        "children": [
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Courses/programs"
+            },
+            {
+                "name": "links",
+                "label": "Links",
+                "required": false,
+                "locked": false,
+                "occurrence": {
+                "min": 1,
+                "max": null,
+                "sorting_label_field": null,
+                "default": 1
+                },
+                "children": [
+                    {
+                        "name": "text",
+                        "label": "Text",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Diploma in Digital Animation"
+                    },
+                    {
+                        "name" : "link",
+                        "label" : "Link",
+                        "required" : false,
+                        "locked" : false,
+                        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                        "type" : "link",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default" : {
+                            "url" : {
+                                "content_id" : null,
+                                "type" : "EXTERNAL",
+                                "href" : "/"
+                            },
+                            "open_in_new_tab" : false,
+                            "no_follow" : false
+                        }
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": []
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    },
+    {
+        "name": "legal_texts",
+        "label": "Legal texts",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": 1,
+        "max": null,
+        "sorting_label_field": null,
+        "default": 1
+        },
+        "children": [
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Copyright © 2025 the animation school"
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : ""
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]

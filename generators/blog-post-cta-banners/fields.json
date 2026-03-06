@@ -1,0 +1,239 @@
+[
+    {
+        "name": "cta_banners",
+        "label": "CTA Banner(s)",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": null,
+        "max": null,
+        "sorting_label_field": null,
+        "default": null
+        },
+        "children": [
+            {
+                "name": "module_identity",
+                "label": "Module ID",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text"
+            },
+            {
+                "name": "title",
+                "label": "Title",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "content",
+                        "label": "Content",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Lorem ipsum sit amet"
+                    },
+                    {
+                        "name": "type",
+                        "label": "Type",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "Level of the title (for SEO)",
+                        "help_text": "",
+                        "choices": [
+                            [
+                            "h1",
+                            "Title 1"
+                            ],
+                            [
+                            "h2",
+                            "Title 2"
+                            ],
+                            [
+                            "h3",
+                            "Title 3"
+                            ],
+                            [
+                            "h4",
+                            "Title 4"
+                            ],
+                            [
+                            "h5",
+                            "Title 5"
+                            ],
+                            [
+                            "h6",
+                            "Title 6"
+                            ],
+                            [
+                            "p",
+                            "Paragraph"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "h3"
+                    },
+                    {
+                        "name": "style",
+                        "label": "Style",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "Style of the title (for design)",
+                        "help_text": "",
+                        "choices": [
+                            [
+                            "h1",
+                            "Title 1"
+                            ],
+                            [
+                            "h2",
+                            "Title 2"
+                            ],
+                            [
+                            "h3",
+                            "Title 3"
+                            ],
+                            [
+                            "h4",
+                            "Title 4"
+                            ],
+                            [
+                            "h5",
+                            "Title 5"
+                            ],
+                            [
+                            "h6",
+                            "Title 6"
+                            ],
+                            [
+                            "p",
+                            "Paragraph"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "h3"
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Vestibulum tincidunt dui justo, non euismod felis pellentesque quis. Curabitur ornare nisl."
+            },
+            {
+                "name": "cta",
+                "label": "CTA",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "text",
+                        "label": "Text",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "This is a button"
+                    },
+                    {
+                        "name" : "link",
+                        "label" : "Link",
+                        "required" : false,
+                        "locked" : false,
+                        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                        "type" : "link",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default" : {
+                            "url" : {
+                                "content_id" : null,
+                                "type" : "EXTERNAL",
+                                "href" : "/"
+                            },
+                            "open_in_new_tab" : false,
+                            "no_follow" : false
+                        }
+                    },
+                    {
+                        "name": "style",
+                        "label": "Style",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "choices": [
+                            [
+                            "primary",
+                            "Primary"
+                            ],
+                            [
+                            "secondary",
+                            "Secondary"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "primary"
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            },
+            {
+                "name": "image",
+                "label": "Image",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/290x200",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]

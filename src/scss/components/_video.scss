@@ -1,0 +1,36 @@
+@use './../settings/functions' as *;
+
+.hs-video-widget {
+    position: relative;
+
+    .hsvideo-play-icon{
+        position: absolute;
+        pointer-events: none;
+        width: calc(16% + 1px);
+        height: auto;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #2954ff;
+        z-index: 1;
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::after{
+            content: "\f691";
+            font-size: 4vw;
+            color: #fff;
+            font-family: "tabler-icons" !important;
+        }
+    }
+
+    &[data-hsv-status="playing"] + .hsvideo-play-icon{
+        opacity: 0;
+        transition-delay: 0.3s;
+        transition: opacity 0.3s ease-in-out;
+    }
+}

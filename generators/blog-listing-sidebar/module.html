@@ -1,0 +1,83 @@
+<div {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="blog-listing-sidebar-module">
+    {% set art = module.articles %}
+    {% set soc = module.socials %}
+    {% set new = module.newsletter %}
+
+    <div class="wrapper-articles">
+        <p class="h3">{{ art.title }}</p>
+
+        {% if art.articles_type == "recent" %}
+            {% set posts = blog_recent_posts(art.blog, art.number) %}
+        {% elif art.articles_type == "tag" %}
+            {% set selected_tags = [] %}
+            {% for item in art.tags %}
+                {% do selected_tags.append(item.tag) %}
+            {% endfor %}
+            {% set posts = blog_recent_tag_posts(art.blog, selected_tags, art.number) %}
+        {% elif art.articles_type == "popular" %}
+            {% set posts = blog_popular_posts(art.blog, art.number, art.timeframe) %}
+        {% elif art.articles_type == "popular_tag" %}
+            {% set selected_tags = [] %}
+            {% for item in art.tags %}
+                {% do selected_tags.append(item.tag) %}
+            {% endfor %}
+            {% set posts = blog_popular_posts(art.blog, art.number, selected_tags, art.timeframe) %}
+        {% elif art.articles_type == "manual" %}
+            {% set articles = [] %}
+            {% for item in art.manual %}
+                {% do articles.append(item.article) %}
+            {% endfor %}
+            {% set posts = content_by_ids(articles) %}
+        {% endif %}
+
+        <div class="posts">
+            {% for post in posts %}
+                <a class="post" href="{{ post.absolute_url }}">
+                    <div class="wrapper-info">
+                        {% if post.tag_list|length > 0 %}
+                            <div class="tags">
+                                {% for tag in post.tag_list %}
+                                    <p class="tag">{{ tag.name }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if post.publish_date %}
+                            {% set publish_format = post.publish_date|format_date('dd/MM/yyyy') %}
+                            <p class="publish">{{ publish_format }}</p>
+                        {% endif %}
+                    </div>
+
+                    {% if post.title %}
+                        <h5 class="title">{{ post.title }}</h5>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="wrapper-social">
+        <p class="title">{{ soc.title }}</p>
+
+        <div class="socials">
+            {% for item in soc.icons %}
+                {% if item.link.url.href %}
+                    <a class="social {{ item.icon }}" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}></a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="wrapper-newsletter">
+        <p class="h3">{{ new.title }}</p>
+        <p class="text">{{ new.text }}</p>
+        {% form
+            form_to_use="{{ new.form.form_id }}"
+            response_response_type="{{ new.form.response_type }}"
+            response_message="{{ new.form.message }}"
+            response_redirect_id="{{ new.form.redirect_id }}"
+            response_redirect_url="{{ new.form.redirect_url}}"
+            gotowebinar_webinar_key="{{ new.form.gotowebinar_webinar_key }}"
+        %}
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="faq" class="faq-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>    
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
+                {% if module.title_label %}
+                    <p class="label">{{ module.title_label }}</p>
+                {% endif %}
+                <div class="richtext">{{ module.content }}</div>
+                {% if module.buttons %}
+                    <div class="buttons">
+                        {% for item in module.buttons %}
+                            {% if item.button_link.url.href && item.button_type == 'link' %}
+                                <a class="btn {{item.button_style}}" role="button"
+                                    href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                    {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                        item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                    <span data-text="{{ item.button_text }}">{{item.button_text}}</span>
+                                </a>
+                            {% elif item.button_type == 'cta' %}
+                                {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if module.accordions|length > 0 %}
+			<div class="accordions" data-gsap-id="gsap-faq-mod" role="tablist" aria-label="FAQ List">
+				{% for item in module.accordions %}
+					<div class="accordion gsap-animation-target" data-gsap-parent-id="gsap-faq-mod" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}">
+						<div class="accordion-title" role="tab" aria-controls="tab-faq-{{loop.index}}" aria-expanded="false" tabindex="0">
+							<p class="title">{{item.title}}</p>
+						</div>
+						<div class="accordion-content" role="tabpanel" id="tab-faq-{{loop.index}}" {% if !item.image.src %} style="padding-left: 0" {% endif %}>
+							{{item.richtext}}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+    </div>
+</section>

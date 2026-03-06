@@ -1,0 +1,19 @@
+{% for item in module.cta_banners %}
+    <section id="{{ item.module_identity }}" class="blog-post-cta-banners-module">
+        <div class="card">
+            <div class="text-content">
+                <{{ item.title.type }} class="title {{ item.title.style }}">{{ item.title.content }}</{{ item.title.type }}>
+                <p class="text">{{ item.text }}</p>
+                {% if item.cta.link.url.href %}
+                    <a class="btn btn-{{ item.cta.style }}" href="{{ item.cta.link.url.href }}"{% if item.cta.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.cta.text }}">{{ item.cta.text }}</span></a>
+                {% endif %}
+            </div>
+
+            {% if item.image.src %}
+                <figure class="image">
+                    <img loading="lazy" width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                </figure>
+            {% endif %}
+        </div>
+    </section>
+{% endfor %}

@@ -1,0 +1,11 @@
+{
+  "label": "The animation school",
+  "author": {
+    "name": "Make the Grade Team",
+    "email": "support@makethegrade.fr",
+    "url": "https://www.makethegrade.fr/"
+  },
+  "preview_path": "./templates/page/multi-purpose.html",
+  "screenshot_path": "./images/theme-preview/boilerplate.png",
+  "enable_domain_stylesheets": false
+}

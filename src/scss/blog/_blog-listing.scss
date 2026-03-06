@@ -1,0 +1,71 @@
+@use './../settings/functions' as *;
+.blog-listing-template{
+
+    @media screen and (max-width: $size3) {
+        padding: 5rem 0rem;
+    }
+    .wrapper-hero-tag{
+        margin-bottom: 5rem;
+        div.container{
+            h1{
+                text-align: center;
+            }
+        }
+    }
+    .wrapper-tags{
+        width: 100%;
+        margin-bottom: 3rem;
+        .container{
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            a.tag{
+                background-color: var(--black);
+                font-size:1rem;
+                padding:0.75rem 1rem;
+                &:hover{
+                    background-color: var(--black);
+                }
+            }
+        }
+    }
+    .wrapper-blog-listing{
+        .container{
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            @media screen and (max-width: $size2) {
+                flex-direction: column;
+            }
+            > .posts{
+                width: calc(100% / 3 * 2 - 1rem);
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+                flex-wrap: wrap;
+                @media screen and (max-width: $size2) {
+                    width: 100%;
+                    order: 2;
+                }
+                @media screen and (max-width: $size3) {
+                    flex-direction: column;
+                }
+                article{
+                    width: calc(50% - 1rem);
+                    @media screen and (max-width: $size3) {
+                        width:100%;
+                    }
+                }    
+            }
+            .sidebar{
+                width: calc(100% / 3 - 1rem);
+                @media screen and (max-width: $size2) {
+                    width: 100%;
+                    order: 1;
+                }
+            }
+        }
+    }
+}

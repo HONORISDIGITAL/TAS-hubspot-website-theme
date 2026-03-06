@@ -1,0 +1,29 @@
+<!--
+  templateType: email_subscription_preferences_page
+  isAvailableForNewContent: true
+  label: The animation school - Email Subscription Preferences
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Subscription preferences" %}
+
+{% block body %}
+<section class="form-page" data-form="subscriptions-preferences">
+  <div class="container">
+    <div class="wrapper">
+      <div class="form-container">
+        {% email_subscriptions "email_subscriptions"
+          resubscribe_button_text="Yes, resubscribe me!",
+          unsubscribe_single_text="Uncheck the types of emails you do not want to receive:",
+          subheader_text="\n    If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.\n",
+          unsubscribe_all_unsubbed_text="You are presently unsubscribed from all of our emails. Would you like to receive our emails again?",
+          button_text="Update email preferences", label="Subscription Preferences", header="Communication Preferences",
+          unsubscribe_all_option="Unsubscribe me from all mailing lists.",
+          unsubscribe_all_text="Or check here to never receive any emails:"
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}

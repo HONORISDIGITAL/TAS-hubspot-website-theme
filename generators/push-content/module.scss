@@ -1,0 +1,200 @@
+@use '../../scss/settings/functions' as *;
+section.push-content-module{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background-color: $color4;
+    div.container{
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+
+        @media screen and (max-width: $size3) {
+        gap:2rem;
+        }
+
+        .wrapper-top{
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            gap:1rem;
+
+            .wrapper-content{
+                max-width: $size3;
+            }
+
+            .wrapper-buttons{
+                width: fit-content;
+            }
+
+            @media(max-width:$size3){
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+        .wrapper-posts{
+            display:flex;
+            flex-wrap: wrap;
+            gap:2rem;
+            
+            @media(max-width:$size4){
+                flex-direction: column;
+            }
+
+            &.splide{
+                width: 100%;
+                gap: 0;
+                position: relative;
+
+                .splide__arrows{
+                    .splide__arrow{
+                        position: absolute;
+                        top: calc(50% - 24px);
+                        z-index: 2;
+                        width: 48px;
+                        height: 48px;
+                        background-color: $color3;
+                        border-radius: 50%;
+                        padding: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        visibility: visible;
+                        opacity: 1;
+                        transition: $ease3 0.3s;
+                        &.splide__arrow--prev{
+                            left: 0;
+                        }
+                        &.splide__arrow--next{
+                            right: 0;
+                        }
+                        svg{
+                            path{
+                                fill: $color5;
+                            }
+                        }
+                        &:disabled{
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+                    }
+                }
+                .splide__track{
+                    width: 100%;
+                    overflow: visible;
+                    .splide__slide{
+                        article{
+                            width: 100%;
+                        }
+                        @media (max-width:$size4){
+                            width: 280px !important;
+                            margin-right: 16px !important;
+                        }
+                    }
+                }                
+            }
+
+            article{
+                background-color: $color5;
+                border-radius: 0.5rem;
+                width:calc(100% / 3 - 4rem / 3);
+                border: 1px solid $color5;
+                transition: $ease3 0.3s;
+                @media(max-width:$size2){
+                    width:calc(100% / 2 - 1rem);
+                }
+                @media(max-width:$size4){
+                    width:100%;
+                }
+                &:hover{
+                    border: 1px solid $color6;
+                    .wrapper-image{
+                        a{
+                            figure{
+                                img{
+                                    transform: scale(1.05);
+                                }
+                            }
+                        }
+                    }
+                }
+                .wrapper-image{
+                    height:235px;
+                    width:100%;
+                    position: relative;
+                    .picture{
+                        width:100%;
+                        height:100%;
+                        display:block;
+                        padding:1rem 1rem 0rem 1rem;
+                        figure{
+                            border-radius: 0.25rem;
+                            overflow: hidden;
+                            img{
+                                transition: 0.5s;
+                            }
+                        }
+                    }
+                    .tags{
+                        left:24px;
+                        bottom:8px;
+                        position: absolute;
+                    }
+                }
+                .wrapper-text{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding:1rem 1rem 1rem 1rem;
+                    gap:1rem 0rem;
+                    min-height:calc(100% - 235px);
+                    .infos{
+                        display:flex;
+                        gap:1rem;
+
+                        span{
+                            position: relative;
+                            font-size:14px;
+                            line-height: 21px;
+                            font-weight: 600;
+
+                            &.time{
+                                white-space: nowrap;
+                            }
+
+                            &:not(:last-of-type){
+                                padding-right:1.5rem;
+                                &:after{
+                                    display:block;
+                                    content:'';
+                                    position: absolute;
+                                    right:0px;
+                                    height:4px;
+                                    width:4px;
+                                    background-color: $color2;
+                                    border-radius: 50%;
+                                    top:9px;
+                                }
+                            }
+                            
+                        }
+                    }
+                    .title{
+                        font-size:20px;
+                        font-weight: 500;
+                        font-family: $font2;
+                        margin:0px;
+                    }
+                    .btn{
+                        margin-top: auto;
+                    }
+                }
+            }
+            &-2{
+                article{
+                    width:calc(100% / 2 - 1rem);
+                }
+            }
+        }
+    }
+}

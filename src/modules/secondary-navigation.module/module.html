@@ -1,0 +1,19 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="secondary-navigation" class="secondary-navigation-module">
+    <div class="container">
+        <div class="content-wrapper">
+            {% for item in module.links %}
+                {% if item.link.url.href %}
+                    <a class="link" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.text }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if module.cta.cta_type == "classic" %}
+                {% if module.cta.link.url.href %}
+                    <a class="btn {{ module.cta.style }}" href="{{ module.cta.link.url.href }}"{% if module.cta.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ module.cta.text }}">{{ module.cta.text }}</span></a>
+                {% endif %}
+            {% else %}
+                {% cta "cta" label='Select a CTA', guid='{{ module.cta.cta }}' %}
+            {% endif %}
+        </div>
+    </div>
+</section>

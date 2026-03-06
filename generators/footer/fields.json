@@ -1,0 +1,300 @@
+[
+  {
+    "name": "module_identity",
+    "label": "Module ID",
+    "required": false,
+    "locked": false,
+    "validation_regex": "",
+    "allow_new_line": false,
+    "show_emoji_picker": false,
+    "type": "text"
+  },
+  {
+    "name": "content_top",
+    "label": "Content Top",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "name": "title",
+        "label": "Title",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "validation_error_message": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text",
+        "placeholder": "",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "We're recognized by experts"
+      },
+      {
+        "name": "wrapper_logos",
+        "label": "Logo(s)",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+          "min": null,
+          "max": 3,
+          "sorting_label_field": null,
+          "default": 3
+        },
+        "children": [
+          {
+            "name": "image",
+            "label": "Logo",
+            "required": false,
+            "locked": false,
+            "inline_help_text": "",
+            "help_text": "",
+            "responsive": true,
+            "resizable": false,
+            "show_loading": false,
+            "type": "image",
+            "default": {
+              "size_type": "auto",
+              "src": "https://placehold.co/140x55",
+              "alt": "Example of an image used in your module",
+              "loading": "disabled"
+            }
+          }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+      }
+    ],
+    "type": "group",
+    "inline_help_text": "",
+    "help_text": "",
+    "default": {}
+  },
+  {
+    "name": "content_menu",
+    "label": "Content Menu",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "name": "content_informations",
+        "label": "Content Informations",
+        "required": false,
+        "locked": false,
+        "children": [
+          {
+            "name": "wrapper_logo",
+            "label": "Logo",
+            "required": false,
+            "locked": false,
+            "children": [
+              {
+                "name": "image",
+                "label": "Image",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading": false,
+                "type": "image",
+                "default": {
+                  "size_type": "auto",
+                  "src": "https://placehold.co/180x30",
+                  "alt": "Example of an image used in your module",
+                  "loading": "disabled"
+                }
+              },
+              {
+                "name": "link",
+                "label": "Link",
+                "required": false,
+                "locked": false,
+                "supported_types": ["EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG"],
+                "type": "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {
+                  "url": {
+                    "content_id": null,
+                    "type": "EXTERNAL",
+                    "href": ""
+                  },
+                  "open_in_new_tab": false,
+                  "no_follow": false
+                }
+              }
+            ],
+            "type": "group",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": {}
+          },
+          {
+            "name": "text",
+            "label": "Informations",
+            "required": false,
+            "locked": false,
+            "type": "richtext",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>"
+          },
+          {
+            "name": "logo_partner",
+            "label": "Logo partner",
+            "required": false,
+            "locked": false,
+            "inline_help_text": "",
+            "help_text": "",
+            "responsive": true,
+            "resizable": false,
+            "show_loading": false,
+            "type": "image",
+            "default": {
+              "size_type": "auto",
+              "src": "https://placehold.co/170x50",
+              "alt": "Example of an image used in your module",
+              "loading": "disabled"
+            }
+          }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+      },
+      {
+        "name": "menu",
+        "label": "Menu",
+        "required": false,
+        "locked": false,
+        "inline_help_text": "",
+        "help_text": "",
+        "type": "menu",
+        "placeholder": "",
+        "default": null 
+      }
+    ],
+    "type": "group",
+    "inline_help_text": "",
+    "help_text": "",
+    "default": {}
+  },
+  {
+    "name": "content_bottom",
+    "label": "Content Bottom",
+    "required": false,
+    "locked": false,
+    "children": [
+      {
+        "name": "wrapper_copyright",
+        "label": "Copyright",
+        "required": false,
+        "locked": false,
+        "children": [
+          {
+          "name": "is_visible",
+          "label": "Is visible",
+          "required": false,
+          "locked": false,
+          "type": "boolean",
+          "inline_help_text": "",
+          "help_text": "",
+          "default": true },
+          {
+          "name": "website_name",
+          "label": "Website name",
+          "required": false,
+          "locked": false,
+          "validation_regex": "",
+          "validation_error_message": "",
+          "allow_new_line": false,
+          "show_emoji_picker": false,
+          "type": "text",
+          "placeholder": "Website name",
+          "inline_help_text": "",
+          "help_text": "",
+          "default": "Website name" }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {} 
+      },
+      {
+        "name": "menu",
+        "label": "Menu",
+        "required": false,
+        "locked": false,
+        "inline_help_text": "",
+        "help_text": "",
+        "type": "menu",
+        "placeholder": "",
+        "default": null 
+      },
+      {
+        "name": "wrapper_socials",
+        "label": "Social Logo(s)",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+          "min": null,
+          "max": null,
+          "sorting_label_field": null,
+          "default": 5
+        },
+        "children": [
+          {
+            "name": "image",
+            "label": "Image",
+            "required": false,
+            "locked": false,
+            "inline_help_text": "",
+            "help_text": "",
+            "responsive": true,
+            "resizable": false,
+            "show_loading": false,
+            "type": "image",
+            "default": {
+              "size_type": "auto",
+              "src": "https://placehold.co/35x35",
+              "alt": "Example of an image used in your module",
+              "loading": "disabled"
+            }
+          },
+          {
+            "name": "link",
+            "label": "Link",
+            "required": false,
+            "locked": false,
+            "supported_types": ["EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG"],
+            "type": "link",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": {
+              "url": {
+                "content_id": null,
+                "type": "EXTERNAL",
+                "href": ""
+              },
+              "open_in_new_tab": false,
+              "no_follow": false
+            }
+          }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+      }
+    ],
+    "type": "group",
+    "inline_help_text": "",
+    "help_text": "",
+    "default": {}
+  }
+]

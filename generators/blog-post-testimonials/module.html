@@ -1,0 +1,30 @@
+{% for item in module.testimonials %}
+    <section id="{{ item.module_identity }}" class="blog-post-testimonials-module">
+        <div class="card">
+            <div class="quote">
+                {{ item.quote }}
+            </div>
+
+            <div class="info">
+                <div class="author">
+                    {% if item.author.image.src %}
+                        <figure class="image">
+                            <img loading="lazy" width="60" height="60" src="{{ item.author.image.src }}" alt="{{ item.author.image.alt }}">
+                        </figure>
+                    {% endif %}
+
+                    <div class="text-content">
+                        <p class="h5">{{ item.author.author_name }}</p>
+                        <p>{{ item.author.position }}</p>
+                    </div>
+                </div>
+
+                {% if item.logo.src %}
+                    <figure class="logo">
+                        <img loading="lazy" width="{{ item.logo.width }}" height="{{ item.logo.height }}" src="{{ item.logo.src }}" alt="{{ item.logo.alt }}">
+                    </figure>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endfor %}

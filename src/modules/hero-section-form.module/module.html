@@ -1,0 +1,53 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="hero-section-form" class="hero-section-form-module colorful-background color-1-flip dark-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="visual-noise"></div>
+    
+    <div class="container" data-gsap-id="gsap-hero-section-form-mod">
+        <div class="content">
+            <div class="richtext gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-form-mod">{{ module.content }}</div>
+            {% if module.items %}
+                <ul class="list-items gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-form-mod" data-gsap-delay="0.2">
+                    {% for item in module.items %}
+                        <li>
+                            {% if item.pictogram.src %}
+                                <figure>
+                                    <img src="{{ item.pictogram.src }}" alt="{{ item.pictogram.alt }}" width="{{ item.pictogram.width }}" height="{{ item.pictogram.height }}">
+                                </figure>
+                            {% endif %}
+                            <span>{{ item.text }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if module.buttons %}
+                <div class="buttons gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-form-mod" data-gsap-delay="0.4">
+                    {% for item in module.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span data-text="{{ item.button_text }}">{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-wrapper gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if  module.form.form_title %}
+                <h3>{{ module.form.form_title }}</h3>
+            {% endif %}
+            {% form
+                form_to_use="{{ module.form.form.form_id }}"
+                response_response_type="{{ module.form.form.response_type }}"
+                response_message="{{ module.form.form.message }}"
+                response_redirect_id="{{ module.form.form.redirect_id }}"
+                response_redirect_url="{{ module.form.form.redirect_url}}"
+                gotowebinar_webinar_key="{{ module.form.form.gotowebinar_webinar_key }}"
+            %}
+        </div>  
+    </div>
+</section>

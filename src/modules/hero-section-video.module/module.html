@@ -1,0 +1,69 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="hero-section-video" class="hero-section-video-module dark-mode">
+    <div class="visual-noise"></div>
+
+    <figure class="timeline-image">
+        <img loading="lazy" width="2500" height="345" src="https://146037018.fs1.hubspotusercontent-eu1.net/hubfs/146037018/website-2025-the-animation-school/timeline-xl.svg">
+    </figure>
+
+    <div class="light-block"></div>
+
+    <div class="container">
+        <div class="content" data-gsap-id="gsap-hero-section-video-mod">
+            <div class="richtext title gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-video-mod">{{ module.title }}</div>
+
+            <div class="text-content">
+                <div class="richtext text gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-video-mod" data-gsap-delay="0.2">{{ module.text }}</div>
+
+                {% if module.cta|length > 0 %}
+                    <div class="ctas">
+                        {% for item in module.cta %}
+                            {% if item.cta_type == "classic" %}
+                                {% if item.link.url.href %}
+                                    <a class="btn {{ item.style }} gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index + 1) * 0.2 }}" data-gsap-parent-id="gsap-hero-section-mod" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.text }}">{{ item.text }}</span></a>
+                                {% endif %}
+                            {% else %}
+                                {% cta "cta" label='Select a CTA', guid='{{ item.cta }}' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="video-wrapper gsap-animation-target" data-gsap-direction="bottom-top">
+            <button class="btn primary open-video-popup video-btn" type="button"><span data-text="{{ module.video_button_text }}">{{ module.video_button_text }}</span></button>
+
+            <video class="video-preview" width="1280" height="720" autoplay muted playsinline loop>
+                <source src="{{ module.video_preview }}" />
+            </video>
+        </div>
+    </div>
+</section>
+
+<div class="hero-video-popup">
+    <div class="background"></div>
+
+    {% if module.video_link is containing "?v=" %}
+        {% set video_href = module.video_link|split("?v=") %}
+    {% elif module.video_link is containing "embed/" %}
+        {% set video_href = module.video_link|split("embed/") %}
+    {% elif module.video_link is containing "youtu.be/" %}
+        {% set video_href = module.video_link|split("youtu.be/") %}
+    {% else %}
+        {% set video_id = module.video_link %}
+    {% endif %}
+
+    {% if video_href && video_href[1] is containing "?" %}
+        {% set video_id = video_href[1]|split("?") %}
+        {% set video_id = video_id[0] %}
+    {% elif video_href && video_href[1] is containing "&" %}
+        {% set video_id = video_href[1]|split("&") %}
+        {% set video_id = video_id[0] %}
+    {% elif video_href %}
+        {% set video_id = video_href[1] %}
+    {% endif %}
+
+    <div class="container">
+        <iframe class="youtube-video" width="1280" height="720" data-src='https://www.youtube.com/embed/{{ video_id }}?showinfo=0&rel=0&autoplay=1&mute=0&controls=1' frameborder="0" allow="autoplay;encrypted-media"></iframe>
+    </div>
+</div>

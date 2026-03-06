@@ -1,0 +1,27 @@
+<!--
+  templateType: email_backup_unsubscribe_page
+  isAvailableForNewContent: true
+  label: The animation school - Email Backup Unsubscribe
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Unsubscribe" %}
+
+{% block body %}
+<section class="form-page" data-form="unsubscribe">
+  <div class="container">
+    <div class="wrapper">
+      <div class="form-container">
+        {% email_simple_subscription "email_simple_subscription"
+          header="Email Unsubscribe",
+          input_help_text="Your email address:",
+          input_placeholder="email@example.com",
+          button_text="Unsubscribe",
+          label="Backup Unsubscribe"
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}

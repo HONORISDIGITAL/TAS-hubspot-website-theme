@@ -1,0 +1,67 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="timeline" class="timeline-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
+                {% if module.title_label %}
+                    <p class="label">{{ module.title_label }}</p>
+                {% endif %}
+                <div class="richtext">{{ module.content }}</div>
+
+                {% if module.cta|length > 0 %}
+                    <div class="ctas">
+                        {% for item in module.cta %}
+                            {% if item.cta_type == "classic" %}
+                                {% if item.link.url.href %}
+                                    <a class="btn {{ item.style }}{{ item.video_btn ? ' video-btn' : '' }}" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.text }}">{{ item.text }}</span></a>
+                                {% endif %}
+                            {% else %}
+                                {% cta "cta" label='Select a CTA', guid='{{ item.cta }}' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="timeline gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="0.2">
+            {% for item in module.cards %}
+                <div class="outer-card">
+                    <div class="card">
+                        <div class="text-content">
+                            <p class="card-label">{{ item.title_label }}</p>
+                            <p class="h3">{{ item.title }}</p>
+                            {% if item.text %}
+                                <p class="text small">{{ item.text }}</p>
+                            {% endif %}
+
+                            {% if item.list|length > 0 %}
+                                <div class="list">
+                                    {% for item in item.list %}
+                                        <div class="item">
+                                            {% if item.icon.src %}
+                                                <figure class="icon">
+                                                    <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                                </figure>
+                                            {% endif %}
+                                            {% if item.content_type == "richtext" %}
+                                                <div class="richtext">{{ item.richtext }}</div>
+                                            {% else %}
+                                                <p class="text small">{{ item.text }}</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if item.image.src %}
+                            <figure class="image">
+                                <img loading="lazy" width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                            </figure>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

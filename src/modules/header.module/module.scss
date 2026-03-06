@@ -1,0 +1,593 @@
+@use '../../scss/settings/functions' as *;
+
+header.header-module {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+
+    @media all and (max-width:$size1) {
+        pointer-events: none;
+
+        &.active{
+
+            .mobile-bar .container .btn{
+                background-color: var(--black);
+
+                &::after{
+                    width: 1rem;
+                    margin-left: 0.5rem;
+                    opacity: 1;
+                }
+            }
+            
+            .desktop-bar{
+                opacity: 1;
+                pointer-events: all;
+                z-index: 1;
+                transition: opacity 300ms, z-index 0ms 0ms;
+                
+                > .container{
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+
+    &.scrolled{
+
+        // .logo-link{
+        //     height: 2.75rem;
+        // }
+
+        .mobile-bar,
+        .desktop-bar{
+            background-color: var(--beige);
+        }
+
+        .desktop-bar{
+            @media all and (max-width:$size1) {
+                padding-top: 5.75rem;
+                margin-top: -5.75rem;
+            }
+        }
+    }
+
+    &.dark-nav{
+        
+        .logo-link .logo img{
+            display: none;
+
+            &.logo-dark-mode{
+                display: block;
+            }
+        }
+
+        .desktop-bar > .container .items{
+
+            .main-item{
+                color: var(--white);
+            }
+
+            .item-wrapper .main-item::after{
+                background-color: var(--white);
+            }
+        }
+    }
+
+    .logo-link{
+        display: block;
+        width: fit-content;
+        height: 3.5rem;
+        z-index: 2;
+        transition: height 300ms;
+
+        .logo{
+            width: fit-content;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+
+            img{
+                width: auto;
+                height: 100%;
+
+                &.logo-dark-mode{
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .mobile-bar{
+        display: none;
+        transition: background-color 300ms;
+        
+        @media all and (max-width:$size1) {
+            display: block;
+            padding: 1.5rem 0;
+            pointer-events: all;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
+
+            .btn{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                &::after{
+                    content: "";
+                    width: 0;
+                    height: 1rem;
+                    flex-shrink: 0;
+                    mask-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.7328 3.94971C11.8423 3.94971 11.9106 3.98206 11.9642 4.03564C12.0178 4.08925 12.0502 4.15758 12.0502 4.26709C12.0501 4.37633 12.0177 4.44403 11.9642 4.49756L8.69763 7.76416L8.46228 8.00049L11.9642 11.5024C12.0177 11.556 12.0501 11.6237 12.0502 11.7329C12.0502 11.8424 12.0178 11.9108 11.9642 11.9644C11.9106 12.018 11.8423 12.0503 11.7328 12.0503C11.6236 12.0502 11.5558 12.0179 11.5023 11.9644L8.00037 8.4624L7.76404 8.69775L4.49744 11.9644C4.44391 12.0179 4.37621 12.0502 4.26697 12.0503C4.15745 12.0503 4.08912 12.018 4.03552 11.9644C3.98194 11.9108 3.94958 11.8424 3.94958 11.7329C3.94967 11.6237 3.98203 11.556 4.03552 11.5024L7.30212 8.23584L7.53845 8.00049L4.03552 4.49756C3.98204 4.44404 3.94966 4.37631 3.94958 4.26709C3.94958 4.15758 3.98192 4.08925 4.03552 4.03564C4.08912 3.98204 4.15745 3.94971 4.26697 3.94971C4.37619 3.94978 4.44391 3.98217 4.49744 4.03564L8.00037 7.53857L8.23572 7.30225L11.5023 4.03564C11.5558 3.98216 11.6236 3.9498 11.7328 3.94971Z' fill='white' stroke='white' stroke-width='0.666667'/%3E%3C/svg%3E%0A");
+                    mask-position: 50%;
+                    mask-repeat: no-repeat;
+                    mask-size: contain;
+                    background-color: var(--white);
+                    opacity: 0;
+                    transition: opacity 300ms, width 300ms, margin 300ms;
+                }
+            }
+        }
+    }
+
+    .desktop-bar{
+        padding: 1.5rem 0;
+        position: relative;
+        transition: background-color 300ms;
+
+        @media all and (max-width:$size1) {
+            height: 100dvh;
+            padding: unset;
+            padding-top: 6.5rem;
+            margin-top: -6.5rem;
+            background-color: var(--beige);
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+            transition: padding-top 300ms, margin-top 300ms, opacity 300ms, z-index 0ms 300ms;
+
+            &::before{
+                content: "";
+                width: calc(100% - 1.5rem);
+                height: 100%;
+                --line-color: var(--black);
+                --dash: 3px;
+                --gap: 3px;
+                --thickness: 1px;
+                opacity: 0.08;
+                background-image: repeating-linear-gradient(to bottom, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap))), repeating-linear-gradient(to bottom, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap)));
+                background-size: var(--thickness) 100%, var(--thickness) 100%;
+                background-position: left top, right top;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                pointer-events: none;
+            }
+        }
+
+        > .container{
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: center;
+                
+            @media all and (max-width:$size1) {
+                height: 100%;
+                flex-direction: column;
+                gap: unset;
+                align-items: flex-start;
+                transform: translateX(100%);
+                transition: transform 300ms;
+            }
+
+            .logo-link{
+                @media all and (max-width:$size1) {
+                    display: none;
+                }
+            }
+
+            .items{
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+                align-self: center;
+                margin-left: auto;
+                pointer-events: none;
+                z-index: 1;
+                
+                @media all and (max-width:$size1) {
+                    width: calc(100% + 1.5rem);
+                    height: 100%;
+                    flex-direction: column;
+                    gap: unset;
+                    margin: 0 -0.75rem;
+                    overflow: auto;
+                }
+
+                &:hover .main-item{
+                    opacity: 0.4;
+
+                    @media all and (max-width:$size1) {
+                        opacity: 0.6;
+                    }
+                }
+
+                .main-item{
+                    pointer-events: all;
+                    font-weight: 500;
+                    position: relative;
+                    z-index: 2;
+                    transition: opacity 300ms;
+
+                    @media all and (max-width:$size1) {
+                        width: calc(100% - 0.75rem);
+                        padding: 1.25rem 0 1.25rem 0.75rem;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        flex-shrink: 0;
+
+                        &::before{
+                            content: "";
+                            width: calc(100% + 1.5rem);
+                            height: 100%;
+                            --line-color: var(--black);
+                            --dash: 3px;
+                            --gap: 3px;
+                            --thickness: 1px;
+                            opacity: 0.08;
+                            background-image: repeating-linear-gradient(to right, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap)));
+                            background-size: 100% var(--thickness);
+                            background-position: left top;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            top: 0;
+                            left: -0.75rem;
+                            pointer-events: none;
+                        }
+                    }
+
+                    &:hover{
+                        opacity: 1;
+                    }
+                }
+
+                .item-wrapper{
+                    @media all and (max-width:$size1) {
+                        width: 100%;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        transition: height 300ms;
+
+                        &:last-child{
+                            position: relative;
+                            
+                            &::before{
+                                content: "";
+                                width: calc(100% + 1.5rem);
+                                height: 100%;
+                                --line-color: var(--black);
+                                --dash: 3px;
+                                --gap: 3px;
+                                --thickness: 1px;
+                                opacity: 0.08;
+                                background-image: repeating-linear-gradient(to right, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap)));
+                                background-size: 100% var(--thickness);
+                                background-position: left bottom;
+                                background-repeat: no-repeat;
+                                position: absolute;
+                                top: 0;
+                                left: -0.75rem;
+                                pointer-events: none;
+                            }
+                        }
+                    }
+
+                    &.active{
+
+                        .main-item{
+                            opacity: 1;
+                            
+                            &::after{
+                                transform: rotateX(180deg);
+                            }
+                        }
+
+                        .menu{
+                            opacity: 1;
+                            pointer-events: all;
+                            z-index: 1;
+                            transition: opacity 300ms, z-index 0ms 0ms;
+                        }
+                    }
+
+                    .main-item{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0.5rem;
+                        align-items: center;
+                        cursor: pointer;
+                
+                        @media all and (max-width:$size1) {
+                            gap: 1rem;
+                            justify-content: space-between;
+                        }
+                        
+                        &::after{
+                            content: "";
+                            width: 8px;
+                            height: 4px;
+                            mask-image: url("data:image/svg+xml,%3Csvg width='8' height='4' viewBox='0 0 8 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.817993 1L2.58576 2.76777C3.36681 3.54882 4.63314 3.54882 5.41419 2.76777L7.18195 1' stroke='%230A081C' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+                            mask-position: 50%;
+                            mask-repeat: no-repeat;
+                            mask-size: contain;
+                            background-color: var(--black);
+                            transition: transform 300ms;
+                
+                            @media all and (max-width:$size1) {
+                                width: 16px;
+                                height: 7px;
+                                background-image: url("data:image/svg+xml,%3Csvg width='16' height='7' viewBox='0 0 16 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.63525 1L5.17079 4.53553C6.73289 6.09763 9.26555 6.09763 10.8276 4.53553L14.3632 0.999998' stroke='%230A081C' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+                            }
+                        }
+                    }
+
+                    .menu{
+                        width: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        padding: 8rem 0 3rem;
+                        background-color: var(--beige);
+                        opacity: 0;
+                        pointer-events: none;
+                        z-index: -1;
+                        transition: opacity 300ms, z-index 0ms 300ms;
+
+                        @media all and (max-width:$size1) {
+                            position: relative;
+                            padding: unset;
+                            background-color: unset;
+                        }
+
+                        &::before, &::after{
+                            content: "";
+                            max-width: calc($container + 2.5rem);
+                            width: calc(100% - 0.5rem);
+                            height: 100%;
+                            --line-color: var(--black);
+                            --dash: 3px;
+                            --gap: 3px;
+                            --thickness: 1px;
+                            opacity: 0.08;
+                            background-image: repeating-linear-gradient(to bottom, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap))), repeating-linear-gradient(to bottom, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap)));
+                            background-size: var(--thickness) 100%, var(--thickness) 100%;
+                            background-position: left top, right top;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            top: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            pointer-events: none;
+
+                            @media all and (max-width:$size1) {
+                                content: unset;
+                            }
+                        }
+
+                        &::after{
+                            max-width: unset;
+                            width: 100%;
+                            // height: 1px;
+                            background-image: repeating-linear-gradient(to right, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap)));
+                            background-size: 100% var(--thickness);
+                            background-position: left 6.5rem;
+                        }
+
+                        .container{
+                            display: flex;
+                            flex-direction: row;
+                            gap: 3rem;
+
+                            @media all and (max-width:$size1) {
+                                padding: unset;
+                            }
+
+                            > .text-content{
+                                width: calc(100% / 3 - 1.5rem);
+                                display: flex;
+                                flex-direction: column;
+                                gap: 1rem;
+
+                                @media all and (max-width:$size1) {
+                                    display: none;
+                                }
+                            }
+
+                            .cards{
+                                width: calc(100% / 3 * 2 - 1.5rem);
+                                height: fit-content;
+                                display: flex;
+                                flex-direction: row;
+                                gap: 1.5rem;
+                                flex-wrap: wrap;
+                                position: relative;
+
+                                @media all and (max-width:$size1) {
+                                    width: 100%;
+                                    flex-direction: column;
+                                    gap: 0.75rem;
+                                    padding: 0 0.75rem 1.25rem;
+                                }
+
+                                &::before{
+                                    content: "";
+                                    width: 100%;
+                                    height: calc(100% + 4.5rem);
+                                    --line-color: var(--black);
+                                    --dash: 3px;
+                                    --gap: 3px;
+                                    --thickness: 1px;
+                                    opacity: 0.08;
+                                    background-image: repeating-linear-gradient(to bottom, var(--line-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) + var(--gap)));
+                                    background-size: var(--thickness) 100%;
+                                    background-position: left top;
+                                    background-repeat: no-repeat;
+                                    position: absolute;
+                                    top: -1.5rem;
+                                    left: -1.25rem;
+                                    pointer-events: none;
+
+                                    @media all and (max-width:$size1) {
+                                        content: unset;
+                                    }
+                                }
+
+                                .card{
+                                    width: calc(50% - 0.75rem);
+                                    padding: 1.5rem;
+                                    display: flex;
+                                    flex-direction: row;
+                                    gap: 1.25rem;
+                                    background-color: var(--beige_light);
+                                    border-radius: 0.5rem;
+                                    position: relative;
+                                    transition: background-color 300ms;
+
+                                    @media all and (max-width:$size1) {
+                                        width: 100%;
+                                        gap: 0.75rem;
+                                        padding: 0.75rem;
+                                    }
+
+                                    &:hover{
+                                        background-color: var(--white);
+
+                                        .text-content .text{
+                                            color: var(--black);
+                                        }
+                                    }
+
+                                    &.soon{
+                                        pointer-events: none;
+
+                                        &::after{
+                                            content: "";
+                                            width: 100%;
+                                            height: 100%;
+                                            border: 1px solid var(--black);
+                                            opacity: 0.08;
+                                            border-radius: 0.5rem;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                        }
+
+                                        .text-content{
+
+                                            .title{
+                                                position: relative;
+                                                z-index: 1;
+                                                
+                                                &::after{
+                                                    content: "Soon";
+                                                    background-color: var(--black);
+                                                    border-radius: 10rem;
+                                                    padding: 0.25rem 0.5rem;
+                                                    padding-bottom: 0.1875rem;
+                                                    color: var(--white);
+                                                    font-weight: 400;
+                                                    font-size: 0.5625rem;
+                                                    line-height: 1.5;
+                                                    letter-spacing: 0.1em;
+                                                    text-transform: uppercase;
+                                                    position: relative;
+                                                    top: -0.1875rem;
+                                                    margin-left: 0.75rem;
+
+                                                    @media all and (max-width:$size1) {
+                                                        top: -0.125rem;
+                                                        margin-left: 0.5rem;
+                                                    }
+                                                }
+                                            }
+                                            
+                                            .text{
+                                                filter: blur(2px);
+                                            }
+                                        }
+                                    }
+
+                                    .icon{
+                                        width: 2rem;
+                                        height: 2rem;
+                                        border-radius: 0.25rem;
+                                        overflow: hidden;
+                                        flex-shrink: 0;
+                                        position: relative;
+                                        z-index: 2;
+
+                                        img{
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                        }
+                                    }
+
+                                    .text-content{
+                                        position: relative;
+                                        z-index: 2;
+
+                                        .title{
+                                            font-size: 1.25rem;
+                                            line-height: 1.4;
+
+                                            @media all and (max-width:$size1) {
+                                                font-size: 1rem;
+                                            }
+                                        }
+
+                                        .text{
+                                            margin-top: 0.25rem;
+                                            color: var(--dark_grey);
+                                            transition: color 300ms;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .ctas{
+                z-index: 2;
+
+                @media all and (max-width:$size1) {
+                    width: 100%;
+                    padding: 1.5rem 0;
+                    flex-shrink: 0;
+                }
+                
+                .btn{
+                    @media all and (max-width:$size1) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

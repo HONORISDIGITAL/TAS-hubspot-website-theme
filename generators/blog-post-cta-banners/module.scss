@@ -1,0 +1,52 @@
+@use '../../scss/settings/functions' as *;
+section.blog-post-cta-banners-module, #hs_cos_wrapper_post_body section.blog-post-cta-banners-module{
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    .card{
+        width: 100%;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        background-color: $color3;
+        display: flex;
+        flex-direction: row;
+        gap: 2.5rem;
+        align-items: center;
+        @media screen and (max-width: $size3) {
+            flex-direction: column;
+        }
+        .text-content{
+            width: calc(100% / 8 * 5 - 1.25rem);
+            @media screen and (max-width: $size3) {
+                width: 100%;
+            }
+            .title{
+                margin-bottom: 1rem;
+                color: white;
+            }
+
+            .text{
+                margin-top: unset;
+                margin-bottom: 1.5rem;
+                color: white;
+            }
+        }
+
+        .image{
+            width: calc(100% / 8 * 3 - 1.25rem);
+            height: fit-content;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            @media screen and (max-width: $size3) {
+                width: 100%;
+            }
+            img{
+                width: 100%;
+                height: auto;
+                border-radius: unset;
+            }
+        }
+    }
+}

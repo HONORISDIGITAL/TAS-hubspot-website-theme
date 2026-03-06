@@ -1,0 +1,58 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="testimonials" class="testimonials-module dashed-background {{ module.style.color_theme }}-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.title }}</div>
+        </div>
+
+        <div class="slider-controls">
+            <div class="swiper-button-prev slider-testimonials-btn"></div>
+            <div class="swiper-button-next slider-testimonials-btn"></div>
+        </div>
+
+        <div class="swiper slider-testimonials gsap-animation-target" data-gsap-direction="bottom-top">
+            <div class="swiper-wrapper">
+                {% for item in module.slides %}
+                    <div class="swiper-slide{{ item.image.src ? ' dark-mode' : '' }}">
+                        {% if item.image.src %}
+                            <figure class="image" style="--filter-opacity: {{ item.image_filter_opacity }};">
+                                <img loading="lazy" width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                            </figure>
+                        {% endif %}
+
+                        <div class="content">
+                            <p class="quote h4">{{ item.quote }}</p>
+                            <p class="text">{{ item.text }}</p>
+
+                            <div class="author">
+                                <p class="name">{{ item.author.author_name }}</p>
+                                <p class="info small">{{ item.author.info }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for item in module.slides %}
+                    <div class="swiper-slide{{ item.image.src ? ' dark-mode' : '' }}">
+                        {% if item.image.src %}
+                            <figure class="image" style="--filter-opacity: {{ item.image_filter_opacity }};">
+                                <img loading="lazy" width="{{ item.image.width }}" height="{{ item.image.height }}" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                            </figure>
+                        {% endif %}
+
+                        <div class="content">
+                            <p class="quote h4">{{ item.quote }}</p>
+                            <p class="text">{{ item.text }}</p>
+
+                            <div class="author">
+                                <p class="name">{{ item.author.author_name }}</p>
+                                <p class="info small">{{ item.author.info }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

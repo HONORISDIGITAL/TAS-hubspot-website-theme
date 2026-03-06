@@ -1,0 +1,65 @@
+@use '../../scss/settings/functions' as *;
+section.logos-slider-module{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    .container {
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        @media screen and (max-width: $size3) {
+            gap:2rem;
+        }
+        &.center{
+            align-items: center;
+
+            .wrapper-content{
+                max-width: $size2;
+                margin: 0 auto;
+
+                >*{
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+        .wrapper-logos{
+            width: 100%;
+            .splide__track{
+                &.overflow-visible{
+                    overflow: visible;
+                }
+
+                &.overflow-gradient{
+                    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 10%, black 90%, transparent 100%);
+                }
+                .splide__list{
+                    display: flex;
+                }
+                .splide__slide{
+                    list-style-type: none;
+                    a{
+                        width: fit-content;
+                        height: fit-content;
+                    }
+
+                    figure{
+                        width: 185px;
+                        height: 65px;
+                        background-color: $color4;
+                        padding: 0.5rem;
+                        border-radius: 0.5rem;
+
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

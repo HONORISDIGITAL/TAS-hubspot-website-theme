@@ -1,0 +1,110 @@
+@use '../../scss/settings/functions' as *;
+
+section.school-certifications-module {
+
+    &.dark-mode{
+
+        .background-image{
+            --gradient-accent: var(--black);
+        }
+
+        .container .numbers .number-card::before{
+            background-color: var(--white)
+        }
+    }
+
+    .visual-noise{
+        z-index: 2;
+    }
+
+    .background-image{
+        --gradient-accent: var(--beige);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+        
+        &::before,
+        &::after{
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-color: var(--gradient-accent);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: var(--filter-opacity-half);
+        }
+        &::after{
+            background: linear-gradient(180deg, transparent 72.3%, var(--gradient-accent) 100%);
+            opacity: var(--filter-opacity);
+        }
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .container{
+        display: flex;
+        flex-direction: row;
+        gap: 7.5rem;
+        position: relative;
+        z-index: 2;
+
+        @media all and (max-width:$tablet-m) {
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .content{
+            width: calc(50% - 3.75rem);
+
+            @media all and (max-width:$tablet-m) {
+                width: 100%;
+            }
+        }
+
+        .numbers{
+            width: calc(50% - 3.75rem);
+            display: flex;
+            flex-direction: row;
+            gap: 3rem 1.5rem;
+            flex-wrap: wrap;
+
+            @media all and (max-width:$tablet-m) {
+                width: 100%;
+                gap: 1.5rem;
+            }
+
+            .number-card{
+                width: calc(50% - 0.75rem);
+                padding: 0.5rem 0 0.5rem 2rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                position: relative;
+
+                @media all and (max-width:$tablet-m) {
+                    padding-left: 1.25rem;
+                }
+                
+                &::before{
+                    content: "";
+                    width: 1px;
+                    height: 100%;
+                    background-color: var(--black);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 0.48;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+<section aria-label="Hero section" {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="hero-module {{ module.background.bg_color }} {{ module.background.type }}">
+    {% if module.background.type == 'image' && module.background.image.src %}
+        <img class="bg" width="{{module.background.image.width}}" height="{{module.background.image.height}}" src="{{module.background.image.src}}" alt="{{module.background.image.alt}}">
+    {% elif module.background.type == 'video' && module.background.video %}
+        <video class="bg" autoplay muted loop>
+            <source src="{{module.background.video}}" type="video/mp4">
+        </video>
+    {% endif %}
+    <div class="container {{module.style.layout.direction}} {{module.style.layout.order}}">
+        <div class="wrapper-content">
+            {% if module.content.label_field %}
+                <span class="label">{{module.content.label_field}}</span>
+            {% endif %}
+            {% if module.content.title.type && module.content.title.content %}
+                <{{ module.content.title.type }} class="title {{ module.content.title.style }}">{{
+                    module.content.title.content }}</{{ module.content.title.type }}>
+            {% endif %}
+            {% if module.content.text %}
+                <div class="richtext">
+                    {{module.content.text}}
+                </div>
+            {% endif %}
+            {% if module.content.buttons %}
+                <div class="wrapper-buttons">
+                    {% for item in module.content.buttons %}
+                        {% if item.button_link.url.href && item.button_type == 'link' %}
+                            <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                                href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                    item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                <span>{{item.button_text}}</span>
+                            </a>
+                        {% elif item.button_type == 'cta' %}
+                            {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="wrapper-media">
+            {% if module.media.type == 'image' && module.media.image.src %}
+            <figure class="wrapper-image cover">
+                <img width="{{module.media.image.width}}" height="{{module.media.image.height}}" src="{{module.media.image.src}}" alt="{{module.media.image.alt}}">
+            </figure>
+            {% elif module.media.type == 'video' %}
+            <div class="wrapper-video">
+                <div class="video video-{{module.media.video.video_type}}" data-type="{{module.media.video.video_type}}">
+                    <figure class="poster" role="none">
+                        <img src="{{module.media.video.poster.src}}" alt="{{module.media.video.poster.alt}}"
+                            width="{{module.media.video.poster.width}}" height="{{module.media.video.poster.height}}">
+                    </figure>
+                    {% if module.media.video.video_type == "hsvideo" %}
+                    {% video_player "embed_player" overrideable=False, type='scriptV4', hide_playlist=True,
+                    viral_sharing=False,
+                    embed_button=False, autoplay=True, hidden_controls=True, loop=True, muted=False, full_width=False,
+                    width='540', height='400', player_id='{{module.media.video.video_file.player_id}}' %}
+                    {% elif module.media.video.video_type == "file" %}
+                    <video width="650" height="430">
+                        <source src="{{module.media.video.file}}" />
+                    </video>
+                    {% else %}
+                    <iframe width="100%" height="100%" data-src="{{ module.media.video.video_youtube }}" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

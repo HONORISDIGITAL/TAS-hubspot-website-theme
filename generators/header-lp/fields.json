@@ -1,0 +1,234 @@
+[
+    {
+        "name": "module_identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "name": "content",
+        "label": "Content",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "name": "logo",
+                "label": "Logo",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "logo",
+                        "label": "Logo",
+                        "required": false,
+                        "locked": false,
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "responsive": true,
+                        "resizable": true,
+                        "show_loading": false,
+                        "type": "image",
+                        "default": {
+                            "size_type": "auto",
+                            "src": "https://placehold.co/120x35",
+                            "alt": "placeholder",
+                            "loading": "lazy"
+                        }
+                    },
+                    {
+                        "name": "link",
+                        "label": "Link",
+                        "required": false,
+                        "locked": false,
+                        "supported_types": [
+                            "EXTERNAL",
+                            "CONTENT",
+                            "FILE",
+                            "EMAIL_ADDRESS",
+                            "BLOG"
+                        ],
+                        "type": "link",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": {
+                            "url": {
+                                "content_id": null,
+                                "type": "EXTERNAL",
+                                "href": "/"
+                            },
+                            "open_in_new_tab": false,
+                            "no_follow": false
+                        }
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            },
+            {
+                "name": "buttons",
+                "label": "Button(s)",
+                "required": false,
+                "locked": false,
+                "occurrence": {
+                    "min": null,
+                    "max": null,
+                    "sorting_label_field": null
+                },
+                "children": [
+                    {
+                        "name": "button_text",
+                        "label": "Button text",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "visibility": {
+                            "controlling_field": "button_type",
+                            "controlling_value_regex": "link",
+                            "operator": "EQUAL",
+                            "access": null,
+                            "hidden_subfields": null
+                        },
+                        "default": "Contact"
+                    },
+                    {
+                        "name": "button_link",
+                        "label": "Button link",
+                        "required": false,
+                        "locked": false,
+                        "supported_types": [
+                            "EXTERNAL",
+                            "CONTENT",
+                            "FILE",
+                            "EMAIL_ADDRESS",
+                            "BLOG"
+                        ],
+                        "type": "link",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "visibility": {
+                            "controlling_field": "button_type",
+                            "controlling_value_regex": "link",
+                            "operator": "EQUAL",
+                            "access": null,
+                            "hidden_subfields": null
+                        },
+                        "default": {
+                            "url": {
+                                "content_id": null,
+                                "type": "EXTERNAL",
+                                "href": "/"
+                            },
+                            "open_in_new_tab": false,
+                            "no_follow": false
+                        }
+                    },
+                    {
+                        "id": "button_type",
+                        "name": "button_type",
+                        "label": "Button type",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "choices": [
+                            [
+                                "cta",
+                                "CTA"
+                            ],
+                            [
+                                "link",
+                                "Link"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "default": "link"
+                    },
+                    {
+                        "name": "cta_field",
+                        "label": "CTA",
+                        "required": false,
+                        "locked": false,
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "type": "cta",
+                        "visibility": {
+                            "controlling_field": "button_type",
+                            "controlling_value_regex": "cta",
+                            "operator": "EQUAL",
+                            "access": null,
+                            "hidden_subfields": null
+                        },
+                        "default": null
+                    },
+                    {
+                        "name": "button_style",
+                        "label": "Button style",
+                        "required": false,
+                        "locked": false,
+                        "display": "select",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "choices": [
+                            [
+                                "btn-primary",
+                                "Button primary"
+                            ],
+                            [
+                                "btn-secondary",
+                                "Button secondary"
+                            ]
+                        ],
+                        "type": "choice",
+                        "placeholder": "",
+                        "visibility": {
+                            "controlling_field": "button_type",
+                            "controlling_value_regex": "link",
+                            "operator": "EQUAL",
+                            "access": null,
+                            "hidden_subfields": null
+                        },
+                        "default": "btn-primary"
+                    },
+                    {
+                        "name": "button_custom_class",
+                        "label": "Button custom class",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "validation_error_message": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": null 
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": []
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    }
+    
+]

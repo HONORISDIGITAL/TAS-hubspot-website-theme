@@ -1,0 +1,46 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="listing-people" class="listing-people-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>    
+    <div class="container">
+        <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.content }}</div>
+        </div>
+        {% if module.tabs %}
+            <ul class="tabs">
+                {% for item in module.tabs %}
+                    <li>
+                        <button class="tab {% if loop.index == 1 %}active{% endif %}">{{ item.tab }}</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if module.tabs %}
+            <div class="contain-tabs" data-gsap-id="gsap-listing-people-mod" id="contain-tabs">
+                {% for item in module.tabs %}
+                    <div class="contain-tab {% if loop.index == 1 %}active{% endif %}">
+                        {% for people in item.peoples %}
+                            <div class="block gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}" data-gsap-parent-id="gsap-listing-people-mod">
+                                {% if people.image %}
+                                    <figure class="cover">
+                                        <img src="{{ people.image.src }}" alt="{{ people.image.alt }}" width="{{ people.image.width }}" height="{{ people.image.height }}" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if people.nom or people.job %}
+                                <div>
+                                    {% if people.nom %}
+                                        <p class="people-name">{{ people.nom }}</p>
+                                    {% endif %}
+                                    {% if people.job %}
+                                        <p class="people-job">{{ people.job }}</p> 
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

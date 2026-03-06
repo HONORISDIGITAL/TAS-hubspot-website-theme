@@ -1,0 +1,27 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="school-certifications" class="school-certifications-module {{ module.style.color_theme == 'light' ? ' dashed-background' : '' }} {{ module.style.color_theme }}-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    {{ module.style.color_theme == 'dark' ? '<div class="visual-noise"></div>' : '' }}
+    
+    {% if module.style.background_image.src %}
+        <figure class="background-image" style="--filter-opacity: {{ module.style.image_filter_opacity * 2 }};--filter-opacity-half: {{ module.style.image_filter_opacity }};">
+            <img loading="lazy" width="{{ module.style.background_image.width }}" height="{{ module.style.background_image.height }}" src="{{ module.style.background_image.src }}" alt="{{ module.style.background_image.alt }}">
+        </figure>
+    {% endif %}
+    
+    <div class="container" data-gsap-id="gsap-school-certif-mod">
+        <div class="content gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-school-certif-mod">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.content }}</div>
+        </div>
+
+        <div class="numbers">
+            {% for item in module.numbers %}
+                <div class="number-card gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-school-certif-mod" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}">
+                    <p class="number h2"><strong>{{ item.number }}</strong></p>
+                    <p class="text small">{{ item.text }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

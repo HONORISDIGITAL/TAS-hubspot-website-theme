@@ -1,0 +1,212 @@
+@use '../../scss/settings/functions' as *;
+footer.footer-module {
+  position: relative;
+  background-color: $color1;
+  color: $color5;
+  z-index: 1;
+  overflow: hidden;
+  padding:5rem 0rem 4rem 0rem;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 0;
+    @media(max-width:$size3){
+      gap: 3rem;
+    }
+  }
+  .wrapper-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem 1rem;
+    @media(max-width:$size3){
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .title {
+      max-width: 500px;
+      color: $color5;
+    }
+    .wrapper-logos {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      @media(max-width:$size3){
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .wrapper-image {
+        width: 140px;
+        height: 55px;
+        overflow: hidden;
+
+        img {
+          object-fit: contain;
+          object-position: center;
+        }
+      }
+    }
+  }
+
+  .wrapper-menu {
+    width: 100%;
+    display: flex;
+    gap: 2.5rem;
+    @media(max-width:$size2){
+      flex-direction: column;
+    }
+    .wrapper-logo {
+      width: calc(100% / 6 - 1.25rem);
+      min-width: 180px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      @media(max-width:$size2){
+        width:100%
+      }
+      .logo {
+        width: fit-content;
+        margin-bottom: 1rem;
+        figure{
+          img {
+            width: 180px;
+            height:auto;
+          }
+        }
+      }
+      .richtext {
+        *{
+          font-size: 0.875rem;
+        }
+      }
+    }
+    .wrapper-nav {
+      width: calc(100% / 6 * 5 - 1.25rem);
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      @media(max-width:$size2){
+        width:100%
+      }
+      nav{
+        width:100%;
+        ul{
+          display: flex;
+          gap:2rem;
+          width:100%;
+          @media(max-width:$size4){
+            flex-direction: column;
+          }
+          > li{  
+            width:100%;
+            display: flex;
+            flex-direction: column;
+            gap:1.5rem;
+            > a{
+              font-weight: bold;
+            }
+            ul{
+              flex-direction: column;
+              gap:1rem;
+              li{
+                a{
+                  font-size: 0.875rem;
+                  font-weight: 400;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wrapper-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 1px solid $color5;
+    padding-top: 2rem;
+    .wrapper-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: $text-color4;
+      span.copyright{
+          font-size: 0.875rem;
+      }
+      nav{
+          ul{
+              display: flex;
+              justify-content: center;
+              gap: 1.5rem;
+              flex-wrap: wrap;
+              li{
+                  *{
+                      font-size: 0.875rem;
+                  }
+                  a{
+                      transition: 0.35s;
+                      &:hover{
+                          opacity: 0.5;
+                      }
+                  }
+              }
+          }
+      }
+    }
+  }
+
+  .wrapper-mentions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 0px;
+    li {
+      font-size: 0.875rem;
+    }
+  }
+  .wrapper-socials {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    a {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      text-indent: -200vw;
+      white-space: nowrap;  
+      position: relative;    
+      &:after{
+        display: block;
+        content:'';
+        position: absolute;
+        top:0px;
+        left:0px;
+        width:100%;
+        height:100%;
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-image: var(--picto);
+        background-color: $color5;
+        transition: background-color 0.3s cubic-bezier(0, 0.85, 0.6, 1);
+      }
+      &:hover {
+        &:after{
+          background-color: $color4;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,275 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "type": "group",
+        "name": "style",
+        "label": "Style",
+        "tab": "STYLE",
+        "children": [
+            {
+                "name": "section_height",
+                "label": "Section height",
+                "required": false,
+                "locked": false,
+                "display": "radio",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "natural",
+                    "Natural"
+                    ],
+                    [
+                    "full",
+                    "Full"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "natural"
+            }
+        ]
+    },
+    {
+        "name": "background",
+        "label": "Background",
+        "required": false,
+        "locked": false,
+        "children": [
+            {
+                "id": "background_type",
+                "name": "background_type",
+                "label": "Background type",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "none",
+                    "None"
+                    ],
+                    [
+                    "image",
+                    "Image"
+                    ],
+                    [
+                    "video",
+                    "Video"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "none"
+            },
+            {
+                "name": "background_image",
+                "label": "Background image",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "visibility": {
+                    "controlling_field": "background_type",
+                    "controlling_value_regex": "image",
+                    "operator": "EQUAL"
+                },
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/1920x950",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            },
+            {
+                "picker": "file",
+                "name": "background_video",
+                "label": "Background video",
+                "required": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "locked": false,
+                "type": "file",
+                "default": null,
+                "visibility": {
+                    "controlling_field": "background_type",
+                    "controlling_value_regex": "video",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name" : "background_filter_opacity",
+                "label" : "Background filter opacity",
+                "required" : false,
+                "locked" : false,
+                "display" : "slider",
+                "step" : 0.1,
+                "type" : "number",
+                "min" : 0,
+                "max" : 1,
+                "inline_help_text": "",
+                "help_text": "",
+                "default" : 0.5,
+                "visibility": {
+                    "controlling_field": "background_type",
+                    "controlling_value_regex": "none",
+                    "operator": "NOT_EQUAL"
+                }
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+    },
+    {
+        "name": "content",
+        "label": "Content",
+        "required": false,
+        "locked": false,
+        "type": "richtext",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": "<h1>Heading 1 <strong>with an highlight</strong></h1><p>Gain a strong foundation in the history of animation, principles of animation, colour theory, art direction, storytelling and pre-production, production and post-production.</p>"
+    },
+    {
+        "name": "cta",
+        "label": "CTA",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+            "min": null,
+            "max": null,
+            "sorting_label_field": null,
+            "default": null
+        },
+        "children": [
+            {
+                "id": "cta_type",
+                "name": "cta_type",
+                "label": "CTA Type",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                    [
+                    "classic",
+                    "Classic"
+                    ],
+                    [
+                    "hubspot",
+                    "Hubspot"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "classic"
+            },
+            {
+                "name": "cta",
+                "label": "CTA",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "type": "cta",
+                "default": null,
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "hubspot",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name": "text",
+                "label": "Text",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text",
+                "placeholder": "",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "Primary cta",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                }
+            },
+            {
+                "name" : "link",
+                "label" : "Link",
+                "required" : false,
+                "locked" : false,
+                "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+                "type" : "link",
+                "inline_help_text": "",
+                "help_text": "",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                },
+                "default" : {
+                    "url" : {
+                        "content_id" : null,
+                        "type" : "EXTERNAL",
+                        "href" : "/"
+                    },
+                    "open_in_new_tab" : false,
+                    "no_follow" : false
+                }
+            },
+            {
+                "name": "style",
+                "label": "Style",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "visibility": {
+                    "controlling_field": "cta_type",
+                    "controlling_value_regex": "classic",
+                    "operator": "EQUAL"
+                },
+                "choices": [
+                    [
+                    "primary",
+                    "Primary"
+                    ],
+                    [
+                    "secondary",
+                    "Secondary"
+                    ]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "primary"
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]

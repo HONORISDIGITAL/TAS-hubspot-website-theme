@@ -1,0 +1,173 @@
+{% set padding = module.style.padding %}
+
+<section aria-label="Push content section" {% if module.module_identity %}id="{{module.module_identity}}"{% endif %}
+    class="push-content-module {% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} "
+    {% if padding.padding_desktop.type=='custom'
+    %}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"
+    {% endif %}>
+    <div class="container">
+        {% if module.top_content.label_field or module.top_content.title.title or module.top_content.description %}
+            <div class="wrapper-top">
+                <div class="wrapper-content">
+                    {% if module.top_content.label_field %}
+                        <span class="label">{{module.top_content.label_field}}</span>
+                    {% endif %}
+                    {% if module.top_content.title.type && module.top_content.title.content %}
+                        <{{ module.top_content.title.type }} class="title {{ module.top_content.title.style }}">{{
+                            module.top_content.title.content }}</{{ module.top_content.title.type }}>
+                    {% endif %}
+                    {% if module.top_content.text %}
+                        <div class="richtext">
+                            {{module.top_content.text}}
+                        </div>
+                    {% endif %}
+                </div>
+                {% if module.buttons %}
+                    <div class="wrapper-buttons">
+                        {% for item in module.buttons %}
+                            {% if item.button_link.url.href && item.button_type == 'link' %}
+                                <a class="btn {{item.button_style}} {{item.button_class}}" role="button"
+                                    href="{% if item.button_link.url.type == 'EMAIL_ADDRESS' %}mailto:{% endif %}{{item.button_link.url.href}}"
+                                    {% if item.button_link.open_in_new_tab %}target="_blank" {% endif %} {% if
+                                        item.button_link.no_follow %}rel="nofollow" {% endif %}>
+                                    <span>{{item.button_text}}</span>
+                                </a>
+                            {% elif item.button_type == 'cta' %}
+                                {% cta "cta" label='Select a CTA', guid='{{item.cta_field}}' %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="wrapper-posts wrapper-posts-{{ module.posts_informations.max_number_content }} {% if module.style.layout=='slider' %}splide{%endif%}"
+            {% if module.style.layout=='slider' %}role="group"
+            data-splide='{"pagination": false, "arrows": true, "fixedWidth": 400, "gap":32}' {%endif%}>
+            {% if module.source == 'blog' %}
+                {% if module.source_blog == "recent" %}
+                    {% set posts = blog_recent_posts(module.blog_field, module.posts_informations.max_number_content) %}
+                {% elif module.source_blog == "popular" %}
+                    {% set posts = blog_popular_posts(module.blog_field, module.posts_informations.max_number_content,module.date_popular) %}
+                {% elif module.source_blog == "random" %}
+                    {% set posts = blog_recent_posts(module.blog_field, module.posts_informations.max_number_content) %}
+                {% elif module.source_blog == "tag" %}
+                    {% set posts = blog_recent_tag_posts(module.blog_field,module.tag_field,module.posts_informations.max_number_content,"AND") %}
+                {% endif %}
+            {% elif module.source == 'blog_page' %}
+                {% set posts = module.posts %}
+            {% elif module.source == 'hubdb' %}
+                {% set queryparam = "&orderBy=date&limit="+module.posts_informations.max_number_content %}
+                {% set posts = hubdb_table_rows(module.hubdbtable_field, queryparam) %}
+            {% elif module.source == 'manual' %}
+                {% set posts = module.cards %}
+            {% endif %}
+            {% if module.style.layout=='slider' %}
+            <div class="splide__arrows splide__arrows--ltr">
+                <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Go to last slide"
+                    aria-controls="splide01-track">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.4164 18.9585L19.2389 26.781L17.1765 28.8434L5.83329 17.5001L17.1765 6.15708L19.2389 8.21946L11.4164 16.0418L29.1666 16.0418L29.1666 18.9585L11.4164 18.9585Z"
+                            fill="#222222" />
+                    </svg>
+                </button>
+                <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next slide"
+                    aria-controls="splide01-track">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M23.5836 16.0415L15.7611 8.21901L17.8235 6.15662L29.1667 17.4999L17.8235 28.8429L15.7611 26.7805L23.5836 18.9582H5.83337V16.0415H23.5836Z"
+                            fill="#222222" />
+                    </svg>
+                </button>
+            </div>
+            <div class="splide__track">
+                <ul class="splide__list">
+                    {%endif%}
+                    {% for item in posts %}
+                    {% if module.source == 'blog' or module.source == 'blog_page' %}
+                        {% set image = item.featured_image %}
+                        {% set imageAlt = item.title %}
+                        {% set title = item.title %}
+                        {% set description = item.post_summary|striptags|truncatehtml(132, '..' , false) %}
+                        {% set date = item.publish_date|datetimeformat("%d/%m/%Y")%}
+                        {% set time = item.post_body|wordcount|float|divide(300)|round(0, 'ceil') %}
+                        {% set link = item.absolute_url %}
+                    {% elif module.source == 'hubdb' %}
+                        {% set image = item.image.url %}
+                        {% set imageAlt = item.image.alt %}
+                        {% set imageHeight = item.image.height %}
+                        {% set imageWidth = item.image.width %}
+                        {% set title = item.hs_name %}
+                        {% set link = item.url %}
+                    {% elif module.source == 'manual' %}
+                        {% set image = item.image.src %}
+                        {% set imageAlt = item.image.alt %}
+                        {% set imageHeight = item.image.height %}
+                        {% set imageWidth = item.image.width %}
+                        {% set title = item.title %}
+                        {% set description = item.description %}
+                        {% set link = item.link_field.url.href %}
+                        {% set text_button = item.text_button %}
+                    {% endif %}
+                    {% if module.style.layout=='slider' %}<li class="splide__slide">{%endif%}
+                        <article>
+                            {% if image %}
+                                <div class="wrapper-image">
+                                    <{% if module.posts_informations.button_text %}a href="{{ link }}" tabindex="-1" {% else
+                                        %}div{% endif %} class="picture">
+                                        <figure class="cover">
+                                            <img width="{{ imageWidth }}" height="{{ imageHeight }}" src="{{ image }}"
+                                                loading="lazy" alt="{{ imageAlt }}">
+                                        </figure>
+                                    </{% if module.posts_informations.button_text %}a{% else %}div{% endif %}>
+                                    {% if item.topic_list %}
+                                    <div class="tags">
+                                        {% for tag in item.topic_list %}
+                                        <a href="{{ blog_tag_url(group.id, tag.slug) }}" class="tag">{{ tag.name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            <{% if module.posts_informations.button_text %}a href="{{ link }}" {% else %}div{% endif %} class="wrapper-text">
+                                {% if date or time %}
+                                    <div class="infos">
+                                        {% if date %}
+                                            <span class="date">Mise en ligne le {{ date }}</span>
+                                        {% endif %}
+                                        {% if time %}
+                                            <span class="time">{{ time }} min</span>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                <h3 class="title">{{ title }}</h3>
+                                {% if description %}
+                                    <div class="text">
+                                        {{ description }}
+                                    </div>
+                                {% endif %}
+                                {% if module.source == 'manual' %}
+                                    {% if text_button %}
+                                        <div class="btn btn-secondary" role="button">
+                                            <span>{{ text_button }}</span>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    {% if module.posts_informations.button_text %}
+                                        <div class="btn btn-secondary" role="button">
+                                            <span>{{ module.posts_informations.button_text }}</span>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </{% if module.posts_informations.button_text %}a{% else %}div{% endif %}>
+                        </article>
+                        {% if module.style.layout=='slider' %}
+                    </li>{%endif%}
+                    {% endfor %}
+                    {% if module.style.layout=='slider' %}
+                </ul>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,65 @@
+[
+    {
+        "name": "identity",
+        "label": "Module ID",
+        "required": false,
+        "locked": false,
+        "validation_regex": "",
+        "allow_new_line": false,
+        "show_emoji_picker": false,
+        "type": "text"
+    },
+    {
+        "type": "group",
+        "name": "style",
+        "label": "Style",
+        "tab": "STYLE",
+        "children": []
+    },
+    {
+        "id": "bFeaturedImage",
+        "name": "bFeaturedImage",
+        "label": "Affichage des images d'articles",
+        "required": false,
+        "locked": false,
+        "display": "select",
+        "inline_help_text": "",
+        "help_text": "",
+        "choices": [
+            [
+                "true",
+                "Affichage"
+            ],
+            [
+                "false",
+                "Masquage"
+            ]
+        ],
+        "type": "choice",
+        "placeholder": "",
+        "default": "true"
+    },
+    {
+        "name": "featured_image",
+        "label": "Image de l'article",
+        "required": false,
+        "locked": false,
+        "inline_help_text": "Cette image sera affichée dans les résultats de recherche qui ne possèdent pas d'image.",
+        "help_text": "",
+        "responsive": true,
+        "resizable": true,
+        "show_loading": false,
+        "type": "image",
+        "default": {
+            "size_type": "auto",
+            "src": "https://www.placehold.co/200x200",
+            "alt": null,
+            "loading": "disabled"
+        },
+        "visibility": {
+            "controlling_field": "bFeaturedImage",
+            "controlling_value_regex": "true",
+            "operator": "EQUAL"
+        }
+    }
+]

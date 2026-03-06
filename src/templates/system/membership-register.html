@@ -1,0 +1,29 @@
+<!--
+  templateType: membership_register_page
+  isAvailableForNewContent: true
+  label: The animation school - Membership Registration
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Membership | Register" %}
+
+{% block body %}
+<section class="form-page" data-form="member-register">
+  <div class="container">
+    <div class="wrapper">
+      <div class="form-container">
+        <p class="h4">Set your password</p>
+
+        {% member_register "my_register"
+          email_label="Email",
+          password_label="Password",
+          password_confirm_label="Confirm Password",
+          submit_button_text="Save Password",
+          show_password="Show"
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

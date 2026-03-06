@@ -1,0 +1,461 @@
+[
+  {
+    "name": "module_identity",
+    "label": "Module ID",
+    "required": false,
+    "locked": false,
+    "validation_regex": "",
+    "allow_new_line": false,
+    "show_emoji_picker": false,
+    "type": "text"
+  },
+  {
+    "type": "group",
+    "name": "style",
+    "label": "Style",
+    "tab": "STYLE",
+    "children": [
+      {
+        "name": "padding",
+        "label": "Padding",
+        "required": false,
+        "locked": false,
+        "children": [
+          {
+            "name": "padding_desktop",
+            "label": "Padding Desktop",
+            "required": false,
+            "locked": false,
+            "children": [
+              {
+                "id": "padding_type_desktop",
+                "name": "type",
+                "label": "Choice field",
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "inline_help_text": "",
+                "help_text": "",
+                "choices": [
+                  ["classic", "Determined by section type"],
+                  ["custom", "Custom"]
+                ],
+                "type": "choice",
+                "placeholder": "",
+                "default": "classic"
+              },
+              {
+                "name": "padding_top_section",
+                "label": "Padding Top Section",
+                "sortable": false,
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "visibility": {
+                  "controlling_field": "padding_type_desktop",
+                  "controlling_value_regex": "classic",
+                  "operator": "EQUAL"
+                },
+                "choices": [
+                  ["0", "None"],
+                  ["sm", "Small (30px)"],
+                  ["md", "Normal (60px)"],
+                  ["lg", "Big (90px)"],
+                  ["xl", "Giant (120px)"]
+                ],
+                "type": "choice",
+                "default": "xl"
+              },
+              {
+                "name": "padding_bottom_section",
+                "label": "Padding Bottom Section",
+                "sortable": false,
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "visibility": {
+                  "controlling_field": "padding_type_desktop",
+                  "controlling_value_regex": "classic",
+                  "operator": "EQUAL"
+                },
+                "choices": [
+                  ["0", "None"],
+                  ["sm", "Small (30px)"],
+                  ["md", "Normal (60px)"],
+                  ["lg", "Big (90px)"],
+                  ["xl", "Giant (120px)"]
+                ],
+                "type": "choice",
+                "default": "xl"
+              },
+              {
+                "name": "padding_top",
+                "label": "Padding Top Custom (px)",
+                "required": false,
+                "locked": false,
+                "display": "text",
+                "step": 1,
+                "type": "number",
+                "min": 0,
+                "max": 500,
+                "inline_help_text": "",
+                "help_text": "",
+                "default": 60,
+                "visibility": {
+                  "controlling_field": "padding_type_desktop",
+                  "controlling_value_regex": "custom",
+                  "operator": "EQUAL"
+                }
+              },
+              {
+                "name": "padding_bottom",
+                "label": "Padding Bottom Custom (px)",
+                "required": false,
+                "locked": false,
+                "display": "text",
+                "step": 1,
+                "type": "number",
+                "min": 0,
+                "max": 500,
+                "inline_help_text": "",
+                "help_text": "",
+                "default": 60,
+                "visibility": {
+                  "controlling_field": "padding_type_desktop",
+                  "controlling_value_regex": "custom",
+                  "operator": "EQUAL"
+                }
+              }
+            ],
+            "type": "group",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": {}
+          },
+          {
+            "name": "padding_mobile",
+            "label": "Padding Mobile",
+            "required": false,
+            "locked": false,
+            "children": [
+              {
+                "name": "padding_top_section",
+                "label": "Padding Top Section",
+                "sortable": false,
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "choices": [
+                  ["0", "None"],
+                  ["sm", "Small (30px)"],
+                  ["md", "Normal (60px)"],
+                  ["lg", "Big (90px)"],
+                  ["xl", "Giant (120px)"]
+                ],
+                "type": "choice",
+                "default": "md"
+              },
+              {
+                "name": "padding_bottom_section",
+                "label": "Padding Bottom Section",
+                "sortable": false,
+                "required": false,
+                "locked": false,
+                "display": "select",
+                "choices": [
+                  ["0", "None"],
+                  ["sm", "Small (30px)"],
+                  ["md", "Normal (60px)"],
+                  ["lg", "Big (90px)"],
+                  ["xl", "Giant (120px)"]
+                ],
+                "type": "choice",
+                "default": "md"
+              }
+            ],
+            "type": "group",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": {}
+          }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+      }
+    ]
+  },
+  {
+    "name": "wrapper_tabs",
+    "label": "Tab(s)",
+    "required": false,
+    "locked": false,
+    "occurrence": {
+      "min": null,
+      "max": 4,
+      "sorting_label_field": null,
+      "default": 4
+    },
+    "children": [
+      {
+        "name": "wrapper_title",
+        "label": "Tab title",
+        "required": false,
+        "locked": false,
+        "children": [
+          {
+            "name": "title",
+            "label": "Title",
+            "required": false,
+            "locked": false,
+            "validation_regex": "",
+            "validation_error_message": "",
+            "allow_new_line": false,
+            "show_emoji_picker": false,
+            "type": "text",
+            "placeholder": "",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": "Lorem Ipsum"
+          },
+          {
+            "name": "image",
+            "label": "Icon",
+            "required": false,
+            "locked": false,
+            "inline_help_text": "",
+            "help_text": "",
+            "responsive": true,
+            "resizable": false,
+            "show_loading": false,
+            "type": "image",
+            "default": {
+              "size_type": "auto",
+              "src": "https://placehold.co/30x30",
+              "alt": "Example of an image used in your module",
+              "loading": "disabled"
+            }
+          }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+      },
+      {
+        "name": "wrapper_content",
+        "label": "Tab Content",
+        "required": false,
+        "locked": false,
+        "children": [
+          {
+            "name": "title",
+            "label": "Title",
+            "required": false,
+            "locked": false,
+            "validation_regex": "",
+            "validation_error_message": "",
+            "allow_new_line": false,
+            "show_emoji_picker": false,
+            "type": "text",
+            "placeholder": "",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": "Lorem Ipsum"
+          },
+          {
+            "name": "text",
+            "label": "text",
+            "required": false,
+            "locked": false,
+            "type": "richtext",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": "<p>Vestibulum tincidunt dui justo, non euismod felis pellentesque quis. Curabitur ornare nisl ac est mattis, sed fermentum mauris ornare. Sed sapien sapien, consequat vel consectetur in, lobortis vitae sapien. Donec ultricies sapien eget lorem hendrerit aliquam. Nam in sollicitudin erat, et faucibus erat</p>"
+          },
+          {
+            "name": "buttons",
+            "label": "Button(s)",
+            "required": false,
+            "locked": false,
+            "occurrence": {
+                "min": null,
+                "max": null,
+                "sorting_label_field": null
+            },
+            "children": [
+                {
+                    "name": "button_text",
+                    "label": "Button text",
+                    "required": false,
+                    "locked": false,
+                    "validation_regex": "",
+                    "allow_new_line": false,
+                    "show_emoji_picker": false,
+                    "type": "text",
+                    "placeholder": "",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "visibility": {
+                        "controlling_field": "button_type",
+                        "controlling_value_regex": "link",
+                        "operator": "EQUAL",
+                        "access": null,
+                        "hidden_subfields": null
+                    },
+                    "default": "Contact"
+                },
+                {
+                    "name": "button_link",
+                    "label": "Button link",
+                    "required": false,
+                    "locked": false,
+                    "supported_types": [
+                        "EXTERNAL",
+                        "CONTENT",
+                        "FILE",
+                        "EMAIL_ADDRESS",
+                        "BLOG"
+                    ],
+                    "type": "link",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "visibility": {
+                        "controlling_field": "button_type",
+                        "controlling_value_regex": "link",
+                        "operator": "EQUAL",
+                        "access": null,
+                        "hidden_subfields": null
+                    },
+                    "default": {
+                        "url": {
+                            "content_id": null,
+                            "type": "EXTERNAL",
+                            "href": "/"
+                        },
+                        "open_in_new_tab": false,
+                        "no_follow": false
+                    }
+                },
+                {
+                    "id": "button_type",
+                    "name": "button_type",
+                    "label": "Button type",
+                    "required": false,
+                    "locked": false,
+                    "display": "select",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "choices": [
+                        [
+                            "cta",
+                            "CTA"
+                        ],
+                        [
+                            "link",
+                            "Link"
+                        ]
+                    ],
+                    "type": "choice",
+                    "placeholder": "",
+                    "default": "link"
+                },
+                {
+                    "name": "cta_field",
+                    "label": "CTA",
+                    "required": false,
+                    "locked": false,
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "type": "cta",
+                    "visibility": {
+                        "controlling_field": "button_type",
+                        "controlling_value_regex": "cta",
+                        "operator": "EQUAL",
+                        "access": null,
+                        "hidden_subfields": null
+                    },
+                    "default": null
+                },
+                {
+                    "name": "button_style",
+                    "label": "Button style",
+                    "required": false,
+                    "locked": false,
+                    "display": "select",
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "choices": [
+                        [
+                            "btn-primary",
+                            "Button primary"
+                        ],
+                        [
+                            "btn-secondary",
+                            "Button secondary"
+                        ]
+                    ],
+                    "type": "choice",
+                    "placeholder": "",
+                    "visibility": {
+                        "controlling_field": "button_type",
+                        "controlling_value_regex": "link",
+                        "operator": "EQUAL",
+                        "access": null,
+                        "hidden_subfields": null
+                    },
+                    "default": "btn-primary"
+                },
+                {
+                  "name": "button_custom_class",
+                  "label": "Button custom class",
+                  "required": false,
+                  "locked": false,
+                  "validation_regex": "",
+                  "validation_error_message": "",
+                  "allow_new_line": false,
+                  "show_emoji_picker": false,
+                  "type": "text",
+                  "placeholder": "",
+                  "inline_help_text": "",
+                  "help_text": "",
+                  "default": null 
+                }
+            ],
+            "type": "group",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": []
+        },
+          {
+            "name": "image",
+            "label": "Image",
+            "required": false,
+            "locked": false,
+            "inline_help_text": "",
+            "help_text": "",
+            "responsive": true,
+            "resizable": false,
+            "show_loading": false,
+            "type": "image",
+            "default": {
+              "size_type": "auto",
+              "src": "https://placehold.co/620x380",
+              "alt": "Example of an image used in your module",
+              "loading": "disabled"
+            }
+          }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": {}
+      }
+    ],
+    "type": "group",
+    "inline_help_text": "",
+    "help_text": "",
+    "default": []
+  }
+]

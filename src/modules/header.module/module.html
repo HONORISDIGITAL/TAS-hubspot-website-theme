@@ -1,0 +1,100 @@
+<header {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="header" class="header-module dark-nav">
+    <div class="mobile-bar dark-mode">
+        <div class="container">
+            {% if module.logo_block.link.url.href && module.logo_block.logo.src && module.logo_block.logo_dark_mode.src %}
+                <a class="logo-link" href="{{ module.logo_block.link.url.href }}"{% if module.logo_block.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                    <figure class="logo">
+                        <img loading="lazy" width="{{ module.logo_block.logo.width }}" height="{{ module.logo_block.logo.height }}" src="{{ module.logo_block.logo.src }}" alt="{{ module.logo_block.logo.alt }}">
+                        <img class="logo-dark-mode" loading="lazy" width="{{ module.logo_block.logo_dark_mode.width }}" height="{{ module.logo_block.logo_dark_mode.height }}" src="{{ module.logo_block.logo_dark_mode.src }}" alt="{{ module.logo_block.logo_dark_mode.alt }}">
+                    </figure>
+                </a>
+            {% endif %}
+
+            <button class="btn primary"><span data-text="Menu">Menu</span></button>
+        </div>
+    </div>
+    
+    <div class="desktop-bar">
+        <div class="container">
+            {% if module.logo_block.link.url.href && module.logo_block.logo.src && module.logo_block.logo_dark_mode.src %}
+                <a class="logo-link" href="{{ module.logo_block.link.url.href }}"{% if module.logo_block.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                    <figure class="logo">
+                        <img loading="lazy" width="{{ module.logo_block.logo.width }}" height="{{ module.logo_block.logo.height }}" src="{{ module.logo_block.logo.src }}" alt="{{ module.logo_block.logo.alt }}">
+                        <img class="logo-dark-mode" loading="lazy" width="{{ module.logo_block.logo_dark_mode.width }}" height="{{ module.logo_block.logo_dark_mode.height }}" src="{{ module.logo_block.logo_dark_mode.src }}" alt="{{ module.logo_block.logo_dark_mode.alt }}">
+                    </figure>
+                </a>
+            {% endif %}
+
+            <div class="items">
+                {% for item in module.items %}
+                    {% if item.item_type == 'link' %}
+                        {% if item.link.url.href %}
+                            <a class="main-item small" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.text }}</a>
+                        {% endif %}
+                    {% else %}
+                        <div class="item-wrapper">
+                            <p tabindex="0" class="main-item small">{{ item.text }}</p>
+
+                            <div class="menu">
+                                <div class="container">
+                                    {% set menu = item.menu %}
+                                    <div class="text-content">
+                                        {% if menu.title %}
+                                            <p class="title h3">{{ menu.title }}</p>
+                                        {% endif %}
+                                        {% if menu.text %}
+                                            <p class="text">{{ menu.text }}</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="cards">
+                                        {% for item in menu.cards %}
+                                            {% if item.soon %}
+                                                <div class="card soon">
+                                            {% elif item.link.url.href %}
+                                                <a class="card" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                                            {% endif %}
+
+                                                {% if item.icon.src %}
+                                                    <figure class="icon">
+                                                        <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                                    </figure>
+                                                {% endif %}
+
+                                                <div class="text-content">
+                                                    <p class="title">{{ item.title }}</p>
+                                                    {% if item.text %}
+                                                        <p class="text small">{{ item.text }}</p>
+                                                    {% endif %}
+                                                </div>
+                                            
+                                            {% if item.soon %}
+                                                </div>
+                                            {% elif item.link.url.href %}
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if module.cta|length > 0 %}
+                <div class="ctas dark-mode">
+                    {% for item in module.cta %}
+                        {% if item.cta_type == "classic" %}
+                            {% if item.link.url.href %}
+                                <a class="btn {{ item.style }}" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.text }}">{{ item.text }}</span></a>
+                            {% endif %}
+                        {% else %}
+                            {% cta "cta" label='Select a CTA', guid='{{ item.cta }}' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>

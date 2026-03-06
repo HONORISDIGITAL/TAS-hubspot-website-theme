@@ -1,0 +1,23 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="hero-section-blog-single" class="hero-section-blog-single-module {{ module.style.color_theme }}-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>    
+    {{ module.style.color_theme == 'dark' ? '<div class="visual-noise"></div>' : '' }}
+    
+    {% if content.featured_image %}
+        <figure class="background-image cover" style="--filter-opacity: {{ module.style.image_filter_opacity * 2 }};--filter-opacity-half: {{ module.style.image_filter_opacity }};">
+            <img loading="lazy" src="{{ content.featured_image }}" alt="{{ content.title }}">
+        </figure>
+    {% endif %}
+    <div class="container" data-gsap-id="gsap-hero-section-blog-single-mod">
+        <div class="content">
+            <div class="infos gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-blog-single-mod">
+                {% for tag in content.topic_list %}
+                    <p>{{ tag.name }}</p>
+                {% endfor %}
+                <p>{{content.post_body|wordcount|float|divide(300)|round(0, 'ceil')}}min to read</p>
+                <p>{{content.publish_date|datetimeformat("%d/%m/%Y")}}</p>
+            </div>
+            <div class="richtext gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-blog-single-mod" data-gsap-delay="0.2">
+                <h1>{{content.title}}</h1>
+            </div>
+        </div>           
+    </div>
+</section>

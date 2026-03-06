@@ -1,0 +1,37 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="hero-section" class="hero-section-module dark-mode colorful-background {{ module.style.section_height }} color-1{{ module.style.section_height == 'natural' ? '-small' : '' }}">
+    <div class="visual-noise"></div>
+
+    {% set background = module.background %}
+
+    {% if background.background_type == "image" %}
+        {% if background.background_image.src %}
+            <figure class="background-image" style="--filter-opacity: {{ background.background_filter_opacity * 2 }};--filter-opacity-half: {{ background.background_filter_opacity }};">
+                <img loading="lazy" width="{{ background.background_image.width }}" height="{{ background.background_image.height }}" src="{{ background.background_image.src }}" alt="{{ background.background_image.alt }}">
+            </figure>
+        {% endif %}
+    {% elif background.background_type == "video" %}
+        {% if background.background_video %}
+        <div class="background-video" style="--filter-opacity: {{ background.background_filter_opacity * 2 }};--filter-opacity-half: {{ background.background_filter_opacity }};">
+            <video src="{{ background.background_video }}" autoplay muted loop playsinline></video>
+        </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="container" data-gsap-id="gsap-hero-section-mod">
+        <div class="richtext gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-parent-id="gsap-hero-section-mod">{{ module.content }}</div>
+
+        {% if module.cta|length > 0 %}
+            <div class="ctas">
+                {% for item in module.cta %}
+                    {% if item.cta_type == "classic" %}
+                        {% if item.link.url.href %}
+                            <a class="btn {{ item.style }} gsap-animation-target" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index) * 0.2 }}" data-gsap-parent-id="gsap-hero-section-mod" href="{{ item.link.url.href }}"{% if item.link.open_in_new_tab == true %} target="_blank" rel="noopener noreferrer"{% endif %}><span data-text="{{ item.text }}">{{ item.text }}</span></a>
+                        {% endif %}
+                    {% else %}
+                        {% cta "cta" label='Select a CTA', guid='{{ item.cta }}' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

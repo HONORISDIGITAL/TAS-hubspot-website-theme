@@ -1,0 +1,58 @@
+{% set padding = module.style.padding %}
+
+<section aria-label="Key numbers section" {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="key-numbers-module {% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container {{module.style.layout.alignment}}">
+        {% if module.top_content.label_field || (module.top_content.title.type && module.top_content.title.top_content) || module.top_content.text %}
+            <div class="wrapper-content">
+                {% if module.top_content.label_field %}
+                    <span class="label">{{module.top_content.label_field}}</span>
+                {% endif %}
+                {% if module.top_content.title.type && module.top_content.title.content %}
+                    <{{ module.top_content.title.type }} class="title {{ module.top_content.title.style }}">{{
+                        module.top_content.title.content }}</{{ module.top_content.title.type }}>
+                {% endif %}
+                {% if module.top_content.text %}
+                    <div class="richtext">
+                        {{module.top_content.text}}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="wrapper-grid">
+            {% for row in module.grid %}
+                <div class="row row-{{row.items|length}} {{row.grid_style}}">
+                    {% for item in row.items%}
+                        {% if item.type == "number" %}
+                            <div class="item item-number">
+                                {% if item.number %}
+                                    <p class="number h1">{{item.number}}</p>
+                                {% endif %}
+                                {% if item.number_text %}
+                                    <p class="h4">{{item.number_text}}</p>
+                                {% endif %}
+                            </div>
+                        {% elif item.type == "image" %} 
+                            {% if item.image.src %}
+                                <figure class="item item-image">
+                                    <img loading="lazy" width="{{item.image.width}}" height="{{item.image.height}}" src="{{item.image.src}}" alt="{{item.image.alt}}">
+                                </figure>
+                            {% endif %}
+                        {% elif item.type == "text" %}
+                            <div class="item item-text">
+                                {% if item.title %}
+                                    <p class="h3">{{item.title}}</p>
+                                {% endif %}
+                                {% if item.text %}
+                                    <p>{{item.text}}</p>
+                                {% endif %}
+                                {% if item.cta.text %}
+                                <a href="{{item.cta.link.url.href}}" class="btn btn-{{item.cta.style}}" {% if item.cta.link.open_in_new_tab==true %} target="_blank" rel="noopener noreferrer" {% endif %}>{{item.cta.text}}</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {%endfor%}
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,23 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: The animation school - Sign out
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Sign out" %}
+
+{% block body %}
+<section class="error-page" data-error="sign-out">
+  <div class="container">
+    <div class="wrapper">
+      <p class="h4">You are signed out</p>
+
+      <a class="btn primary" href="/_hcms/mem/login"><span data-text="Sign back in">Sign back in</span></a>
+      
+      <p class="under-btn-text small">Did it just come back to you? <a href="/_hcms/mem/login">Sign in</a></p>
+    </div>
+  </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,196 @@
+@use '../../scss/settings/functions' as *;
+section.tabs-module {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+  .wrapper-tabs-links {
+    @media screen and (max-width: $size2) {
+      display: none;
+    }
+    .tab-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 4rem;
+
+      li {
+        width: 100%;
+        list-style: none;
+      }
+    }
+  }
+
+  .tab-link {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: none;
+    text-align: left;
+    border: none;
+    padding: 0;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: opacity 300ms;
+
+    h5 {
+      color: $color1;
+      transition: color 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .wrapper-image {
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-fit: center;
+      }
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      left: 0;
+      bottom: -0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    &::before {
+      width: 100%;
+      background-color: $color1;
+    }
+
+    &::after {
+      width: 0%;
+      background-color: $color3;
+      transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    &:hover,
+    &.active {
+      opacity: 1;
+
+      h5 {
+        color: $color3;
+        transition: color 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+      &::after {
+        width: 100%;
+        transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+    }
+  }
+
+  .wrapper-dropdown-links {
+    display: none;
+    @media screen and (max-width: $size2) {
+      display: block;
+      position: relative;
+      margin-bottom: 1.5rem;
+
+      .dropdown {
+        position: relative;
+        width: 250px;
+        background-size: 12px 7px;
+        background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.9997 5.1714L11.9495 0.22168L13.3637 1.63589L6.9997 7.9999L0.635742 1.63589L2.04996 0.22168L6.9997 5.1714Z' fill='%231F1914'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: right 1rem top 50%;
+        border: 1px solid $color6;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        appearance: none;
+      }
+    }
+  }
+
+  .wrapper-tabs {
+    position: relative;
+    width: 100%;
+  }
+
+  .tab {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0.75rem;
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+    @media screen and (max-width: $size3) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    &.active {
+      opacity: 1;
+      z-index: 1;
+      pointer-events: all;
+
+      .wrapper-content > *,
+      .wrapper-image {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+
+    .wrapper-content {
+      width: calc(50% - 2rem);
+      @media screen and (max-width: $size3) {
+        width:100%;
+      }
+      > * {
+        opacity: 0;
+        transform: translateY(2rem);
+        transition:
+          transform 0.5s cubic-bezier(0.55, 0, 0.15, 0.6),
+          opacity 0.8s cubic-bezier(0.55, 0, 0.15, 0.6);
+
+        &:nth-child(2) {
+          transition-delay: 0.2s;
+        }
+        &:nth-child(3) {
+          transition-delay: 0.4s;
+        }
+      }
+
+      .title {
+        margin-bottom: 1rem;
+      }
+
+      .wrapper-buttons{
+        margin-top: 2rem;
+      }
+    }
+
+    .wrapper-image {
+      width: 50%;
+      height: 100%;
+      border-radius: 0.5rem;
+      opacity: 0;
+      transform: translateX(2rem);
+      transition:
+      transform 0.6s cubic-bezier(0.55, 0, 0.15, 0.6) 0.3s,
+      opacity 0.5s cubic-bezier(0.55, 0, 0.15, 0.6) 0.5s;
+      overflow: hidden;
+      @media screen and (max-width: $size3) {
+        width:100%;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+}

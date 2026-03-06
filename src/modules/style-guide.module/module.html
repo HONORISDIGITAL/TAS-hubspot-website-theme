@@ -1,0 +1,80 @@
+<section class="style-guide-module pt-xl pb-xl">
+    <div class="container">
+        <h1 class="title">Style Guide</h1>
+
+        <div class="category">
+            <h2 class="title">Fonts</h2>
+
+            <h1>Title h1 <strong>title highlight</strong></h1>
+            <h2>Title h2 <strong>title highlight</strong></h2>
+            <h3>Title h3</h3>
+            <h4>Title h4 & h5 & h6</h4>
+            <p>Paragraph</p>
+            <p class="small">Small paragraph</p>
+            <p class="label">Label</p>
+            <!-- <div class="tags-wrapper">
+                <p class="tag">Tag</p>
+                <p class="tag">Tag</p>
+            </div> -->
+            <!-- <p class="blog-tag">Blog tag</p> -->
+            <div class="richtext">
+                <ul>
+                    <li>List item</li>
+                    <li>List item</li>
+                    <li>List item</li>
+                    <ul>
+                        <li>List item</li>
+                        <li>List item</li>
+                        <li>List item</li>
+                    </ul>
+                </ul>
+                <ol>
+                    <li>List item</li>
+                    <li>List item</li>
+                    <li>List item</li>
+                    <ol>
+                        <li>List item</li>
+                        <li>List item</li>
+                        <li>List item</li>
+                    </ol>
+                </ol>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="title">CTAs</h2>
+
+            <div class="multi-type">
+                <div class="white">
+                    <a class="btn primary" href="#"><span data-text="Primary CTA">Primary CTA</span></a>
+                </div>
+                <div class="black dark-mode">
+                    <a class="btn primary" href="#"><span data-text="Primary CTA">Primary CTA</span></a>
+                </div>
+            </div>
+            
+            <div class="multi-type">
+                <div class="white">
+                    <a class="btn secondary" href="#"><span data-text="Secondary CTA">Secondary CTA</span></a>
+                </div>
+                <div class="black dark-mode">
+                    <a class="btn secondary" href="#"><span data-text="Secondary CTA">Secondary CTA</span></a>
+                </div>
+            </div>
+
+            <a href="#">Regular link</a>
+        </div>
+
+        <div class="category">
+            <h2 class="title">Form</h2>
+            {% form
+                form_to_use="{{ module.form.form_id }}"
+                response_response_type="{{ module.form.response_type }}"
+                response_message="{{ module.form.message }}"
+                response_redirect_id="{{ module.form.redirect_id }}"
+                response_redirect_url="{{ module.form.redirect_url}}"
+                gotowebinar_webinar_key="{{ module.form.gotowebinar_webinar_key }}"
+            %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,16 @@
+{
+  "css_assets": [],
+  "external_js": [],
+  "global": true,
+  "help_text": "",
+  "label": "Footer",
+  "host_template_types": [
+    "PAGE"
+  ],
+  "js_assets": [],
+  "other_assets": [],
+  "smart_type": "CONTACT_LIST",
+  "tags": [],
+  "icon": "../../images/modules-icons/global-group.svg",
+  "is_available_for_new_content": true
+}

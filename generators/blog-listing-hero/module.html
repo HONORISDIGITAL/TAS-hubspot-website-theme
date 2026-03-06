@@ -1,0 +1,101 @@
+<section {% if module.module_identity %}id="{{module.module_identity}}"{% endif %} class="blog-listing-hero-module">
+    <div class="container">
+        <{{ module.title.type }} class="title {{ module.title.style }}">{{ module.title.content }}</{{ module.title.type }}>
+
+        {% if module.articles_type == "recent" %}
+            {% set posts = blog_recent_posts(module.blog, module.number) %}
+        {% elif module.articles_type == "tag" %}
+            {% set selected_tags = [] %}
+            {% for item in module.tags %}
+                {% do selected_tags.append(item.tag) %}
+            {% endfor %}
+            {% set posts = blog_recent_tag_posts(module.blog, selected_tags, module.number) %}
+        {% elif module.articles_type == "popular" %}
+            {% set posts = blog_popular_posts(module.blog, module.number, module.timeframe) %}
+        {% elif module.articles_type == "popular_tag" %}
+            {% set selected_tags = [] %}
+            {% for item in module.tags %}
+                {% do selected_tags.append(item.tag) %}
+            {% endfor %}
+            {% set posts = blog_popular_posts(module.blog, module.number, selected_tags, module.timeframe) %}
+        {% elif module.articles_type == "manual" %}
+            {% set articles = [] %}
+            {% for item in module.manual %}
+                {% do articles.append(item.article) %}
+            {% endfor %}
+            {% set posts = content_by_ids(articles) %}
+        {% endif %}
+
+        <div class="posts">
+            <article class="post post-lg">
+                <a href="{{ posts[0].absolute_url }}">
+                    {% if posts[0].featured_image %}
+                        <figure class="image">
+                            <img loading="lazy" src="{{ posts[0].featured_image }}" alt="{{ posts[0].featured_image_alt_text }}">
+                        </figure>
+                    {% endif %}
+                    <div class="text-content">
+                        <div class="wrapper-info">
+                            {% if posts[0].tag_list|length > 0 %}
+                                <div class="tags">
+                                    {% for tag in posts[0].tag_list %}
+                                        <p class="tag">{{ tag.name }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if posts[0].publish_date %}
+                                {% set publish_format = posts[0].publish_date|format_date('dd/MM/yyyy') %}
+                                <p class="publish">{{ date_prefix }} {{ publish_format }}</p>
+                            {% endif %}
+                        </div>
+                        {% if posts[0].title %}
+                            <h5 class="title">{{ posts[0].title }}</h5>
+                        {% endif %}
+                        {% if posts[0].post_summary %}
+                            <p class="text">{{ posts[0].post_summary|escape|striptags|truncatehtml(120) }}</p>
+                        {% endif %}
+                        {% if cta_text  %}
+                            <p class="btn btn-secondary">{{ cta_text }}</p>
+                        {% endif %}
+                    </div>
+                </a>
+            </article>
+            <div class="side-posts">
+                {% for post in posts %}
+                    {% if loop.index > 1 %}
+                    <article class="post post-md">
+                        <a href="{{ post.absolute_url }}">
+                            {% if post.featured_image %}
+                                <figure class="image">
+                                    <img loading="lazy" src="{{ post.featured_image }}" alt="{{ post.featured_image_alt_text }}">
+                                </figure>
+                            {% endif %}
+                            <div class="text-content">
+                                <div class="wrapper-info">
+                                    {% if post.tag_list|length > 0 %}
+                                        <div class="tags">
+                                            {% for tag in post.tag_list %}
+                                                <p class="tag">{{ tag.name }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if post.publish_date %}
+                                        {% set publish_format = post.publish_date|format_date('dd/MM/yyyy') %}
+                                        <p class="publish">{{ date_prefix }} {{ publish_format }}</p>
+                                    {% endif %}
+                                </div>
+                                {% if post.title %}
+                                    <h5 class="title">{{ post.title }}</h5>
+                                {% endif %}
+                                {% if cta_text  %}
+                                    <p class="btn btn-secondary">{{ cta_text }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

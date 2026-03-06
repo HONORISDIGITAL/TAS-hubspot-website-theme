@@ -1,0 +1,104 @@
+@use './../settings/functions' as *;
+.switch-language{
+    background-color: var(--black);
+    border-radius: 1rem;
+    padding:0.25rem 1.5rem 0.25rem 0.5rem;
+    font-size:14px;
+    position: relative;
+    transition: 0.35s;
+    min-width:70px;
+    @media(max-width:$size1){
+        padding: 0 1.5rem 0.75rem 1rem;
+        border-radius: 0.5rem;
+        margin-top:2rem;
+        transition: 0s;
+    }
+    &.active{
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        .lang_switcher_class{
+            .globe_class{
+                &:after{
+                    transform: translateY(-50%) rotate(-180deg);
+                }
+                .lang_list_class{
+                    pointer-events: inherit;
+                    opacity: 1;
+                    top:calc(100%);
+                    visibility: visible;
+                }
+            }
+        }
+    }
+    span.lang{
+        text-transform:capitalize;
+    }
+    .lang_switcher_class{
+        width:100%;
+        height:100%;
+        position: absolute;
+        top:0px;
+        left:0px;
+        .globe_class{
+            width:100%;
+            height:100%;
+            background-image: none;
+            position: relative;
+            &:after{
+                content:'';
+                display: block;
+                position: absolute;
+                right:8px;
+                top:50%;
+                transform: translateY(-50%);
+                width:10px;
+                height:10px;
+                transition: 0.35s;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-image: url("data:image/svg+xml,%3Csvg width='8' height='6' viewBox='0 0 8 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.91933 3.20046C3.96378 3.24491 4.03584 3.24491 4.0803 3.20046L6.82827 0.452523C7.08862 0.192177 7.51073 0.192179 7.77108 0.452528C8.03143 0.712877 8.03142 1.13499 7.77108 1.39533L4.20184 4.96457C4.09026 5.07615 3.90936 5.07615 3.79778 4.96457L0.228577 1.39534C-0.0317729 1.13499 -0.031772 0.712877 0.22858 0.452527C0.48893 0.192178 0.91104 0.192179 1.17139 0.452528L3.91933 3.20046Z' fill='%234E3E31'/%3E%3C/svg%3E%0A");
+                @media(max-width:$size1){
+                    right:15px;
+                }
+            }
+            .lang_list_class{
+                display:block;
+                width:100%;
+                border: none;
+                background-color: var(--black);
+                top:calc(100% - 5px);
+                padding:0px;
+                opacity: 0;
+                pointer-events: none;
+                transition: 0.25s;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                visibility: hidden;
+                &:before,&:after{
+                    display:none;
+                }
+                li{
+                    border: none;
+                    background-color: transparent;
+                    transition: 0.35s;
+                    text-align: left;
+                    padding:0.25rem 0.5rem;
+                    &:first-child{
+                        padding:0.5rem 0.5rem 0.25rem 0.5rem;
+                        @media(max-width:$size1){
+                            padding:0.5rem 1.5rem 0.25rem 1rem;
+                        }
+                    }
+                    &:last-child{
+                        padding:0.25rem 0.5rem 0.5rem 0.5rem;
+                        @media(max-width:$size1){
+                            padding:0.5rem 1.5rem 0.25rem 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

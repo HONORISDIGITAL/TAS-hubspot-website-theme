@@ -1,0 +1,56 @@
+@use '../../scss/settings/functions' as *;
+
+footer.footer-lp-module {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background-color: $color1;
+    padding:4rem 0rem;
+    .container {
+        .wrapper-logo {
+            margin-bottom: 2rem;
+            .logo {
+                width: fit-content;
+                figure{
+                    img {
+                        width: 180px;
+                        height:auto;
+                    }
+                }
+            }
+        }
+        .wrapper-nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid $color5;
+            padding-top: 2rem;
+            color: $text-color4;
+            span.copyright{
+                font-size: 0.875rem;
+            }
+            nav{
+                ul{
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 1.5rem;
+                    li{
+                        *{
+                            font-size: 0.875rem;
+                        }
+                        a{
+                            transition: 0.35s;
+                            &:hover{
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

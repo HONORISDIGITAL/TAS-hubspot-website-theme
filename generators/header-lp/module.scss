@@ -1,0 +1,27 @@
+@use '../../scss/settings/functions' as *;
+header.header-lp-module{
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
+    top:0px;
+    width:100%;
+    .container{
+        .wrapper-content{
+            height: 84px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            .logo {
+                width: fit-content;
+                figure{
+                    img {
+                        width: 180px;
+                        height:auto;
+                    }
+                }
+            }
+        }
+    }
+}

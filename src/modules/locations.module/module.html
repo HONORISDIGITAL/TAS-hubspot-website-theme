@@ -1,0 +1,35 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="locations" class="locations-module light-mode dashed-background {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="text-content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.content }}</div>
+        </div>
+
+        <div class="cards" data-gsap-id="gsap-locations-mod">
+            {% for item in module.cards %}
+                <div class="card gsap-animation-target" data-gsap-parent-id="gsap-locations-mod" data-gsap-direction="bottom-top" data-gsap-delay="{{ (loop.index - 1) * 0.2 }}">
+                    <div class="text-content">
+                        <p class="title h3">{{ item.title }}</p>
+
+                        {% if item.icon.src || item.text %}
+                            <div class="info">
+                                {% if item.icon.src %}
+                                    <figure class="icon">
+                                        <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                    </figure>
+                                {% endif %}
+                                <p class="text small">{{ item.text }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="iframe-wrapper">
+                        {{ item.iframe_html }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

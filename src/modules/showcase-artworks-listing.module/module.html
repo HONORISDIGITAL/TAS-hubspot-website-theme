@@ -1,0 +1,118 @@
+<section {% if module.identity %}id="{{module.identity}}"{% endif %} data-cards_per_page="{{ module.cards_per_page }}" aria-label="showcase-artworks-listing" class="showcase-artworks-listing-module light-mode dashed-background {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>
+    <div class="container">
+        <div class="text-content gsap-animation-target" data-gsap-direction="bottom-top">
+            {% if module.title_label %}
+                <p class="label">{{ module.title_label }}</p>
+            {% endif %}
+            <div class="richtext">{{ module.title }}</div>
+        </div>
+
+        <div class="filters-wrapper">
+            <div class="select-wrapper">
+                <p class="small">{{ module.filters.year_label }}</p>
+                
+                <select id="year-select">
+                    <option selected disabled value="">{{ module.filters.year_placeholder }}</option>
+                    <option value="">{{ module.filters.year_all }}</option>
+                    {% set years = [] %}
+                    {% for item in module.cards %}
+                        {% set year = item.year_of_study %}
+                        {% unless year in years %}
+                            {% do years.append(year) %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endunless %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="select-wrapper">
+                <p class="small">{{ module.filters.topic_label }}</p>
+                
+                <select id="topic-select">
+                    <option selected disabled value="">{{ module.filters.topic_placeholder }}</option>
+                    <option value="">{{ module.filters.topic_all }}</option>
+                    {% set topics = [] %}
+                    {% for item in module.cards %}
+                        {% set topic = item.topic %}
+                        {% unless topic in topics %}
+                            {% do topics.append(topic) %}
+                        {% endunless %}
+                    {% endfor %}
+
+                    {% for topic in topics|sort(False, False) %}
+                        <option value="{{ topic }}">{{ topic }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+
+        <div class="no-results">{{ module.no_results_text }}</div>
+
+        <button class="btn primary load-more"><span data-text="{{ module.filters.load_more_text }}">{{ module.filters.load_more_text }}</span></button>
+    </div>
+
+    <div class="popup-container">
+        <div class="background"></div>
+
+        <div class="popup-content container">
+            <button class="close-popup">&times;</button>
+            <div class="popup-media"></div>
+        </div>
+    </div>
+
+    <script>
+        const showcaseArtworksListingCards = [
+            {% for item in module.cards %}
+                {% if item.media.type == "image" %}
+                    {% set media = item.media.image %}
+                {% else %}
+                    {% set media = item.media.video_cover %}
+                {% endif %}
+                {
+                    title: {{ item.title|tojson }},
+                    year: {{ item.year|tojson }},
+                    year_of_study: {{ item.year_of_study|tojson }},
+                    topic: {{ item.topic|tojson }},
+                    media: {
+                        type: {{ item.media.type|tojson }},
+                        image: {
+                            src: {{ media.src|tojson }},
+                            width: {{ media.width|tojson }},
+                            height: {{ media.height|tojson }},
+                            alt: {{ media.alt|tojson }}
+                        }{% if item.media.type == "video_file" %},
+                        video_file: {{ item.media.video_file|tojson }}
+                        {% elif item.media.type == "video_youtube" %},
+                            {% if item.media.youtube_link is containing "?v=" %}
+                                {% set video_href = item.media.youtube_link|split("?v=") %}
+                            {% elif item.media.youtube_link is containing "embed/" %}
+                                {% set video_href = item.media.youtube_link|split("embed/") %}
+                            {% elif item.media.youtube_link is containing "youtu.be/" %}
+                                {% set video_href = item.media.youtube_link|split("youtu.be/") %}
+                            {% else %}
+                                {% set video_id = item.media.youtube_link %}
+                            {% endif %}
+
+                            {% if video_href && video_href[1] is containing "?" %}
+                                {% set video_id = video_href[1]|split("?") %}
+                                {% set video_id = video_id[0] %}
+                            {% elif video_href && video_href[1] is containing "&" %}
+                                {% set video_id = video_href[1]|split("&") %}
+                                {% set video_id = video_id[0] %}
+                            {% elif video_href %}
+                                {% set video_id = video_href[1] %}
+                            {% endif %}
+                        video_youtube: "https://www.youtube.com/embed/{{ video_id }}?showinfo=0&rel=0&autoplay=1&mute=0&controls=1"
+                        {% endif %}
+                    }
+                }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+    </script>
+</section>

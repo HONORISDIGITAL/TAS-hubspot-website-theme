@@ -1,0 +1,30 @@
+<!--
+  templateType: membership_login_page
+  isAvailableForNewContent: true
+  label: The animation school - Membership Login
+  screenshotPath: https://www.makethegrade.fr/hubfs/boilerplate/cover-boilerplate.png
+-->
+
+{% extends "../layouts/base-system.html" %}
+{% set pageTitle = "Membership | Login" %}
+
+{% block body %}
+<section class="form-page" data-form="member-login">
+  <div class="container">
+    <div class="wrapper">
+      <div class="form-container">
+        <p class="h4">Member login</p>
+
+        {% member_login "my_login"
+          email_label="Identifiant",
+          password_label="Password",
+          remember_me_label="Remember Me",
+          reset_password_text="Forgot your password ?",
+          submit_button_text="Log in",
+          show_password="Show"
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

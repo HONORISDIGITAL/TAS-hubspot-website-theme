@@ -1,0 +1,116 @@
+[
+    {
+        "name": "testimonials",
+        "label": "Testimonial(s)",
+        "required": false,
+        "locked": false,
+        "occurrence": {
+        "min": null,
+        "max": null,
+        "sorting_label_field": null,
+        "default": null
+        },
+        "children": [
+            {
+                "name": "module_identity",
+                "label": "Module ID",
+                "required": false,
+                "locked": false,
+                "validation_regex": "",
+                "allow_new_line": false,
+                "show_emoji_picker": false,
+                "type": "text"
+            },
+            {
+                "name": "quote",
+                "label": "Quote",
+                "required": false,
+                "locked": false,
+                "type": "richtext",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": "<p>\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat sit amet neque non interdum. Proin eu tortor nec nulla sollicitudin maximus et non neque. Phasellus semper bibendum risus vel pharetra. Curabitur lobortis arcu a tortor sagittis, sit amet\"</p>"
+            },
+            {
+                "name": "logo",
+                "label": "Logo",
+                "required": false,
+                "locked": false,
+                "inline_help_text": "",
+                "help_text": "",
+                "responsive": true,
+                "resizable": false,
+                "show_loading" : false,
+                "type": "image",
+                "default": {
+                    "size_type" : "auto",
+                    "src": "https://placehold.co/100x50",
+                    "alt": "placeholder",
+                    "loading": "lazy"
+                }
+            },
+            {
+                "name": "author",
+                "label": "Author",
+                "required": false,
+                "locked": false,
+                "children": [
+                    {
+                        "name": "image",
+                        "label": "Image",
+                        "required": false,
+                        "locked": false,
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "responsive": true,
+                        "resizable": false,
+                        "show_loading" : false,
+                        "type": "image",
+                        "default": {
+                            "size_type" : "auto",
+                            "src": "https://placehold.co/60",
+                            "alt": "placeholder",
+                            "loading": "lazy"
+                        }
+                    },
+                    {
+                        "name": "author_name",
+                        "label": "Name",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Jeanne Dupont"
+                    },
+                    {
+                        "name": "position",
+                        "label": "Position",
+                        "required": false,
+                        "locked": false,
+                        "validation_regex": "",
+                        "allow_new_line": false,
+                        "show_emoji_picker": false,
+                        "type": "text",
+                        "placeholder": "",
+                        "inline_help_text": "",
+                        "help_text": "",
+                        "default": "Totor sagittis arcu euimod"
+                    }
+                ],
+                "type": "group",
+                "inline_help_text": "",
+                "help_text": "",
+                "default": {}
+            }
+        ],
+        "type": "group",
+        "inline_help_text": "",
+        "help_text": "",
+        "default": []
+    }
+]
