@@ -1,0 +1,26 @@
+{
+  "runtime": "nodejs20.x",
+  "version": "1.0",
+  "secrets": [
+    "YOCO_SECRET_KEY",
+    "YOCO_CHECKOUT_URL",
+    "HUBSPOT_ACCESS_TOKEN",
+    "YOCO_WEBHOOK_SECRET",
+    "HUBSPOT_APPLICATION_OBJECT_TYPE",
+    "YOCO_TEST_FORCE_STATUS"
+  ],
+  "endpoints": {
+    "yoco/checkout": {
+      "method": "POST",
+      "file": "yoco-checkout.js"
+    },
+    "yoco/get-application-status": {
+      "method": "POST",
+      "file": "yoco-get-application-status.js"
+    },
+    "yoco/webhook": {
+      "method": "POST",
+      "file": "yoco-webhook.js"
+    }
+  }
+}
