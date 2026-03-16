@@ -1,113 +1,199 @@
 @use '../../scss/settings/functions' as *;
+
 section.listing-people-module {
     position: relative;
     overflow: hidden;
+
     .container {
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        .content{
+
+        .content {
             max-width: 800px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            *{
+
+            * {
                 text-align: center;
             }
-            .richtext{
-                h2,h3,h4{
+
+            .richtext {
+
+                h2,
+                h3,
+                h4 {
                     margin-bottom: 1.5rem;
                 }
             }
         }
-        ul.tabs{
+
+        ul.tabs {
             display: flex;
             justify-content: center;
             list-style-type: none;
-            margin-top:4.5rem;
-            gap:1rem;
+            margin-top: 4.5rem;
+            gap: 1rem;
+
             @media all and (max-width:$tablet-m) {
                 overflow-x: scroll;
-                width:calc(100% + 1.5rem);
+                width: calc(100% + 1.5rem);
                 justify-content: flex-start;
-                padding-right:1.5rem;
+                padding-right: 1.5rem;
+
                 &::-webkit-scrollbar {
                     display: none;
                 }
             }
-            li{
+
+            li {
                 list-style-type: none;
-                button{
+
+                button {
                     border: 1px solid var(--black);
                     font-weight: 600;
                     font-size: 12px;
                     line-height: 100%;
                     letter-spacing: .15em;
-                    padding:0.75rem 1.25rem;
+                    padding: 0.75rem 1.25rem;
                     transition: 0.35s;
                     border-radius: 50px;
                     text-transform: uppercase;
                     cursor: pointer;
                     text-wrap: nowrap;
-                    &.active,&:hover{
+
+                    &.active,
+                    &:hover {
                         background-color: var(--black);
                         color: var(--white);
                     }
                 }
             }
         }
-        .contain-tabs{
+
+        .contain-tabs {
             margin-top: 4.5rem;
             position: relative;
-            .contain-tab{
+
+            .contain-tab {
                 display: flex;
                 flex-wrap: wrap;
-                gap:6rem 1.5rem;
+                gap: 6rem 1.5rem;
                 opacity: 0;
                 position: absolute;
-                top:0px;
-                left:0px;
+                top: 0px;
+                left: 0px;
                 transition: 0.35s;
                 width: 100%;
                 pointer-events: none;
+
                 @media all and (max-width:$tablet-m) {
-                    gap:3rem 1rem;
+                    gap: 3rem 1rem;
                 }
-                &.active{
+
+                &.active {
                     pointer-events: inherit;
                     opacity: 1;
                 }
-                .block{
-                    width:100%;
+
+                .block {
+                    width: 100%;
                     max-width: calc(100% / 4 - 4.5rem / 4);
+
                     @media all and (max-width:$tablet-m) {
                         max-width: calc(100% / 2 - 1rem / 2);
                     }
-                    figure{
-                        width:100%;
-                        height:312px;
+
+                    figure {
+                        position: relative;
+                        width: 100%;
+                        height: 312px;
                         border-top-left-radius: 300px;
                         border-top-right-radius: 300px;
                         border-bottom-left-radius: 0.5rem;
                         border-bottom-right-radius: 0.5rem;
                         overflow: hidden;
+
                         @media all and (max-width:500px) {
-                            height:172px;
+                            height: 172px;
+                        }
+
+                        .linkedin-icon {
+                            position: absolute;
+                            right: 8px;
+                            bottom: 8px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: #ffffff;
+                            border-radius: 50%;
+                            padding: 6px;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                            z-index: 2;
+                            text-decoration: none;
+
+                            svg {
+                                display: block;
+                            }
                         }
                     }
-                    div{
-                        padding-top:1.5rem;
-                        p.people-name{
+
+                    div {
+                        padding-top: 1.5rem;
+
+                        p.people-name {
                             font-size: 1.5rem;
-                            margin-bottom:0.25rem;
+                            margin-bottom: 0.25rem;
+
                             @media all and (max-width:$tablet-m) {
                                 font-size: 1.25rem;
                             }
                         }
-                        p.people-job{
+
+                        p.people-job {
                             font-size: 0.875rem;
+                        }
+
+                        .list {
+                            // margin-top: 2rem;
+                            padding-top: 0.5rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+
+                            .item {
+                                display: flex;
+                                flex-direction: row;
+                                gap: 0.75rem;
+                                align-items: center;
+                                padding-top: 0;
+                                min-width: 0; 
+
+                                .icon {
+                                    width: 1.5rem;
+                                    height: 1.5rem;
+                                    flex: 0 0 1.5rem; /* prevent flex shrinking/growing */
+                                    min-width: 1.5rem;
+                                    min-height: 1.5rem;
+                                    display: inline-flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    overflow: hidden;
+                                    border-radius: 0.25rem;
+
+                                    img {
+                                        display: block;
+                                        width: auto;           /* keep intrinsic width (15px) */
+                                        height: auto;          /* keep intrinsic height */
+                                        max-width: 100%;       /* never overflow the 1.5rem box */
+                                        max-height: 100%;
+                                        object-fit: contain;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

@@ -282,10 +282,10 @@
         "required": false,
         "locked": false,
         "occurrence": {
-        "min": null,
-        "max": null,
-        "sorting_label_field": null,
-        "default": null
+            "min": null,
+            "max": null,
+            "sorting_label_field": null,
+            "default": null
         },
         "children": [
             {
@@ -308,10 +308,10 @@
                 "required": false,
                 "locked": false,
                 "occurrence": {
-                "min": null,
-                "max": null,
-                "sorting_label_field": null,
-                "default": null
+                    "min": null,
+                    "max": null,
+                    "sorting_label_field": null,
+                    "default": null
                 },
                 "children": [
                     {
@@ -329,6 +329,17 @@
                         "default": "Nuno Martins"
                     },
                     {
+                        "name": "enable_job_text",
+                        "label": "Enable Job Text",
+                        "required": false,
+                        "locked": false,
+                        "type": "boolean",
+                        "inline_help_text": "Enable a small 'Job' text field if required",
+                        "help_text": "",
+                        "default": false,
+                        "display": "toggle"
+                    },
+                    {
                         "name": "job",
                         "label": "Job",
                         "required": false,
@@ -340,35 +351,128 @@
                         "placeholder": "",
                         "inline_help_text": "",
                         "help_text": "",
-                        "default": "Co-Founder, Principal & CEO"
+                        "default": "Co-Founder, Principal & CEO",
+                        "visibility": {
+                            "controlling_field_path": "tabs.peoples.enable_job_text",
+                            "operator": "EQUAL",
+                            "controlling_value_regex": "true"
+                        }
                     },
                     {
-                        "name": "image",
-                        "label": "Image",
+                        "name": "list",
+                        "label": "List",
                         "required": false,
                         "locked": false,
+                        "occurrence": {
+                            "min": null,
+                            "max": 2,
+                            "sorting_label_field": null,
+                            "default": null
+                        },
+                        "children": [
+                            {
+                                "name": "text",
+                                "label": "Text",
+                                "required": false,
+                                "locked": false,
+                                "validation_regex": "",
+                                "allow_new_line": false,
+                                "show_emoji_picker": false,
+                                "type": "text",
+                                "placeholder": "",
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "default": "Campus or Film"
+                            },
+                            {
+                                "name": "icon",
+                                "label": "Icon",
+                                "required": false,
+                                "locked": false,
+                                "inline_help_text": "",
+                                "help_text": "",
+                                "responsive": true,
+                                "resizable": false,
+                                "show_loading": false,
+                                "type": "image",
+                                "default": {
+                                    "size_type": "auto",
+                                    "src": "https://placehold.co/24",
+                                    "alt": "placeholder",
+                                    "loading": "lazy"
+                                }
+                            }
+                        ],
+                        "type": "group",
                         "inline_help_text": "",
                         "help_text": "",
-                        "responsive": true,
-                        "resizable": true,
-                        "show_loading" : false,
-                        "type": "image",
+                        "default": []
+                    },
+                    {
+                        "name": "enable_linkedin",
+                        "label": "Enable Linkedin",
+                        "required": false,
+                        "locked": false,
+                        "type": "boolean",
+                        "inline_help_text": "Enable the URL field for Linkedin icon on user profile.",
+                        "help_text": "",
+                        "default": false,
+                        "display": "toggle"
+                    },
+                    {
+                        "name": "url",
+                        "label": "URL",
+                        "required": false,
+                        "locked": false,
+                        "supported_types": [
+                            "EXTERNAL",
+                            "CONTENT",
+                            "FILE",
+                            "EMAIL_ADDRESS",
+                            "BLOG",
+                            "PHONE_NUMBER",
+                            "WHATSAPP_NUMBER"
+                        ],
+                        "type": "url",
                         "default": {
-                        "size_type" : "auto",
+                            "content_id": null,
+                            "href": "http://example.com",
+                            "type": "EXTERNAL"
+                        },
+                        "visibility": {
+                            "controlling_field_path": "tabs.peoples.enable_linkedin",
+                            "operator": "EQUAL",
+                            "controlling_value_regex": "true"
+                        }
+                },
+                {
+                    "name": "image",
+                    "label": "Image",
+                    "required": false,
+                    "locked": false,
+                    "inline_help_text": "",
+                    "help_text": "",
+                    "responsive": true,
+                    "resizable": true,
+                    "show_loading": false,
+                    "type": "image",
+                    "default": {
+                        "size_type": "auto",
                         "src": "",
                         "alt": null,
-                        "loading": "disabled"}
+                        "loading": "disabled"
                     }
-                ],
-                "type": "group",
-                "inline_help_text": "",
-                "help_text": "",
-                "default": []
-            }
-        ],
-        "type": "group",
-        "inline_help_text": "",
-        "help_text": "",
-        "default": []
-    }
+                }
+            ],
+            "type": "group",
+            "inline_help_text": "",
+            "help_text": "",
+            "default": []
+        }
+    ],
+    "type": "group",
+    "inline_help_text": "",
+    "help_text": "",
+    "default": []
+}
 ]

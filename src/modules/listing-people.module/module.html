@@ -1,5 +1,5 @@
 <section {% if module.identity %}id="{{module.identity}}"{% endif %} aria-label="listing-people" class="listing-people-module dashed-background light-mode {% set padding = module.style.padding %}{% if padding.padding_desktop.type == 'classic'%}pt-{{padding.padding_desktop.padding_top_section}} pb-{{padding.padding_desktop.padding_bottom_section}}{% endif %} pt-m-{{padding.padding_mobile.padding_top_section}} pb-m-{{padding.padding_mobile.padding_bottom_section}} " {% if padding.padding_desktop.type == 'custom'%}style="padding-top:{{padding.padding_desktop.padding_top}}px;padding-bottom:{{padding.padding_desktop.padding_bottom}}px;"{% endif %}>    
-    <div class="container">
+    <div class="container test-class-1026">
         <div class="content gsap-animation-target" data-gsap-direction="bottom-top">
             {% if module.title_label %}
                 <p class="label">{{ module.title_label }}</p>
@@ -24,6 +24,13 @@
                                 {% if people.image %}
                                     <figure class="cover">
                                         <img src="{{ people.image.src }}" alt="{{ people.image.alt }}" width="{{ people.image.width }}" height="{{ people.image.height }}" loading="lazy">
+                                        {% if people.enable_linkedin %}
+                                            <a href="{{ people.url.href }}" class="linkedin-icon" target="_blank" rel="noopener">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                                    <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8.5h5v15H0v-15zM8.5 8.5h4.8v2.03h.07c.67-1.27 2.3-2.6 4.74-2.6 5.07 0 6 3.34 6 7.68v8.89h-5V17.1c0-2.48-.05-5.68-3.46-5.68-3.47 0-4.01 2.72-4.01 5.53v8.15h-5v-15z" fill="#0A66C2"/>
+                                                </svg>
+                                            </a>
+                                        {% endif %}
                                     </figure>
                                 {% endif %}
                                 {% if people.nom or people.job %}
@@ -31,9 +38,25 @@
                                     {% if people.nom %}
                                         <p class="people-name">{{ people.nom }}</p>
                                     {% endif %}
-                                    {% if people.job %}
-                                        <p class="people-job">{{ people.job }}</p> 
+                                    {% if people.enable_job_text %}
+                                     {% if people.job %}
+                                            <p class="people-job">{{ people.job }}</p> 
+                                        {% endif %}
                                     {% endif %}
+                                    {% if people.list|length > 0 %}
+                                <div class="list">
+                                    {% for item in people.list %}
+                                        <div class="item">
+                                            {% if item.icon.src %}
+                                                <figure class="icon">
+                                                    <img loading="lazy" width="{{ item.icon.width }}" height="{{ item.icon.height }}" src="{{ item.icon.src }}" alt="{{ item.icon.alt }}">
+                                                </figure>
+                                            {% endif %}
+                                            <p class="text small">{{ item.text }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                                 </div>
                                 {% endif %}
                             </div>

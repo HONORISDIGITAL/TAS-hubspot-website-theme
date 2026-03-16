@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const modulesTabs = document.getElementsByClassName('listing-people-module');
 
+    console.log('Developers Account 1026');
+
     for (let i = 0; i < modulesTabs.length; i++) {
         const moduleTab = modulesTabs[i];
         let tabs = moduleTab.getElementsByClassName("tab");
